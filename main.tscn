@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://mw7nso8s372p"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_1tsqu"]
+[ext_resource type="PackedScene" uid="uid://ccbe61ofnjy2g" path="res://levels/starting_menu.tscn" id="2_mrc6b"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_1tsqu")
+change_scene_to = ExtResource("2_mrc6b")
