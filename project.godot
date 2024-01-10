@@ -15,6 +15,10 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Playroom="*res://playroom_interface/playroom_global.tscn"
+
 [rendering]
 
 renderer/rendering_method="mobile"

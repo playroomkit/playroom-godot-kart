@@ -8,5 +8,4 @@ func _ready():
 	
 	# switch immediately to the menu level
 	get_tree().change_scene_to_packed(change_scene_to)
-	
-	pass
+

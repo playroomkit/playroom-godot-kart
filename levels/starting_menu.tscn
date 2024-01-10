@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://ccbe61ofnjy2g"]
+[gd_scene load_steps=3 format=3 uid="uid://ccbe61ofnjy2g"]
+
+[ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
+[ext_resource type="PackedScene" uid="uid://bkhousaqcctec" path="res://levels/chatroom_test.tscn" id="2_fw2hy"]
 
 [node name="StartingMenu" type="Control"]
 layout_mode = 3
@@ -7,6 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_akl4v")
+next_scene = ExtResource("2_fw2hy")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -32,3 +37,5 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "LAUNCH PLAYROOM
 "
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
