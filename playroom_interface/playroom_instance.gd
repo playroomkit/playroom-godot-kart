@@ -1,5 +1,6 @@
 
 ## encapsulates interfacing with the playroom javascript context.
+## encapsulates playroom interface functions for cleaner calling/typing 
 
 class_name PlayroomInstance
 extends Node
@@ -20,8 +21,11 @@ signal player_joined(args)
 
 
 
-## reference to the playroom JS interface
-@onready var _playroom = JavaScriptBridge.get_interface("Playroom")
+## reference to the playroom JS interface.
+## prefer using encapsulated functions instead
+@onready var playroom = JavaScriptBridge.get_interface("Playroom") :
+	get: return playroom
+	set(value): pass
 
 
 
@@ -35,6 +39,12 @@ signal player_joined(args)
 var _js_callbacks : Array[JavaScriptObject]
 
 
+## playroom player states
+var player_states = [] :
+	get : return player_states
+	set(value) : pass
+
+
 
 # ----- CALLBACKS -----
 
@@ -45,14 +55,25 @@ var _js_callbacks : Array[JavaScriptObject]
 
 # called by playroom when the host has pressed launch and loaded the game
 func _on_insert_coin(args):
+	
 	print("COIN INSERTED")
 	coin_inserted.emit(args)
 
 
 # called by playroom when a new player joins (including the host)
 func _on_new_player_join(args):
+	
 	var state = args[0]
 	print("PLAYER HAS JOINED: ", state.id)
+	player_states.push_back(state)
+	
+	# populate new player data
+	if playroom_is_host():
+		print("SETTING SELF AS HOST")
+		state.setState("host_player", playroom_my_player())
+		print(state.getState("host_player"))
+		# TODO for some reason can't get/set state from host player
+
 
 
 # called by playroom when this player disconnects
@@ -81,6 +102,19 @@ func start_playroom():
 	_start_playroom()
 
 
+# -- Playroom interface functions
+
+
+## returns if the current context is the playroom host
+func playroom_is_host() -> bool:
+	return playroom.isHost()
+
+
+## returns this context's player state object
+func playroom_my_player():
+	return playroom.myPlayer()
+
+
 
 # ----- PRIVATE -----
 
@@ -104,8 +138,8 @@ func _start_playroom():
 	
 	# insert coin!
 	# registers our callback for when the game launches
-	_playroom.insertCoin(init_options, _create_callback(_on_insert_coin))
+	playroom.insertCoin(init_options, _create_callback(_on_insert_coin))
 	
 	# register player join/leave callbacks
-	_playroom.onPlayerJoin(_create_callback(_on_new_player_join))
-	_playroom.onDisconnect(_create_callback(_on_disconnect))
+	playroom.onPlayerJoin(_create_callback(_on_new_player_join))
+	playroom.onDisconnect(_create_callback(_on_disconnect))

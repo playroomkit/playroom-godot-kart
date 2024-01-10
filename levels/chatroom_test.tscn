@@ -46,3 +46,6 @@ fit_content = true
 
 [node name="LineEdit" type="LineEdit" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
 layout_mode = 2
+clear_button_enabled = true
+
+[connection signal="text_submitted" from="CanvasLayer/Control/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
