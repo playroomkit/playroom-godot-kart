@@ -39,10 +39,10 @@ func setup(player_state, track_base):
 	
 	# then wait for player to finish setup
 	print("waiting for racer to ready...")
-	#await playroom.playroom_await_player_state(player_state, "ready", _on_player_finished_setup)
-	await playroom.playroom_await_test(player_state, "ready")
+	await playroom.playroom_await_player_state(player_state, "ready", _on_player_finished_setup)
+	#await playroom.playroom_await_test(player_state, "ready")
 	print("racer awaited")
-	_on_player_finished_setup()
+	#_on_player_finished_setup()
 
 
 func _on_player_finished_setup():
