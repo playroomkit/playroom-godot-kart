@@ -1,32 +1,40 @@
 
+## vroom vroom
+
 class_name CarBase
 extends RigidBody3D
 
 
+enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
+
 @export var acceleration_impulse = 100
 
-var gas = false
-var reverse = false
+var drive_state = DRIVE_STATE.IDLE
 
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# ----- CALLBACKS -----
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 
 func _physics_process(delta):
 	
-	var forewards = transform.basis.z
+	var forwards = transform.basis.z
 	
-	if reverse:
-		apply_central_force( - forewards * acceleration_impulse)
-	elif gas:
-		apply_central_force(forewards * acceleration_impulse)
+	if drive_state == DRIVE_STATE.REVERSE:
+		apply_central_force( - forwards * acceleration_impulse)
+	elif drive_state == DRIVE_STATE.GAS:
+		apply_central_force(forwards * acceleration_impulse)
 	
-	
+
+
+func press_gas():
+	drive_state = DRIVE_STATE.GAS
+
+
+func press_brake():
+	drive_state = DRIVE_STATE.BRAKE
+
+
+func press_reverse():
+	drive_state = DRIVE_STATE.REVERSE

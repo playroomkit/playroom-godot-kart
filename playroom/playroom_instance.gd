@@ -129,19 +129,9 @@ func playroom_is_stream_screen():
 	return playroom.isStreamScreen()
 
 
-# this does not work
-## takes a godot callable to fire when the player's state is set true (see api).
-## COROUTINE - will return control when state is set
-func playroom_await_player_state( player_state, \
-								  state_key : String, \
-								  callback : Callable):
-	
-	var js_callback = _create_callback(callback)
-	await playroom.waitForPlayerState(player_state, state_key, js_callback)
-
-# this works
-func playroom_await_test(state, key):
-	await playroom.waitForPlayerState(state, key)
+## COROUTINE - returns control when given state is set truthy (see api)
+func playroom_await_player_state(player_state, state_key : String):
+	await playroom.waitForPlayerState(player_state, state_key)
 
 
 

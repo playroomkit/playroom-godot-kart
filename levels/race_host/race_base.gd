@@ -1,5 +1,6 @@
 
 ## playroom kart stream host - holds multiplayer logic
+# TODO make generic?
 
 
 class_name StreamBase

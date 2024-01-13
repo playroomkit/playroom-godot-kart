@@ -71,3 +71,6 @@ func _create_my_joystick():
 	
 	# reference my joystick in my player state
 	my_player.setState("joystick", joystick)
+	
+	print("joystick initialized: ", my_player.id)
+	print("stored: ", my_player.getState("joystick"))

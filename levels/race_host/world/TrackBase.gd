@@ -24,3 +24,4 @@ func _process(delta):
 func add_car(car : CarBase):
 	add_child(car)
 	car.transform = car_spawn.transform
+
