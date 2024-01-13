@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://74k4hppmyadi"]
+
+[ext_resource type="Script" path="res://playroom/playroom_instance.gd" id="1_437ol"]
+
+[node name="PlayroomInstance" type="Node"]
+script = ExtResource("1_437ol")

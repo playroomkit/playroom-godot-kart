@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwc8bayrrxl7r"]
+
+[ext_resource type="Script" path="res://levels/race_host/world/TrackBase.gd" id="1_743mx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
+
+[sub_resource type="Sky" id="Sky_7u16r"]
+sky_material = SubResource("ProceduralSkyMaterial_b42a6")
+
+[sub_resource type="Environment" id="Environment_i41jo"]
+background_mode = 2
+sky = SubResource("Sky_7u16r")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g8isw"]
+size = Vector3(1000, 10, 1000)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_o7r82"]
+size = Vector2(1000, 1000)
+
+[node name="TrackBase" type="Node3D"]
+script = ExtResource("1_743mx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i41jo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.936354, 0.351057, 0, -0.351057, 0.936354, 1.07938, 6.48444, 17.9872)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("BoxShape3D_g8isw")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_o7r82")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.686529, 0.727102, 0, -0.727102, 0.686529, 0, 10.1981, 0)
+light_color = Color(0.92549, 0.964706, 1, 1)
+
+[node name="Spawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.8946, -8.24957)

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccbe61ofnjy2g"]
+[gd_scene load_steps=5 format=3 uid="uid://ccbe61ofnjy2g"]
 
 [ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
-[ext_resource type="PackedScene" uid="uid://bkhousaqcctec" path="res://levels/chatroom_test.tscn" id="2_fw2hy"]
+[ext_resource type="PackedScene" uid="uid://barvkk73qncxb" path="res://levels/controller_scene.tscn" id="2_vfjlc"]
+[ext_resource type="PackedScene" uid="uid://bkj0e3k38urmf" path="res://levels/race_host/race_base.tscn" id="3_dumtf"]
+[ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="4_mf4ca"]
 
 [node name="StartingMenu" type="Control"]
 layout_mode = 3
@@ -11,7 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_akl4v")
-next_scene = ExtResource("2_fw2hy")
+controller_scene = ExtResource("2_vfjlc")
+race_scene = ExtResource("3_dumtf")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -27,15 +30,23 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 210
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("4_mf4ca")
+theme_override_font_sizes/font_size = 50
 text = "LAUNCH PLAYROOM
 "
+flat = true
+icon_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

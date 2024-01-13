@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cblqb84whle2r"]
+
+[ext_resource type="FontFile" uid="uid://bcbl1mtnrfram" path="res://assets/BebasNeue Bold.ttf" id="1_lhbei"]
+
+[resource]
+resource_name = "bebus_theme"
+default_font = ExtResource("1_lhbei")
+default_font_size = 50

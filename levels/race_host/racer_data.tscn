@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfcdmueoqiekx"]
+
+[ext_resource type="Script" path="res://levels/race_host/racer_data.gd" id="1_5grfr"]
+
+[node name="RacePlayerData" type="Node"]
+script = ExtResource("1_5grfr")

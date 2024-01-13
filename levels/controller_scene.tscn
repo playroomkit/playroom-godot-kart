@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://barvkk73qncxb"]
+
+[ext_resource type="Script" path="res://levels/controller_scene.gd" id="1_fjux3"]
+[ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_h2l7b"]
+[ext_resource type="Script" path="res://ui/fullscreen_button.gd" id="3_0mrt7"]
+
+[node name="ControllerScene" type="Node2D"]
+script = ExtResource("1_fjux3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Border" type="NinePatchRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Border/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer/Control/Border/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme = ExtResource("2_h2l7b")
+text = "FULLSCREEN"
+script = ExtResource("3_0mrt7")
+
+[connection signal="toggled" from="CanvasLayer/Control/Border/MarginContainer/VBoxContainer/CheckButton" to="CanvasLayer/Control/Border/MarginContainer/VBoxContainer/CheckButton" method="_on_toggled"]
