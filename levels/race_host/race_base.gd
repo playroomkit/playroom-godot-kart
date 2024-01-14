@@ -34,7 +34,7 @@ func _ready():
 	playroom = Playroom.instance
 	
 	# populate and set up racers
-	for state in playroom.player_states:
+	for state in playroom.players:
 		racers.push_back(_create_racer(state))
 
 

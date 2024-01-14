@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://74k4hppmyadi"]
+[gd_scene load_steps=3 format=3 uid="uid://74k4hppmyadi"]
 
 [ext_resource type="Script" path="res://playroom/playroom_instance.gd" id="1_437ol"]
+[ext_resource type="PackedScene" uid="uid://cucv0t2ftdb3a" path="res://playroom/playroom_player.tscn" id="2_3a74q"]
 
 [node name="PlayroomInstance" type="Node"]
 script = ExtResource("1_437ol")
+playroom_player_template = ExtResource("2_3a74q")

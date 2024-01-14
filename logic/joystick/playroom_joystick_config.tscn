@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyefnsl7bsemt"]
+
+[ext_resource type="Script" path="res://logic/joystick/playroom_joystick_config.gd" id="1_ecsn5"]
+[ext_resource type="PackedScene" uid="uid://dbvpo2d6t8u7r" path="res://logic/joystick/playroom_joy_button_config.tscn" id="2_3adru"]
+
+[node name="PlayroomJoystickConfig" type="Node"]
+script = ExtResource("1_ecsn5")
+
+[node name="PlayroomJoyButtonConfig" parent="." instance=ExtResource("2_3adru")]
+id = "gas"
+label = "A"
+
+[node name="PlayroomJoyButtonConfig2" parent="." instance=ExtResource("2_3adru")]
+id = "Brake"
+label = "B"

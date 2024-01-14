@@ -1,7 +1,9 @@
 
-## for interfacing with the playroom javascript context.
+## for interfacing with playroom.
 ## encapsulates playroom interface functions for cleaner calling/typing.
-## launches playroom in stream mode (for phone kart) 
+## also handles creating playroom joysticks - 
+## (easier here since this is loaded across all players)
+
 
 class_name PlayroomInstance
 extends Node
@@ -20,14 +22,35 @@ signal coin_inserted(args)
 ## emitted when a new player joins
 signal player_joined(args)
 
+## start playroom in stream mode?
+@export var stream_mode = false
+
+# TODO dynamic joystick assignments? state "joystick_type" = 0, 1, etc.?
+
+## joystick config
+@export var joystick_config : PlayroomJoystickConfig
+
+## should host get a joystick?
+@export var host_joystick = false
+
+# we do this as an export instead of explicitly defining a path
+# so it doesn't break if the scene gets moved
+@export_category("Preloads")
+@export var playroom_player_template : PackedScene
 
 
 ## reference to the playroom JS interface.
-## prefer using encapsulated functions instead
+## prefer using encapsulated functions here over calls to the interface
 @onready var playroom = JavaScriptBridge.get_interface("Playroom") :
 	get: return playroom
 	set(value): pass
 
+
+## playroom players: stored as a dict of player state -> player node.
+## can be referenced by state, but contains additional information
+var players = {} :
+	get : return players
+	set(value) : pass
 
 
 # We will create js callables to send to playroom to trigger async behavior -
@@ -38,12 +61,6 @@ signal player_joined(args)
 
 # Our array of JS callables - to save from being deleted
 var _js_callbacks : Array[JavaScriptObject]
-
-
-## playroom player states - stored as keys
-var player_states = {} :
-	get : return player_states
-	set(value) : pass
 
 
 
@@ -57,6 +74,12 @@ var player_states = {} :
 # called by playroom when the host has pressed launch and loaded the game
 func _on_insert_coin(args):
 	
+	# register player join/leave callbacks.
+	# call these AFTER insert coin for proper behavior. 
+	# (playerjoin will retroactively find joined players)
+	playroom.onPlayerJoin(_create_callback(_on_new_player_join))
+	playroom.onDisconnect(_create_callback(_on_disconnect))
+	
 	print("COIN INSERTED")
 	coin_inserted.emit(args)
 
@@ -64,28 +87,42 @@ func _on_insert_coin(args):
 # called by playroom when a new player joins (including the host)
 func _on_new_player_join(args):
 	
-	# add state to states
-	var state = args[0]
-	print("PLAYER HAS JOINED: ", state.id)
-	player_states[state] = true
+	# new player node
+	var player : PlayroomPlayer = playroom_player_template.instantiate()
 	
-	# populate new player data
+	# get state
+	var state = args[0]
+	print("I AM: ", playroom_my_player().id,  " PLAYER HAS JOINED: ", state.id)
+	player.player_state = state
+	
+	# add state and player to dict
+	players[state] = player
+	
+	# populate state data (synced data)
+	
 	if playroom_is_host():
 		print("SETTING SELF AS HOST")
 		state.setState("host_player", playroom_my_player())
 		print(state.getState("host_player"))
 		# TODO for some reason can't get/set state from host player
+		
+		# if never set, should return false?
+		state.setState("is_host", true)
+	
 	
 	# log callback to listen for player quitting
 	state.onQuit(_create_callback(_on_player_quit))
+	
+	# add joystick
+	player.joystick = _setup_joysticks(state)
 
 
 # called by playroom when a player quits
 func _on_player_quit(player_state):
-	player_states.erase(player_state)
+	players.erase(player_state)
 
 
-# called by playroom when this player disconnects # TODO doesn't work?
+# called by playroom when this player disconnects
 func _on_disconnect(error):
 	pass
 
@@ -156,12 +193,20 @@ func _start_playroom():
 	var init_options = JavaScriptBridge.create_object("Object")
 	
 	# launch in stream mode
-	#init_options.streamMode = true
+	if stream_mode: init_options.streamMode = true
 	
 	# insert coin!
 	# registers our callback for when the game launches
 	playroom.insertCoin(init_options, _create_callback(_on_insert_coin))
+
+
+# adds joystick to this state
+func _setup_joysticks(player_state) -> JavaScriptObject:
+	if joystick_config == null: return
 	
-	# register player join/leave callbacks
-	playroom.onPlayerJoin(_create_callback(_on_new_player_join))
-	#playroom.onDisconnect(_create_callback(_on_disconnect))
+	# is host joining?
+	if !host_joystick and player_state.getState("is_host"): return
+	
+	var joy_options = joystick_config.create_joy_options()
+	return JavaScriptBridge.create_object("Joystick", player_state, joy_options)
+	

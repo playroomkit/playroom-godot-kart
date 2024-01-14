@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbvpo2d6t8u7r"]
+
+[ext_resource type="Script" path="res://logic/joystick/playroom_joy_button_config.gd" id="1_cgp0m"]
+
+[node name="PlayroomJoyButtonConfig" type="Node"]
+script = ExtResource("1_cgp0m")

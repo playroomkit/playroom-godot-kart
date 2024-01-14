@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayroomJoystickConfig" load_steps=2 format=3 uid="uid://bo1s8fpdwepvy"]
+
+[ext_resource type="Script" path="res://logic/joystick/playroom_joystick_config.gd" id="1_b56jl"]
+
+[resource]
+script = ExtResource("1_b56jl")
+joystick_type = 1
+buttons = Array[Resource]([null, null])

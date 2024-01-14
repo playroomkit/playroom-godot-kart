@@ -37,24 +37,14 @@ func _process(delta):
 	
 	_process_joy_inputs()
 	
-	
-	
-	pass
 
 
 ## called by host as a pseudo-constructor
-func setup(player_state, track_base):
+func setup(player : PlayroomPlayer, track : TrackBase):
 	
-	self.player_state = player_state
-	self.track_base = track_base
-	
-	# then wait for player to finish setup
-	#print("waiting for racer to ready...")
-	#await playroom.playroom_await_player_state(player_state, "ready")
-	#print("racer puppet received client ready!")
-	#
-	## finish setting up
-	#joystick = player_state.getState("joystick")
+	player_state = player.player_state
+	track_base = track
+	joystick = player.joystick
 	
 	# spawn car
 	car = car_template.instantiate()
@@ -68,11 +58,8 @@ func setup(player_state, track_base):
 
 # process joystick inputs!
 func _process_joy_inputs():
-	if joystick == null: 
-		joystick = player_state.getState("joystick")
-		print("retrieving joystick: ", joystick, " player ", player_state.id)
-	if joystick == null:
-		return
+
+	if joystick == null: return
 	
 	var dpad = joystick.dpad
 	
