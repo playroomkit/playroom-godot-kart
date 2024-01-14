@@ -13,6 +13,7 @@ size = Vector3(1, 1, 2)
 size = Vector3(1, 1, 2)
 
 [node name="CarBase" type="RigidBody3D"]
+linear_damp = 0.5
 script = ExtResource("1_4bxcp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

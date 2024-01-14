@@ -10,7 +10,7 @@ extends Resource
 enum JOY_TYPE {DPAD, ANGULAR}
 
 @export var joystick_type = JOY_TYPE.ANGULAR
-@export var buttons : Array[Resource]
+@export var buttons : Array[PlayroomJoyButtonConfig]
 
 
 # returns a playroom joystickoptions for joystick creation
@@ -23,8 +23,8 @@ func create_joy_options() -> JavaScriptObject :
 	if joystick_type == JOY_TYPE.DPAD: joy_options.type = "dpad"
 	else: joy_options.type = "angular"
 	
-	# JS configs
-	var joy_buttons = [] 
+	# JS array of buttons
+	var joy_buttons = JavaScriptBridge.create_object("Array")
 	
 	# add buttons
 	for b in buttons:
@@ -36,7 +36,7 @@ func create_joy_options() -> JavaScriptObject :
 		joy_button.label = b.label
 		if b.icon_url != null: joy_button.icon = b.icon_url
 		
-		joy_buttons.push_back(joy_button)
+		joy_buttons.push(joy_button)
 	
 	# add buttons to joystick config
 	joy_options.buttons = joy_buttons

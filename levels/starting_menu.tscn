@@ -44,7 +44,7 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("4_mf4ca")
 theme_override_font_sizes/font_size = 50
-text = "LAUNCH PLAYROOM
+text = "LAUNCH/JOIN PLAYROOM
 "
 flat = true
 icon_alignment = 1

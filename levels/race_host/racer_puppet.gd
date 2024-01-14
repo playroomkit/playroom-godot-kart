@@ -61,10 +61,12 @@ func _process_joy_inputs():
 
 	if joystick == null: return
 	
-	var dpad = joystick.dpad
+	var dpad = joystick.dpad()
 	
-	if dpad.y == "up":
-		print("JOY IS UP: ", player_state.id)
-		car.press_gas()
-	elif dpad.y == "down":
-		car.press_brake()
+	if dpad.y == "up": 		car.press_gas()
+	elif dpad.y == "down": 	car.press_brake()
+	else: 					car.press_idle()
+	
+	if dpad.x == "left": 	car.steer_left()
+	elif dpad.x == "right": car.steer_right()
+	else: 					car.steer_neutral()

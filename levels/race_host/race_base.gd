@@ -34,8 +34,8 @@ func _ready():
 	playroom = Playroom.instance
 	
 	# populate and set up racers
-	for state in playroom.players:
-		racers.push_back(_create_racer(state))
+	for player in playroom.players.values():
+		racers.push_back(_create_racer(player))
 
 
 
@@ -43,8 +43,8 @@ func _ready():
 
 
 
-func _create_racer(player_state) -> RacerPuppet:
+func _create_racer(player : PlayroomPlayer) -> RacerPuppet:
 	var racer : RacerPuppet = racer_puppet_template.instantiate()
 	add_child(racer) # make sure it's being processed in the scene tree
-	racer.setup(player_state, track_base)
+	racer.setup(player, track_base)
 	return racer

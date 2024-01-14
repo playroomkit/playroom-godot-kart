@@ -131,7 +131,9 @@ func _on_disconnect(error):
 
 
 func _ready():
-	pass
+	
+	# include joystick so we can call it
+	JavaScriptBridge.eval("Joystick = Playroom.Joystick")
 
 
 func _process(delta):
@@ -202,10 +204,16 @@ func _start_playroom():
 
 # adds joystick to this state
 func _setup_joysticks(player_state) -> JavaScriptObject:
-	if joystick_config == null: return
+	if joystick_config == null: 
+		print("joy config is null")
+		return
 	
 	# is host joining?
-	if !host_joystick and player_state.getState("is_host"): return
+	if !host_joystick and player_state.getState("is_host"): 
+		print(playroom_my_player().id, " here, ", player_state.id, " is host - no joy")
+		return
+	
+	print(playroom_my_player().id ," is setting up joystick for : ", player_state.id)
 	
 	var joy_options = joystick_config.create_joy_options()
 	return JavaScriptBridge.create_object("Joystick", player_state, joy_options)

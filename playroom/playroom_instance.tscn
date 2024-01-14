@@ -1,8 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://74k4hppmyadi"]
+[gd_scene load_steps=8 format=3 uid="uid://74k4hppmyadi"]
 
 [ext_resource type="Script" path="res://playroom/playroom_instance.gd" id="1_437ol"]
 [ext_resource type="PackedScene" uid="uid://cucv0t2ftdb3a" path="res://playroom/playroom_player.tscn" id="2_3a74q"]
+[ext_resource type="Script" path="res://logic/joystick/playroom_joy_button_config.gd" id="2_4s5r0"]
+[ext_resource type="Script" path="res://logic/joystick/playroom_joystick_config.gd" id="2_pk7yd"]
+
+[sub_resource type="Resource" id="Resource_v57wr"]
+script = ExtResource("2_4s5r0")
+id = "gas"
+label = "A"
+icon_url = ""
+
+[sub_resource type="Resource" id="Resource_h26y4"]
+script = ExtResource("2_4s5r0")
+id = "brake"
+label = "B"
+icon_url = ""
+
+[sub_resource type="Resource" id="Resource_80pms"]
+script = ExtResource("2_pk7yd")
+joystick_type = 0
+buttons = Array[Resource]([SubResource("Resource_v57wr"), SubResource("Resource_h26y4")])
 
 [node name="PlayroomInstance" type="Node"]
 script = ExtResource("1_437ol")
+joystick_config = SubResource("Resource_80pms")
+host_joystick = true
 playroom_player_template = ExtResource("2_3a74q")
