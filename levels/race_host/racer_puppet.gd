@@ -49,6 +49,10 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	# spawn car
 	car = car_template.instantiate()
 	track_base.add_car(car)
+	
+	# set car color
+	var color = Color(player_state.getProfile().color.hexString)
+	car.set_color(color)
 
 
 
@@ -59,13 +63,17 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 # process joystick inputs!
 func _process_joy_inputs():
 
-	if joystick == null: return
+	if joystick == null: 
+		print("RACER PUPPET NO JOY")
+		return
 	
 	var dpad = joystick.dpad()
 	
-	if dpad.y == "up": 		car.press_gas()
-	elif dpad.y == "down": 	car.press_brake()
-	else: 					car.press_idle()
+	if joystick.isPressed("gas"): 		
+		print("GAS PRESS")
+		car.press_gas()
+	elif joystick.isPressed("brake"): 	car.press_reverse()
+	else: 								car.press_idle()
 	
 	if dpad.x == "left": 	car.steer_left()
 	elif dpad.x == "right": car.steer_right()

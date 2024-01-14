@@ -22,7 +22,7 @@ var my_joystick = null
 func _ready():
 	
 	# set fullscreen on startup
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
 	
 	# get playroom instance and player
 	playroom = Playroom.instance

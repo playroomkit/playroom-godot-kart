@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=13 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/TrackBase.gd" id="1_743mx"]
+[ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_o6ihn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
 
@@ -11,11 +12,25 @@ sky_material = SubResource("ProceduralSkyMaterial_b42a6")
 background_mode = 2
 sky = SubResource("Sky_7u16r")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_bsv36"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_g8isw"]
 size = Vector3(1000, 10, 1000)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nhy8"]
+albedo_color = Color(0.560784, 0.560784, 0.560784, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_o7r82"]
+material = SubResource("StandardMaterial3D_2nhy8")
 size = Vector2(1000, 1000)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8kbjs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p2hla"]
+size = Vector3(10, 20, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wdx13"]
+size = Vector3(10, 20, 200)
 
 [node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawn")]
 script = ExtResource("1_743mx")
@@ -25,7 +40,11 @@ car_spawn = NodePath("Spawn")
 environment = SubResource("Environment_i41jo")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.936354, 0.351057, 0, -0.351057, 0.936354, 1.07938, 6.48444, 17.9872)
+transform = Transform3D(1, 0, 0, 0, 0.769355, 0.638821, 0, -0.638821, 0.769355, 0, 63.731, 110.495)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_bsv36")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
@@ -38,6 +57,9 @@ shape = SubResource("BoxShape3D_g8isw")
 mesh = SubResource("PlaneMesh_o7r82")
 skeleton = NodePath("../..")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("CapsuleMesh_8kbjs")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.686529, 0.727102, 0, -0.727102, 0.686529, 0, 10.1981, 0)
 light_color = Color(0.92549, 0.964706, 1, 1)
@@ -45,3 +67,73 @@ light_energy = 1.685
 
 [node name="Spawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.8946, -8.24957)
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -231.0
+offset_right = 231.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_o6ihn")
+text = "YEAH BABY RACING WOOHOO"
+
+[node name="geometry" type="Node3D" parent="."]
+
+[node name="wall" type="StaticBody3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall"]
+shape = SubResource("BoxShape3D_p2hla")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall"]
+mesh = SubResource("BoxMesh_wdx13")
+
+[node name="wall3" type="StaticBody3D" parent="geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall3"]
+shape = SubResource("BoxShape3D_p2hla")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall3"]
+mesh = SubResource("BoxMesh_wdx13")
+
+[node name="wall4" type="StaticBody3D" parent="geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -100)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall4"]
+shape = SubResource("BoxShape3D_p2hla")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall4"]
+mesh = SubResource("BoxMesh_wdx13")
+
+[node name="wall2" type="StaticBody3D" parent="geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall2"]
+shape = SubResource("BoxShape3D_p2hla")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall2"]
+mesh = SubResource("BoxMesh_wdx13")

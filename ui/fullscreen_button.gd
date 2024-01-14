@@ -5,7 +5,7 @@ extends Button
 
 
 @export var fullscreen_type = DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
-@export var other_type = DisplayServer.WINDOW_MODE_MAXIMIZED
+@export var other_type = DisplayServer.WINDOW_MODE_MINIMIZED
 
 
 func _process(delta):

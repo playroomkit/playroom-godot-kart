@@ -9,6 +9,8 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 @export var acceleration_impulse = 10
 @export var steering_torque = 5
+@export var slide_damp_force = 5
+@export var slide_damp_mult = 1
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -39,16 +41,24 @@ func _physics_process(delta):
 	if drive_state == DRIVE_STATE.REVERSE:
 		apply_central_force( - forwards * acceleration_impulse)
 	elif drive_state == DRIVE_STATE.GAS:
+		print("CAR GASSING")
 		apply_central_force(forwards * acceleration_impulse)
 	
 	# steering
-	apply_torque(up * steering_torque * steering_state)
+	apply_torque(up * steering_torque * -steering_state)
+	
+	# slide damp
+	_slide_dampening()
 
 
 # ----- PUBLIC -----
 
 
-# -- CONTROL COMMANDS
+func set_color(color : Color):
+	$MeshInstance3D.mesh.material.albedo_color = color
+
+
+# -- Control Commands
 
 func press_gas():
 	drive_input = DRIVE_STATE.GAS
@@ -91,3 +101,15 @@ func _process_input_flags():
 func _clear_input_flags():
 	drive_input = DRIVE_STATE.IDLE
 	steering_input = 0
+
+
+# dampens tangential velocity
+func _slide_dampening():
+	
+	# get tangential velocity component (right facing)
+	var right = transform.basis.x
+	var tangential_velocity = linear_velocity.dot(right)
+	
+	# apply force tangentially (- right facing) proportional to tanvel
+	apply_central_force(-right * slide_damp_force * slide_damp_mult * tangential_velocity)
+	

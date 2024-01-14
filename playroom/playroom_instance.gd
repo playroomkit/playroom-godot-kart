@@ -100,15 +100,19 @@ func _on_new_player_join(args):
 	
 	# populate state data (synced data)
 	
+	# if host - sync is_host through host's player state
+	# sync host_id to all player states
 	if playroom_is_host():
-		print("SETTING SELF AS HOST")
-		state.setState("host_player", playroom_my_player())
-		print(state.getState("host_player"))
-		# TODO for some reason can't get/set state from host player
 		
-		# if never set, should return false?
-		state.setState("is_host", true)
-	
+		var my_state = playroom_my_player()
+		
+		# if self is joining - set is_host (otherwise default false)
+		if state.id == my_state.id:
+			state.setState("is_host", true)
+		
+		# set self on all players
+		state.setState("host_id", my_state.id)
+
 	
 	# log callback to listen for player quitting
 	state.onQuit(_create_callback(_on_player_quit))
