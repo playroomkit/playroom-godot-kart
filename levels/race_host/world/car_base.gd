@@ -8,7 +8,8 @@ extends RigidBody3D
 enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 @export var acceleration_impulse = 10
-@export var steering_velocity = 5.0
+@export var steering_velocity = 3.0
+@export var steering_time_mult = 0.1 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
 
@@ -17,11 +18,11 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
 var steering_state = 0
+var grounded = true
 
 ## what the controller is telling us
 var drive_input = DRIVE_STATE.IDLE
 var steering_input = 0
-var steering_velocity_coefficient = 40
 
 
 # ----- CALLBACKS -----
@@ -32,10 +33,12 @@ func _physics_process(delta):
 	
 	# manage inputs
 	
-	_process_input_flags()
-	_clear_input_flags()
+	_process_input_flags(delta)
 	
 	# then manage physics behavior
+	
+	# flying
+	if !grounded: return
 	
 	var forwards = transform.basis.z
 	var up = transform.basis.y
@@ -44,15 +47,29 @@ func _physics_process(delta):
 	if drive_state == DRIVE_STATE.REVERSE:
 		apply_central_force( - forwards * acceleration_impulse)
 	elif drive_state == DRIVE_STATE.GAS:
-		print("CAR GASSING")
 		apply_central_force(forwards * acceleration_impulse)
 	
 	# steering
 	var speed = linear_velocity.length()
-	angular_velocity.y = (steering_velocity * -steering_state * speed) / steering_velocity_coefficient
+	angular_velocity.y = steering_velocity * -steering_state * speed
 	
 	# slide damp
 	_slide_dampening()
+
+
+func _on_body_entered(body):
+	if body.is_in_group("road"): grounded = true
+	print("on road")
+
+
+func _on_body_exited(body):
+	if body.is_in_group("road"): grounded = false
+	print("off road")
+
+
+func _on_flipped_area_entered(area):
+	_flip_car()
+
 
 
 # ----- PUBLIC -----
@@ -83,14 +100,15 @@ func press_idle():
 
 
 func steer_right():
-	steering_input = 1
+	steering_input += steering_time_mult
 
 
 func steer_left():
-	steering_input = -1
+	steering_input -= steering_time_mult
 
 
 func steer_neutral():
+	print("steer neutral")
 	steering_input = 0
 
 
@@ -99,14 +117,15 @@ func steer_neutral():
 
 
 
-func _process_input_flags():
+func _process_input_flags(delta):
 	drive_state = drive_input
-	steering_state = steering_input
-
-
-func _clear_input_flags():
-	drive_input = DRIVE_STATE.IDLE
-	steering_input = 0
+	steering_state = steering_input * delta
+	
+	# map steering state
+	steering_state = min(1, steering_state)
+	steering_state = max(-1, steering_state)
+	
+	print("STEERING STATE: ", steering_state)
 
 
 # dampens tangential velocity
@@ -118,4 +137,9 @@ func _slide_dampening():
 	
 	# apply force tangentially (- right facing) proportional to tanvel
 	apply_central_force(-right * slide_damp_force * slide_damp_mult * tangential_velocity)
-	
+
+
+func _flip_car():
+	transform.basis.y = Vector3(0,1,0)
+	transform = transform.orthonormalized()
+

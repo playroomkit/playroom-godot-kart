@@ -72,7 +72,7 @@ light_color = Color(0.92549, 0.964706, 1, 1)
 light_energy = 1.685
 
 [node name="Spawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.1835, 3.18546, 24.9175)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.6419, 3.18546, 16.2213)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -147,8 +147,35 @@ mesh = SubResource("BoxMesh_wdx13")
 [node name="Path3D2" type="Path3D" parent="."]
 curve = SubResource("Curve3D_x0twe")
 
-[node name="Road" type="CSGPolygon3D" parent="Path3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22524, 0.271147, -0.794157)
+[node name="Railin" type="CSGPolygon3D" parent="Path3D2"]
+use_collision = true
+polygon = PackedVector2Array(10, 0, 10, 2, 11, 2, 11, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 3.1
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="Railout" type="CSGPolygon3D" parent="Path3D2"]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 2, -1, 2, -1, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 3.1
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D2" groups=["road"]]
 use_collision = true
 polygon = PackedVector2Array(0, 0, 0, 0.2, 10, 0.2, 10, 0)
 mode = 2

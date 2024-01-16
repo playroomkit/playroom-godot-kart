@@ -5,10 +5,10 @@
 [sub_resource type="CylinderMesh" id="CylinderMesh_bsv36"]
 
 [node name="RaceCamera" type="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.329674, 0.944095, 0, -0.944095, 0.329674, 0, 100.845, 47.583)
+transform = Transform3D(1, 0, 0, 0, 0.533009, 0.84611, 0, -0.84611, 0.533009, 0, 100.845, 47.583)
 script = ExtResource("1_55613")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.255547, 0.966797, 0, -0.966797, -0.255547, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_bsv36")
 skeleton = NodePath("")

@@ -70,7 +70,6 @@ func _process_joy_inputs():
 	var dpad = joystick.dpad()
 	
 	if joystick.isPressed("gas"): 		
-		print("GAS PRESS")
 		car.press_gas()
 	elif joystick.isPressed("brake"): 	car.press_reverse()
 	else: 								car.press_idle()

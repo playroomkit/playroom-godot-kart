@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=7 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 
@@ -7,14 +7,19 @@ albedo_color = Color(1, 0, 0.439216, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4gv78"]
 material = SubResource("StandardMaterial3D_uxte8")
-size = Vector3(2, 2, 4)
+size = Vector3(1, 0.3, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4tb1"]
-size = Vector3(2, 2, 4)
+size = Vector3(1, 0.3, 2)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ucfb7"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_t4xbo"]
+size = Vector3(0.5, 1, 1.5)
+
 [node name="CarBase" type="RigidBody3D"]
+max_contacts_reported = 1
+contact_monitor = true
 linear_damp = 0.5
 script = ExtResource("1_4bxcp")
 acceleration_impulse = 50
@@ -27,5 +32,19 @@ skeleton = NodePath("")
 shape = SubResource("BoxShape3D_i4tb1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04527, 1.17875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.421023, 0.156627)
 mesh = SubResource("SphereMesh_ucfb7")
+
+[node name="FlippedArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799316, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FlippedArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0216786)
+shape = SubResource("BoxShape3D_t4xbo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="area_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
+[connection signal="body_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
