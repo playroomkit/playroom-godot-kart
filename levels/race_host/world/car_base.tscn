@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bi8j"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxte8"]
 albedo_color = Color(1, 0, 0.439216, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_0tk5q"]
-material = SubResource("StandardMaterial3D_8bi8j")
-size = Vector3(1, 1, 2)
+[sub_resource type="BoxMesh" id="BoxMesh_4gv78"]
+material = SubResource("StandardMaterial3D_uxte8")
+size = Vector3(2, 2, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4tb1"]
-size = Vector3(1, 1, 2)
+size = Vector3(2, 2, 4)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ucfb7"]
 
@@ -20,12 +20,12 @@ script = ExtResource("1_4bxcp")
 acceleration_impulse = 50
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_0tk5q")
+mesh = SubResource("BoxMesh_4gv78")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_i4tb1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.594831, 0.393735)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04527, 1.17875)
 mesh = SubResource("SphereMesh_ucfb7")

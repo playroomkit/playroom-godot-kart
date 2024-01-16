@@ -10,6 +10,9 @@ extends Node3D
 @export var car_spawn : Node3D
 
 
+## list of cars
+@export var cars : Array[CarBase]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,4 +27,5 @@ func _process(delta):
 func add_car(car : CarBase):
 	add_child(car)
 	car.transform = car_spawn.transform
+	cars.push_back(car)
 

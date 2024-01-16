@@ -8,9 +8,11 @@ extends RigidBody3D
 enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 @export var acceleration_impulse = 10
-@export var steering_torque = 5
-@export var slide_damp_force = 5
-@export var slide_damp_mult = 1
+@export var steering_velocity = 5.0
+@export var slide_damp_force = 5.0
+@export var slide_damp_mult = 1.0
+
+@onready var mesh = $MeshInstance3D
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -19,6 +21,7 @@ var steering_state = 0
 ## what the controller is telling us
 var drive_input = DRIVE_STATE.IDLE
 var steering_input = 0
+var steering_velocity_coefficient = 40
 
 
 # ----- CALLBACKS -----
@@ -45,7 +48,8 @@ func _physics_process(delta):
 		apply_central_force(forwards * acceleration_impulse)
 	
 	# steering
-	apply_torque(up * steering_torque * -steering_state)
+	var speed = linear_velocity.length()
+	angular_velocity.y = (steering_velocity * -steering_state * speed) / steering_velocity_coefficient
 	
 	# slide damp
 	_slide_dampening()
@@ -55,7 +59,9 @@ func _physics_process(delta):
 
 
 func set_color(color : Color):
-	$MeshInstance3D.mesh.material.albedo_color = color
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = color
+	mesh.material_override = mat
 
 
 # -- Control Commands

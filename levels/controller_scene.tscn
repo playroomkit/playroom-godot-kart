@@ -47,7 +47,9 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 theme = ExtResource("2_h2l7b")
+action_mode = 0
 text = "FULLSCREEN"
 script = ExtResource("3_0mrt7")
+other_type = 0
 
 [connection signal="toggled" from="CanvasLayer/Control/Border/MarginContainer/VBoxContainer/CheckButton" to="CanvasLayer/Control/Border/MarginContainer/VBoxContainer/CheckButton" method="_on_toggled"]

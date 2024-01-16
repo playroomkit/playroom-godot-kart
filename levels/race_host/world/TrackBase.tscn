@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=15 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/TrackBase.gd" id="1_743mx"]
+[ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_lcs2f"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_o6ihn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
@@ -11,8 +12,6 @@ sky_material = SubResource("ProceduralSkyMaterial_b42a6")
 [sub_resource type="Environment" id="Environment_i41jo"]
 background_mode = 2
 sky = SubResource("Sky_7u16r")
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_bsv36"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g8isw"]
 size = Vector3(1000, 10, 1000)
@@ -32,6 +31,16 @@ size = Vector3(10, 20, 200)
 [sub_resource type="BoxMesh" id="BoxMesh_wdx13"]
 size = Vector3(10, 20, 200)
 
+[sub_resource type="Curve3D" id="Curve3D_x0twe"]
+_data = {
+"points": PackedVector3Array(28.4918, 3.39759, 36.0129, -28.4918, -3.39759, -36.0129, -45.322, 0, 33.9228, -2.77137, -1.55151, 19.0654, 2.77137, 1.55151, -19.0654, -67.5709, 0, -46.558, -26.007, -1.46498, 7.29942, 26.007, 1.46498, -7.29942, -29.7958, 0, -74.8099, -9.96081, 4.18362, -6.30216, 9.96081, -4.18362, 6.30216, 45, 1, -75, 26.2145, -0.738892, -19.557, -26.2145, 0.738892, 19.557, 58.6305, 0, -31.5579, 0.40152, 0, -23.8816, -0.40152, 0, 23.8816, 25.3104, 0, 24.5095, 1.3256, 0.948013, -18.3042, -1.3256, -0.948013, 18.3042, 59.5916, 0, 62.6353, 14.3952, 0.979666, 7.95847, -14.3952, -0.979666, -7.95847, -4.80577, 0, 81.8584, 0, 0, 0, 0, 0, 0, -45.322, 0, 33.9228),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rqvi"]
+albedo_color = Color(0.317647, 0.317647, 0.317647, 1)
+
 [node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawn")]
 script = ExtResource("1_743mx")
 car_spawn = NodePath("Spawn")
@@ -39,12 +48,9 @@ car_spawn = NodePath("Spawn")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i41jo")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.769355, 0.638821, 0, -0.638821, 0.769355, 0, 63.731, 110.495)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CylinderMesh_bsv36")
+[node name="RaceCamera" parent="." node_paths=PackedStringArray("track") instance=ExtResource("2_lcs2f")]
+track = NodePath("..")
+y_offset = 40.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
@@ -66,7 +72,7 @@ light_color = Color(0.92549, 0.964706, 1, 1)
 light_energy = 1.685
 
 [node name="Spawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.8946, -8.24957)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.1835, 3.18546, 24.9175)
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -137,3 +143,22 @@ shape = SubResource("BoxShape3D_p2hla")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall2"]
 mesh = SubResource("BoxMesh_wdx13")
+
+[node name="Path3D2" type="Path3D" parent="."]
+curve = SubResource("Curve3D_x0twe")
+
+[node name="Road" type="CSGPolygon3D" parent="Path3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22524, 0.271147, -0.794157)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 0.2, 10, 0.2, 10, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.05
+path_simplify_angle = 4.3
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+material = SubResource("StandardMaterial3D_6rqvi")
