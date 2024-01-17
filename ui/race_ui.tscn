@@ -6,7 +6,7 @@
 
 [node name="ui" type="CanvasLayer" node_paths=PackedStringArray("player_box_container")]
 script = ExtResource("1_i6cdj")
-player_box_container = NodePath("Control/MarginContainer/VBoxContainer/PlayerBoxes")
+player_box_container = NodePath("Control/TopLeft/PlayerBoxes")
 player_box_preload = ExtResource("3_uvwd2")
 
 [node name="Control" type="Control" parent="."]
@@ -41,6 +41,22 @@ theme = ExtResource("2_owqql")
 text = "YEAH BABY RACING WOOHOO"
 horizontal_alignment = 1
 
-[node name="PlayerBoxes" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+[node name="Countdown" type="Label" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_owqql")
+theme_override_font_sizes/font_size = 100
+text = "racers ready"
+horizontal_alignment = 1
+
+[node name="TopLeft" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 183.0
+offset_bottom = 299.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayerBoxes" type="HBoxContainer" parent="Control/TopLeft"]
 layout_mode = 2
 alignment = 1

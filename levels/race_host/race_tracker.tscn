@@ -4,3 +4,8 @@
 
 [node name="RaceTracker" type="Node"]
 script = ExtResource("1_5ukkm")
+max_laps = 1
+
+[node name="Count" type="Timer" parent="."]
+
+[connection signal="timeout" from="Count" to="." method="_on_count_timeout"]

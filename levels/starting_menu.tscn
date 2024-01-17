@@ -15,7 +15,6 @@ grow_vertical = 2
 script = ExtResource("1_akl4v")
 controller_scene = ExtResource("2_vfjlc")
 race_scene = ExtResource("3_dumtf")
-debug = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

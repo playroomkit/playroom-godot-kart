@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=15 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/track_base.gd" id="1_o7q5g"]
 [ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_2nhiv"]
+[ext_resource type="PackedScene" uid="uid://qwyg4nibxxo7" path="res://levels/race_host/world/lap_gate.tscn" id="3_du1p7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
 
@@ -23,12 +24,6 @@ material = SubResource("StandardMaterial3D_2nhy8")
 size = Vector2(1000, 1000)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8kbjs"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_beq3a"]
-size = Vector3(20, 20, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_htjdx"]
-size = Vector3(10, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p2hla"]
 size = Vector3(10, 20, 200)
@@ -54,8 +49,10 @@ car_spawn = NodePath("Spawn")
 environment = SubResource("Environment_i41jo")
 
 [node name="RaceCamera" parent="." node_paths=PackedStringArray("track") instance=ExtResource("2_2nhiv")]
+transform = Transform3D(1, 0, 0, 0, 0.533009, 0.84611, 0, -0.84611, 0.533009, 0, 60, 60)
 track = NodePath("..")
-y_offset = 40.0
+y_offset = 60.0
+z_offset = 60.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
@@ -76,20 +73,11 @@ transform = Transform3D(1, 0, 0, 0, 0.686529, 0.727102, 0, -0.727102, 0.686529, 
 light_color = Color(0.92549, 0.964706, 1, 1)
 light_energy = 1.685
 
-[node name="Area3D" type="Area3D" parent="." groups=["lap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.8964, 3.18546, 5.0904)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" groups=["lap"]]
-transform = Transform3D(0.874103, 0, 0.485741, 0, 1, 0, -0.485741, 0, 0.874103, 0, 0, 0)
-shape = SubResource("BoxShape3D_beq3a")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.61194, 0)
-mesh = SubResource("BoxMesh_htjdx")
-skeleton = NodePath("../..")
+[node name="LapGate" parent="." instance=ExtResource("3_du1p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4848, 0, 0)
 
 [node name="Spawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.6419, 3.18546, 16.2213)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5798, 3.9911, 16.2213)
 
 [node name="geometry" type="Node3D" parent="."]
 
@@ -133,6 +121,7 @@ mesh = SubResource("BoxMesh_wdx13")
 curve = SubResource("Curve3D_x0twe")
 
 [node name="Railin" type="CSGPolygon3D" parent="Path3D2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
 polygon = PackedVector2Array(10, 0, 10, 2, 11, 2, 11, 0)
 mode = 2
@@ -145,8 +134,10 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
+smooth_faces = true
 
 [node name="Railout" type="CSGPolygon3D" parent="Path3D2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
 polygon = PackedVector2Array(0, 0, 0, 2, -1, 2, -1, 0)
 mode = 2
@@ -159,8 +150,10 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
+smooth_faces = true
 
 [node name="Road" type="CSGPolygon3D" parent="Path3D2" groups=["road"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
 polygon = PackedVector2Array(0, 0, 0, 0.2, 10, 0.2, 10, 0)
 mode = 2

@@ -9,7 +9,7 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 signal lap_passed()
 
-@export var acceleration_impulse = 10
+@export var acceleration_impulse = 25
 @export var steering_velocity = 3.0
 @export var steering_time_mult = 0.1 ## increases steering over time
 @export var slide_damp_force = 5.0
@@ -17,11 +17,13 @@ signal lap_passed()
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
+@onready var bonk_particles = $BonkParticles
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
 var steering_state = 0
 var grounded = true
+var locked = false ## controlled by racetrack (for countdown)
 
 ## what the controller is telling us
 var drive_input = DRIVE_STATE.IDLE
@@ -30,6 +32,11 @@ var steering_input = 0
 
 # ----- CALLBACKS -----
 
+
+func _ready():
+	
+	# preloads it
+	bonk_particles.emitting = true
 
 
 func _physics_process(delta):
@@ -48,10 +55,10 @@ func _physics_process(delta):
 	
 	# acceleration
 	if drive_state == DRIVE_STATE.REVERSE:
-		apply_central_force( - forwards * acceleration_impulse)
+		if !locked: apply_central_force( - forwards * acceleration_impulse)
 		dust_particles.emitting = true
 	elif drive_state == DRIVE_STATE.GAS:
-		apply_central_force(forwards * acceleration_impulse)
+		if !locked: apply_central_force(forwards * acceleration_impulse)
 		dust_particles.emitting = true
 	else:
 		dust_particles.emitting = false
@@ -67,7 +74,8 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	pass
+	if body.is_in_group("road"): return
+	_bonk()
 
 
 func _on_body_exited(body):
@@ -167,3 +175,7 @@ func _flip_car():
 	transform = transform.orthonormalized()
 
 
+func _bonk():
+	bonk_particles.emitting = true
+	# heh
+	Input.vibrate_handheld(250)

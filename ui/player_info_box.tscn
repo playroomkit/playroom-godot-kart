@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="3_3u1ox"]
 [ext_resource type="Texture2D" uid="uid://b7ygbauek7olf" path="res://icon.svg" id="3_y12iy"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="PlayerInfoBox" type="MarginContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 5
@@ -17,11 +17,14 @@ script = ExtResource("1_jxl15")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="PlayerName" type="Label" parent="VBoxContainer"]
+[node name="PlayerName" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_3u1ox")
-text = "bebus"
-horizontal_alignment = 1
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center][color=green]bdasfebus[center]"
+fit_content = true
+autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -30,7 +33,7 @@ texture = ExtResource("3_y12iy")
 [node name="LapLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_3u1ox")
-text = "0"
+text = "laps: 0"
 horizontal_alignment = 1
 
 [node name="HttpImageLoader" parent="." instance=ExtResource("2_4e5yq")]

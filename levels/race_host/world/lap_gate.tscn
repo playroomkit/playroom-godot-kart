@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://qwyg4nibxxo7"]
+
+[ext_resource type="Script" path="res://levels/race_host/world/lap_gate.gd" id="1_aufri"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_beq3a"]
+size = Vector3(20, 20, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_htjdx"]
+size = Vector3(10, 1, 1)
+
+[node name="LapGate" type="Area3D" groups=["lap"]]
+script = ExtResource("1_aufri")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["lap"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_beq3a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.2195, 0)
+mesh = SubResource("BoxMesh_htjdx")
+skeleton = NodePath("../..")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

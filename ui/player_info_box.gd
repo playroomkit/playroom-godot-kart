@@ -13,7 +13,11 @@ extends MarginContainer
 func setup(racer : RacerPuppet):
 	
 	var state = racer.player_state
-	player_name.text = state.getProfile().name
+	var name_text = state.getProfile().name
+	var color = state.getProfile().color.hexString # color as hexstring
+	
+	# bbcode parses hexstring
+	player_name.text = "[center][color=" + color + "]" + name_text + "[center]"
 	#var image = state.getProfile().photo
 	
 	# image
@@ -22,7 +26,7 @@ func setup(racer : RacerPuppet):
 
 func update_lap(lap):
 	print("player box updating lap")
-	lap_label.text = lap
+	lap_label.text = "laps: " + str(lap)
 
 
 func _on_icon_retrieved(tex : ImageTexture):

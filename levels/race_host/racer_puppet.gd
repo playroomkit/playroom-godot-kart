@@ -62,6 +62,14 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	car.set_color(color)
 
 
+func lock_car():
+	car.locked = true
+
+
+func unlock_car():
+	car.locked = false
+
+
 
 # ----- PRIVATE -----
 

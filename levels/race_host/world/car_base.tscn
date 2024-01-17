@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=15 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 
@@ -7,7 +7,7 @@ albedo_color = Color(1, 0, 0.439216, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4gv78"]
 material = SubResource("StandardMaterial3D_uxte8")
-size = Vector3(1, 0.3, 2)
+size = Vector3(2, 0.6, 4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4tb1"]
 size = Vector3(1, 0.3, 2)
@@ -32,12 +32,33 @@ scale_max = 2.0
 radial_segments = 8
 rings = 4
 
+[sub_resource type="Curve" id="Curve_camx3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y3m3n"]
+curve = SubResource("Curve_camx3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8jfny"]
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_y3m3n")
+
+[sub_resource type="SphereMesh" id="SphereMesh_j2u00"]
+radius = 1.0
+height = 2.0
+radial_segments = 8
+rings = 4
+
 [node name="CarBase" type="RigidBody3D"]
+continuous_cd = true
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.5
 script = ExtResource("1_4bxcp")
-acceleration_impulse = 25
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_4gv78")
@@ -50,7 +71,27 @@ shape = SubResource("BoxShape3D_i4tb1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.421023, 0.156627)
 mesh = SubResource("SphereMesh_ucfb7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="debug slider" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="debug slider"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="debug slider/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HSlider" type="HSlider" parent="debug slider/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="debug slider/Control/VBoxContainer/HSlider"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 
 [node name="FlippedArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799316, 0)
@@ -72,6 +113,14 @@ shape = SubResource("BoxShape3D_qm01b")
 [node name="DustParticles" type="GPUParticles3D" parent="."]
 process_material = SubResource("ParticleProcessMaterial_38kkg")
 draw_pass_1 = SubResource("SphereMesh_ih0fp")
+
+[node name="BonkParticles" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8jfny")
+draw_pass_1 = SubResource("SphereMesh_j2u00")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
