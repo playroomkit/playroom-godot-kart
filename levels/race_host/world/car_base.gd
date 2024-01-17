@@ -16,6 +16,7 @@ signal lap_passed()
 @export var slide_damp_mult = 1.0
 
 @onready var mesh = $MeshInstance3D
+@onready var dust_particles = $DustParticles
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -48,8 +49,12 @@ func _physics_process(delta):
 	# acceleration
 	if drive_state == DRIVE_STATE.REVERSE:
 		apply_central_force( - forwards * acceleration_impulse)
+		dust_particles.emitting = true
 	elif drive_state == DRIVE_STATE.GAS:
 		apply_central_force(forwards * acceleration_impulse)
+		dust_particles.emitting = true
+	else:
+		dust_particles.emitting = false
 	
 	# steering
 	var speed = linear_velocity.length()
@@ -62,13 +67,11 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	if body.is_in_group("road"): grounded = true
-	print("on road")
+	pass
 
 
 func _on_body_exited(body):
-	if body.is_in_group("road"): grounded = false
-	print("off road")
+	pass
 
 
 func _on_flipped_area_entered(area):
@@ -80,6 +83,18 @@ func _on_lap_detector_area_entered(area):
 	if area.is_in_group("lap"):
 		print("lap detector, detected LAP!")
 		lap_passed.emit()
+
+
+func _on_track_hug_area_body_entered(body):
+	if body.is_in_group("road"): 
+		grounded = true
+		print("on road")
+
+
+func _on_track_hug_area_body_exited(body):
+	if body.is_in_group("road"): 
+		grounded = false
+		print("off road")
 
 
 
@@ -150,7 +165,5 @@ func _slide_dampening():
 func _flip_car():
 	transform.basis.y = Vector3(0,1,0)
 	transform = transform.orthonormalized()
-
-
 
 

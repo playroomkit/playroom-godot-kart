@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=11 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 
@@ -19,6 +19,19 @@ size = Vector3(0.5, 1, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t3yqm"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qm01b"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_38kkg"]
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ih0fp"]
+radial_segments = 8
+rings = 4
+
 [node name="CarBase" type="RigidBody3D"]
 max_contacts_reported = 1
 contact_monitor = true
@@ -37,6 +50,8 @@ shape = SubResource("BoxShape3D_i4tb1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.421023, 0.156627)
 mesh = SubResource("SphereMesh_ucfb7")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [node name="FlippedArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799316, 0)
 
@@ -44,15 +59,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799316, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0216786)
 shape = SubResource("BoxShape3D_t4xbo")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="LapDetector" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LapDetector"]
 shape = SubResource("BoxShape3D_t3yqm")
+
+[node name="TrackHugArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrackHugArea"]
+shape = SubResource("BoxShape3D_qm01b")
+
+[node name="DustParticles" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_38kkg")
+draw_pass_1 = SubResource("SphereMesh_ih0fp")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="area_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
 [connection signal="body_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
 [connection signal="area_entered" from="LapDetector" to="." method="_on_lap_detector_area_entered"]
+[connection signal="body_entered" from="TrackHugArea" to="." method="_on_track_hug_area_body_entered"]
+[connection signal="body_exited" from="TrackHugArea" to="." method="_on_track_hug_area_body_exited"]

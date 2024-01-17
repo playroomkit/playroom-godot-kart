@@ -5,9 +5,10 @@ class_name RaceTracker
 extends Node
 
 
-@export var laps = 2
+@export var max_laps = 2
 @export var ui : RaceUI
 
+var winner = null
 
 ## lap dictionary, racer -> lap
 var lap_dictionary = {}
@@ -29,4 +30,8 @@ func start_race(racers: Array[RacerPuppet]):
 func _on_player_new_lap(racer):
 	print("Race tracker recieved new lap!")
 	lap_dictionary[racer] += 1
-	ui.update_racer_lap(racer, lap_dictionary[racer])
+	var laps = lap_dictionary[racer]
+	ui.update_racer_lap(racer, laps)
+	
+	if winner == null and laps >= max_laps:
+		ui.set_winner(racer)

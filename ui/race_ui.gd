@@ -4,6 +4,7 @@ extends CanvasLayer
 
 
 @onready var race_tracker = $"../RaceTracker"
+@onready var label = $Control/MarginContainer/VBoxContainer/Label
 
 @export_category("Containers")
 @export var player_box_container : Container
@@ -27,3 +28,7 @@ func update_racer_lap(racer, lap):
 	print(player_boxes[racer])
 	player_boxes[racer].update_lap(lap)
 
+
+func set_winner(racer):
+	var state = racer.player_state
+	label.text = state.getProfile().name + " WINS!"
