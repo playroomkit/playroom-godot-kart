@@ -13,6 +13,8 @@ extends Node3D
 
 
 @export var track_base : TrackBase
+@export var race_ui : RaceUI
+@export var race_tracker : RaceTracker
 
 @export_category("Preloads")
 @export var racer_puppet_template : PackedScene
@@ -36,6 +38,12 @@ func _ready():
 	# populate and set up racers
 	for player in playroom.players.values():
 		racers.push_back(_create_racer(player))
+	
+	# set ui
+	for racer in racers:
+		race_ui.add_player(racer)
+	
+	race_tracker.start_race(racers)
 
 
 

@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_b56jl")
 joystick_type = 1
-buttons = Array[Resource]([null, null])
+buttons = Array[Resource("res://logic/joystick/playroom_joy_button_config.gd")]([null, null])

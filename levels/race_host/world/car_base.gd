@@ -7,6 +7,8 @@ extends RigidBody3D
 
 enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
+signal lap_passed()
+
 @export var acceleration_impulse = 10
 @export var steering_velocity = 3.0
 @export var steering_time_mult = 0.1 ## increases steering over time
@@ -51,7 +53,9 @@ func _physics_process(delta):
 	
 	# steering
 	var speed = linear_velocity.length()
-	angular_velocity.y = steering_velocity * -steering_state * speed
+	var velocity = steering_velocity * -steering_state * speed
+	if drive_state == DRIVE_STATE.REVERSE: velocity = -velocity
+	angular_velocity.y = velocity
 	
 	# slide damp
 	_slide_dampening()
@@ -69,6 +73,13 @@ func _on_body_exited(body):
 
 func _on_flipped_area_entered(area):
 	_flip_car()
+
+
+func _on_lap_detector_area_entered(area):
+	print("lap detector area detected...")
+	if area.is_in_group("lap"):
+		print("lap detector, detected LAP!")
+		lap_passed.emit()
 
 
 
@@ -108,7 +119,6 @@ func steer_left():
 
 
 func steer_neutral():
-	print("steer neutral")
 	steering_input = 0
 
 
@@ -124,8 +134,6 @@ func _process_input_flags(delta):
 	# map steering state
 	steering_state = min(1, steering_state)
 	steering_state = max(-1, steering_state)
-	
-	print("STEERING STATE: ", steering_state)
 
 
 # dampens tangential velocity
@@ -142,4 +150,7 @@ func _slide_dampening():
 func _flip_car():
 	transform.basis.y = Vector3(0,1,0)
 	transform = transform.orthonormalized()
+
+
+
 

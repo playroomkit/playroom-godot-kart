@@ -14,16 +14,6 @@ extends Node3D
 @export var cars : Array[CarBase]
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func add_car(car : CarBase):
 	add_child(car)
 	car.transform = car_spawn.transform

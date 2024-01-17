@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dl4xiwcwqkydo"]
+
+[ext_resource type="Script" path="res://ui/avatar_urls.gd" id="1_6emyj"]
+
+[resource]
+script = ExtResource("1_6emyj")
+avatars = ["https://cdn.discordapp.com/attachments/621586338759835668/1196579829429059695/IMG_6650.jpg?ex=65b824ce&is=65a5afce&hm=a665b793c3382ee948204a8ac13cb39d7e181465eb0c08026c87ce40860893db&", "https://cdn.discordapp.com/attachments/621586338759835668/1196576110838820954/419729292_321304960900067_183471019827732050_n.png?ex=65b82158&is=65a5ac58&hm=63b5d3520f4ab2fa8896ffbfcddabba2f4059408bf60bddd86197152f7b0ef0e&", "https://cdn.discordapp.com/attachments/621586338759835668/1196307172498346054/IMG_1562.png?ex=65b726e0&is=65a4b1e0&hm=aaa6da9d5ca862d076a0f98caad0acc5d119080a3aaed000d0edb5980589b28b&", "https://cdn.discordapp.com/attachments/621586338759835668/1196307144891437156/IMG_8922.jpg?ex=65b726d9&is=65a4b1d9&hm=4e438f94191e2a2e1c2e6740c5518e057efcd5fd5212542c3d793c9b3b1b0326&", "https://cdn.discordapp.com/attachments/621586338759835668/1196307067015798905/IMG_1557.png?ex=65b726c7&is=65a4b1c7&hm=3e0df21456c2673cf424dc1cba5a6b303f6652cf8a4fd1cd76434a0904a84f4a&"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=8 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 
@@ -17,12 +17,14 @@ size = Vector3(1, 0.3, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_t4xbo"]
 size = Vector3(0.5, 1, 1.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3yqm"]
+
 [node name="CarBase" type="RigidBody3D"]
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.5
 script = ExtResource("1_4bxcp")
-acceleration_impulse = 50
+acceleration_impulse = 25
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_4gv78")
@@ -44,7 +46,13 @@ shape = SubResource("BoxShape3D_t4xbo")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="LapDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LapDetector"]
+shape = SubResource("BoxShape3D_t3yqm")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="area_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
 [connection signal="body_entered" from="FlippedArea" to="." method="_on_flipped_area_entered"]
+[connection signal="area_entered" from="LapDetector" to="." method="_on_lap_detector_area_entered"]

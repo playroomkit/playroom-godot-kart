@@ -1,6 +1,6 @@
 
 ## controls an individual racer for the host, processing async client input.
-## also stores data.
+## also stores data for that racer/player.
 ## WARNING may occasionally await client!
 
 # TODO make generic?
@@ -13,6 +13,8 @@ extends Node
 # ----- FIELDS -----
 
 
+
+signal lap_passed(racer : RacerPuppet)
 
 @export_category("Preloads")
 @export var car_template : PackedScene
@@ -36,7 +38,11 @@ func _ready():
 func _process(delta):
 	
 	_process_joy_inputs()
-	
+
+
+func _on_car_lap_passed():
+	print("Racer received new lap! passing")
+	lap_passed.emit(self)
 
 
 ## called by host as a pseudo-constructor
@@ -49,6 +55,7 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	# spawn car
 	car = car_template.instantiate()
 	track_base.add_car(car)
+	car.lap_passed.connect(_on_car_lap_passed)
 	
 	# set car color
 	var color = Color(player_state.getProfile().color.hexString)

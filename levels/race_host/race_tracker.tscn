@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c18gyleijhnxj"]
+
+[ext_resource type="Script" path="res://levels/race_host/race_tracker.gd" id="1_5ukkm"]
+
+[node name="RaceTracker" type="Node"]
+script = ExtResource("1_5ukkm")

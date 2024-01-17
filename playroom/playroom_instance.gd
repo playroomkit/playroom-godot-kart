@@ -30,6 +30,9 @@ signal player_joined(args)
 ## joystick config
 @export var joystick_config : PlayroomJoystickConfig
 
+## avatars
+@export var avatars : AvatarURLs
+
 ## should host get a joystick?
 @export var host_joystick = false
 
@@ -201,6 +204,9 @@ func _start_playroom():
 	# launch in stream mode
 	if stream_mode: init_options.streamMode = true
 	
+	# avatars
+	if avatars != null: init_options.avatars = _create_avatars()
+	
 	# insert coin!
 	# registers our callback for when the game launches
 	playroom.insertCoin(init_options, _create_callback(_on_insert_coin))
@@ -221,4 +227,13 @@ func _setup_joysticks(player_state) -> JavaScriptObject:
 	
 	var joy_options = joystick_config.create_joy_options()
 	return JavaScriptBridge.create_object("Joystick", player_state, joy_options)
+
+
+func _create_avatars():
+	if avatars == null: return null
 	
+	var array = JavaScriptBridge.create_object("Array")
+	for string in avatars.avatars:
+		array.push(string)
+	
+	return array
