@@ -33,6 +33,9 @@ func _http_request_completed(result, response_code, headers, body):
 		push_error("Image couldn't be downloaded. Try a different image.")
 
 	var image = Image.new()
+	print("HTTP LOADER: ")
+	print(headers)
+	print(body)
 	var error = image.load_png_from_buffer(body)
 	if error != OK:
 		push_error("Couldn't load the image.")

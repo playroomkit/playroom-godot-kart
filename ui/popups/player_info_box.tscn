@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b82ei7y1hs1qf"]
+[gd_scene load_steps=4 format=3 uid="uid://b82ei7y1hs1qf"]
 
 [ext_resource type="Script" path="res://ui/popups/player_info_box.gd" id="1_ohrqx"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_pkgkq"]
 [ext_resource type="Texture2D" uid="uid://b7ygbauek7olf" path="res://icon.svg" id="3_ccpe0"]
-[ext_resource type="PackedScene" uid="uid://co5d0xri4kaif" path="res://ui/HTTPImageLoader.tscn" id="4_75oov"]
 
 [node name="PlayerInfoBox" type="MarginContainer"]
 offset_right = 40.0
@@ -35,5 +34,3 @@ layout_mode = 2
 theme = ExtResource("2_pkgkq")
 text = "laps: 0"
 horizontal_alignment = 1
-
-[node name="HttpImageLoader" parent="." instance=ExtResource("4_75oov")]
