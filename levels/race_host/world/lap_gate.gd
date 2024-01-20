@@ -1,5 +1,4 @@
 extends Area3D
-@onready var gpu_particles_3d = $CollisionShape3D/MeshInstance3D/GPUParticles3D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,4 +12,4 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	gpu_particles_3d.emitting = true
+	pass

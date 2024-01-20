@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxhbneg33xsjv"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_38kkg"]
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ih0fp"]
+radial_segments = 8
+rings = 4
+
+[node name="DustParticles" type="GPUParticles3D"]
+process_material = SubResource("ParticleProcessMaterial_38kkg")
+draw_pass_1 = SubResource("SphereMesh_ih0fp")

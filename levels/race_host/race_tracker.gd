@@ -37,8 +37,11 @@ func start_race(racers: Array[RacerPuppet]):
 		# hold
 		racer.lock_car()
 		
+		# get ready
+		ui.racers_ready()
+		
 		# fashionable delay
-		await get_tree().create_timer(2).timeout
+		await get_tree().create_timer(5).timeout
 		
 		# start count
 		_start_countdown()

@@ -1,8 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=18 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/track_base.gd" id="1_o7q5g"]
 [ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_2nhiv"]
 [ext_resource type="PackedScene" uid="uid://qwyg4nibxxo7" path="res://levels/race_host/world/lap_gate.tscn" id="3_du1p7"]
+[ext_resource type="Script" path="res://levels/race_host/world/ParticlePreloader.gd" id="4_lf3fy"]
+[ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="5_rfu7a"]
+[ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="6_o5suw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
 
@@ -167,3 +170,10 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
 material = SubResource("StandardMaterial3D_6rqvi")
+
+[node name="ParticlePreloader" type="Node3D" parent="."]
+script = ExtResource("4_lf3fy")
+
+[node name="DustParticles" parent="ParticlePreloader" instance=ExtResource("5_rfu7a")]
+
+[node name="BonkParticles" parent="ParticlePreloader" instance=ExtResource("6_o5suw")]

@@ -34,9 +34,7 @@ var steering_input = 0
 
 
 func _ready():
-	
-	# preloads it
-	bonk_particles.emitting = true
+	pass
 
 
 func _physics_process(delta):
