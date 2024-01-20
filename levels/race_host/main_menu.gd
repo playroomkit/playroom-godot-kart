@@ -8,7 +8,7 @@ extends Control
 @export var race_scene : PackedScene
 @export var player_boxes : Container
 @export var player_box_scene : PackedScene
-@onready var qr_code_rect_2 = $MarginContainer/Center/VBoxContainer/VBoxContainer/QRCodeRect2
+@export var qr_code_rect : QRCodeRect
 
 
 func _ready():
@@ -22,7 +22,7 @@ func _ready():
 		_add_player_box(state)
 	
 	# set up qr code
-	qr_code_rect_2.data = playroom.current_url
+	qr_code_rect.data = playroom.current_url
 
 
 func _on_race_pressed():

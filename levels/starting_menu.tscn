@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
 [ext_resource type="PackedScene" uid="uid://barvkk73qncxb" path="res://levels/controller_scene.tscn" id="2_vfjlc"]
-[ext_resource type="PackedScene" uid="uid://bdugby311lss" path="res://levels/race_host/main_menu.tscn" id="3_1g2wn"]
+[ext_resource type="PackedScene" uid="uid://bdugby311lss" path="res://levels/race_host/main_menu_alt.tscn" id="3_1g2wn"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="4_mf4ca"]
 
 [node name="StartingMenu" type="Control"]
@@ -44,7 +44,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("4_mf4ca")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 100
 text = "LAUNCH/JOIN PLAYROOM
 "
 flat = true

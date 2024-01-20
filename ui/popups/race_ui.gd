@@ -60,10 +60,6 @@ func update_racer_lap(racer, lap):
 	print("UI updating lap...")
 	print(player_boxes[racer])
 	player_boxes[racer].update_lap(lap)
-	
-	# I would make this an export packedscene but cyclic dependancies (sigh)
-	var packed = preload("res://levels/race_host/main_menu.tscn")
-	get_tree().change_scene_to_packed(packed)
 
 
 func set_winner(racer):

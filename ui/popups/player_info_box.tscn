@@ -20,13 +20,16 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("2_pkgkq")
 bbcode_enabled = true
-text = "[center][color=green]bdasfebus[center]"
+text = "[center][color=green]bdasfbus[center]"
 fit_content = true
 autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 texture = ExtResource("3_ccpe0")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="LapLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
