@@ -126,6 +126,8 @@ curve = SubResource("Curve3D_x0twe")
 [node name="Railin" type="CSGPolygon3D" parent="Path3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 polygon = PackedVector2Array(10, 0, 10, 2, 11, 2, 11, 0)
 mode = 2
 path_node = NodePath("..")
@@ -142,6 +144,8 @@ smooth_faces = true
 [node name="Railout" type="CSGPolygon3D" parent="Path3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 polygon = PackedVector2Array(0, 0, 0, 2, -1, 2, -1, 0)
 mode = 2
 path_node = NodePath("..")

@@ -1,20 +1,18 @@
 [gd_scene load_steps=11 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
+[ext_resource type="ArrayMesh" uid="uid://b3bpl8v101sgs" path="res://assets/models/raceCarWhite.obj" id="2_kxmip"]
 [ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="2_s0bvv"]
 [ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="3_6jgyt"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxte8"]
-albedo_color = Color(1, 0, 0.439216, 1)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ynmy1"]
+bounce = 0.78
 
-[sub_resource type="BoxMesh" id="BoxMesh_4gv78"]
-material = SubResource("StandardMaterial3D_uxte8")
-size = Vector3(2, 0.6, 4)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8ki8"]
+albedo_color = Color(1, 0.341176, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4tb1"]
 size = Vector3(1, 0.3, 2)
-
-[sub_resource type="SphereMesh" id="SphereMesh_ucfb7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t4xbo"]
 size = Vector3(0.5, 1, 1.5)
@@ -24,6 +22,9 @@ size = Vector3(0.5, 1, 1.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qm01b"]
 
 [node name="CarBase" type="RigidBody3D"]
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_ynmy1")
 continuous_cd = true
 max_contacts_reported = 1
 contact_monitor = true
@@ -31,15 +32,13 @@ linear_damp = 0.5
 script = ExtResource("1_4bxcp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_4gv78")
+transform = Transform3D(-3, 0, 4.52987e-07, 0, 3, 0, -4.52987e-07, 0, -3, 0, 0, 0)
+mesh = ExtResource("2_kxmip")
 skeleton = NodePath("")
+surface_material_override/1 = SubResource("StandardMaterial3D_v8ki8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_i4tb1")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.421023, 0.156627)
-mesh = SubResource("SphereMesh_ucfb7")
 
 [node name="debug slider" type="CanvasLayer" parent="."]
 visible = false
@@ -81,6 +80,7 @@ shape = SubResource("BoxShape3D_t3yqm")
 shape = SubResource("BoxShape3D_qm01b")
 
 [node name="DustParticles" parent="." instance=ExtResource("2_s0bvv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.26721)
 
 [node name="BonkParticles" parent="." instance=ExtResource("3_6jgyt")]
 

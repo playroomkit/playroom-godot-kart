@@ -56,6 +56,7 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	car = car_template.instantiate()
 	track_base.add_car(car)
 	car.lap_passed.connect(_on_car_lap_passed)
+	lock_car()
 	
 	# set car color
 	var color = Color(player_state.getProfile().color.hexString)

@@ -10,14 +10,16 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 signal lap_passed()
 
 @export var acceleration_impulse = 25
-@export var steering_velocity = 3.0
+@export var steering_velocity = 1.0
 @export var steering_time_mult = 0.1 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
+@export var bounce_force = 500.0
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
 @onready var bonk_particles = $BonkParticles
+@onready var collision_raycast = $CollisionRaycast
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -45,8 +47,10 @@ func _physics_process(delta):
 	
 	# then manage physics behavior
 	
-	# flying
+	# no driving if in the air
 	if !grounded: return
+	
+	# propulsion
 	
 	var forwards = transform.basis.z
 	var up = transform.basis.y
@@ -72,8 +76,8 @@ func _physics_process(delta):
 
 
 func _on_body_entered(body):
-	if body.is_in_group("road"): return
-	_bonk()
+	if !body.is_in_group("road"):
+		_bonk()
 
 
 func _on_body_exited(body):
@@ -110,7 +114,7 @@ func _on_track_hug_area_body_exited(body):
 func set_color(color : Color):
 	var mat = StandardMaterial3D.new()
 	mat.albedo_color = color
-	mesh.material_override = mat
+	mesh.set_surface_override_material(1, mat)
 
 
 # -- Control Commands
@@ -173,7 +177,14 @@ func _flip_car():
 	transform = transform.orthonormalized()
 
 
+# when hit
 func _bonk():
 	bonk_particles.emitting = true
 	# heh
 	Input.vibrate_handheld(250)
+
+
+# bounces us away from the collision
+func _bounce(normal : Vector3):
+	print("bouncing...")
+	apply_central_force(normal * bounce_force)

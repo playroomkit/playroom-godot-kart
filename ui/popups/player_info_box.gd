@@ -6,7 +6,6 @@
 class_name PlayerInfoBox
 extends MarginContainer
 
-@export var test_image = "https://cdn.discordapp.com/attachments/621586338759835668/1196891483740045472/17054315603897718671402080319310.jpg?ex=65b9470e&is=65a6d20e&hm=854ea07670209fd714a406e9c54d6a66af354db3d3118ef257243e5c3e769386&"
 
 @onready var player_name = $VBoxContainer/PlayerName
 @onready var icon_texrect = $VBoxContainer/TextureRect
@@ -17,12 +16,16 @@ func setup(racer):
 	
 	var state
 	
+	# input is racer
 	if racer is RacerPuppet:
 		state = racer.player_state
 	
-	# player state
+	# input is player state
 	elif racer is JavaScriptObject:
 		state = racer
+	
+	#print("RACER INFO BOX SETUP :")
+	#print(state.getProfile().photo)
 	
 	var name_text = state.getProfile().name
 	var color = state.getProfile().color.hexString # color as hexstring

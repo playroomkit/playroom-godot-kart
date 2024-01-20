@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Playroom="*res://playroom/playroom_global.tscn"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input_devices]
 
 pointing/android/enable_long_press_as_right_click=true

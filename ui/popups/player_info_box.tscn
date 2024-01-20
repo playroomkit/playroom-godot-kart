@@ -25,10 +25,8 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(50, 200)
 layout_mode = 2
 texture = ExtResource("3_ccpe0")
-expand_mode = 1
 stretch_mode = 5
 
 [node name="LapLabel" type="Label" parent="VBoxContainer"]

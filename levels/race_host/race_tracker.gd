@@ -33,18 +33,15 @@ func start_race(racers: Array[RacerPuppet]):
 		
 		# listen for racer passing new lap
 		racer.lap_passed.connect(_on_player_new_lap)
-		
-		# hold
-		racer.lock_car()
-		
-		# get ready
-		ui.racers_ready()
-		
-		# fashionable delay
-		await get_tree().create_timer(5).timeout
-		
-		# start count
-		_start_countdown()
+	
+	# get ready
+	ui.racers_ready()
+	
+	# fashionable delay
+	await get_tree().create_timer(5).timeout
+	
+	# start count
+	_start_countdown()
 
 
 ## unlock racers
