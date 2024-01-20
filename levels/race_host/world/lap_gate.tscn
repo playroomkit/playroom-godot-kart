@@ -12,7 +12,6 @@ size = Vector3(10, 1, 1)
 script = ExtResource("1_aufri")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["lap"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_beq3a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]

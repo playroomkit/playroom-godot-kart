@@ -58,7 +58,10 @@ func _start_countdown():
 func _on_count_timeout():
 	current_countdown -= 1
 	countdown.emit(current_countdown)
-	if current_countdown <= 0: _go()
+	if current_countdown <= 0: 
+		_go()
+	else:
+		count.start()
 
 
 func _on_player_new_lap(racer):

@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv8iyqsm6syx7"]
+
+[ext_resource type="Texture2D" uid="uid://b7ygbauek7olf" path="res://icon.svg" id="2_4pou7"]
+[ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_ojmga"]
+
+[node name="PlayerMenuBox" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PlayerName" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_ojmga")
+bbcode_enabled = true
+text = "[center] bebus"
+fit_content = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_4pou7")
+stretch_mode = 3

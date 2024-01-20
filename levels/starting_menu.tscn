@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
 [ext_resource type="PackedScene" uid="uid://barvkk73qncxb" path="res://levels/controller_scene.tscn" id="2_vfjlc"]
-[ext_resource type="PackedScene" uid="uid://bkj0e3k38urmf" path="res://levels/race_host/race_base.tscn" id="3_dumtf"]
+[ext_resource type="PackedScene" uid="uid://bdugby311lss" path="res://levels/race_host/main_menu.tscn" id="3_1g2wn"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="4_mf4ca"]
 
 [node name="StartingMenu" type="Control"]
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_akl4v")
 controller_scene = ExtResource("2_vfjlc")
-race_scene = ExtResource("3_dumtf")
+race_scene = ExtResource("3_1g2wn")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

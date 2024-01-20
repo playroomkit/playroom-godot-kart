@@ -48,6 +48,8 @@ signal player_joined(args)
 	get: return playroom
 	set(value): pass
 
+## current url of playroom session (used for joining)
+var current_url
 
 ## playroom players: stored as a dict of player state -> player node.
 ## can be referenced by state, but contains additional information
@@ -85,6 +87,10 @@ func _on_insert_coin(args):
 	
 	print("COIN INSERTED")
 	coin_inserted.emit(args)
+	
+	# get url
+	current_url = JavaScriptBridge.eval("window.location.href")
+	print("RETRIEVED CURRENT URL: ", current_url)
 
 
 # called by playroom when a new player joins (including the host)
@@ -122,6 +128,9 @@ func _on_new_player_join(args):
 	
 	# add joystick
 	player.joystick = _setup_joysticks(state)
+	
+	# pass it along
+	player_joined.emit(args)
 
 
 # called by playroom when a player quits

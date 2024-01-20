@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Playroom="*res://playroom/playroom_global.tscn"
 
+[input_devices]
+
+pointing/android/enable_long_press_as_right_click=true
+pointing/android/enable_pan_and_scale_gestures=true
+
 [rendering]
 
 renderer/rendering_method="mobile"
