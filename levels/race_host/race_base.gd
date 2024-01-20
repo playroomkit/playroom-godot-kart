@@ -39,10 +39,15 @@ func _ready():
 	for player in playroom.players.values():
 		racers.push_back(_create_racer(player))
 	
-	# set ui
+	# set ui racers
 	for racer in racers:
 		race_ui.add_player(racer)
 	
+	# waits one frame for everything to load
+	# this is hacky
+	await get_tree().process_frame
+	
+	# start race!
 	race_tracker.start_race(racers)
 
 

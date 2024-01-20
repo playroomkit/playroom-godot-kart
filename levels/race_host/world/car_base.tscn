@@ -1,6 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=11 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
+[ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="2_s0bvv"]
+[ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="3_6jgyt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxte8"]
 albedo_color = Color(1, 0, 0.439216, 1)
@@ -20,38 +22,6 @@ size = Vector3(0.5, 1, 1.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_t3yqm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qm01b"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_38kkg"]
-initial_velocity_min = 1.0
-initial_velocity_max = 1.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.5
-scale_max = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_ih0fp"]
-radial_segments = 8
-rings = 4
-
-[sub_resource type="Curve" id="Curve_camx3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_y3m3n"]
-curve = SubResource("Curve_camx3")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8jfny"]
-spread = 180.0
-initial_velocity_min = 10.0
-initial_velocity_max = 10.0
-gravity = Vector3(0, 0, 0)
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_y3m3n")
-
-[sub_resource type="SphereMesh" id="SphereMesh_j2u00"]
-radius = 1.0
-height = 2.0
-radial_segments = 8
-rings = 4
 
 [node name="CarBase" type="RigidBody3D"]
 continuous_cd = true
@@ -110,17 +80,9 @@ shape = SubResource("BoxShape3D_t3yqm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TrackHugArea"]
 shape = SubResource("BoxShape3D_qm01b")
 
-[node name="DustParticles" type="GPUParticles3D" parent="."]
-process_material = SubResource("ParticleProcessMaterial_38kkg")
-draw_pass_1 = SubResource("SphereMesh_ih0fp")
+[node name="DustParticles" parent="." instance=ExtResource("2_s0bvv")]
 
-[node name="BonkParticles" type="GPUParticles3D" parent="."]
-emitting = false
-lifetime = 0.3
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_8jfny")
-draw_pass_1 = SubResource("SphereMesh_j2u00")
+[node name="BonkParticles" parent="." instance=ExtResource("3_6jgyt")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
