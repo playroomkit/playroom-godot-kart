@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=12 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 [ext_resource type="ArrayMesh" uid="uid://b3bpl8v101sgs" path="res://assets/models/raceCarWhite.obj" id="2_kxmip"]
 [ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="2_s0bvv"]
 [ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="3_6jgyt"]
+[ext_resource type="PackedScene" uid="uid://b1ftj4p0hkojy" path="res://debug_slider.tscn" id="5_nsc6b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ynmy1"]
 bounce = 0.78
@@ -12,7 +13,7 @@ bounce = 0.78
 albedo_color = Color(1, 0.341176, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4tb1"]
-size = Vector3(1, 0.3, 2)
+size = Vector3(1, 0.2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t4xbo"]
 size = Vector3(0.5, 1, 1.5)
@@ -25,7 +26,6 @@ size = Vector3(0.5, 1, 1.5)
 collision_layer = 3
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ynmy1")
-continuous_cd = true
 max_contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.5
@@ -39,28 +39,6 @@ surface_material_override/1 = SubResource("StandardMaterial3D_v8ki8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_i4tb1")
-
-[node name="debug slider" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="Control" type="Control" parent="debug slider"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="debug slider/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HSlider" type="HSlider" parent="debug slider/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="debug slider/Control/VBoxContainer/HSlider"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
 
 [node name="FlippedArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.799316, 0)
@@ -83,6 +61,23 @@ shape = SubResource("BoxShape3D_qm01b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.26721)
 
 [node name="BonkParticles" parent="." instance=ExtResource("3_6jgyt")]
+
+[node name="debugcanvas" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="debugcanvas"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="debug slider" parent="debugcanvas/VBoxContainer" node_paths=PackedStringArray("target_object") instance=ExtResource("5_nsc6b")]
+layout_mode = 2
+target_object = NodePath("../../..")
+target_property = "steering_velocity"
+
+[node name="debug slider2" parent="debugcanvas/VBoxContainer" node_paths=PackedStringArray("target_object") instance=ExtResource("5_nsc6b")]
+layout_mode = 2
+target_object = NodePath("../../..")
+target_property = "steering_time_mult"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

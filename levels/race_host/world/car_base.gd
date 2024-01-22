@@ -10,11 +10,11 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 signal lap_passed(gate)
 
 @export var acceleration_impulse = 25
-@export var steering_velocity = 1.0
+@export var steering_velocity = 1.5
 @export var steering_time_mult = 0.1 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
-@export var bounce_force = 500.0
+@export var flip_delay = 0.5 ## seconds
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
@@ -173,6 +173,7 @@ func _slide_dampening():
 
 
 func _flip_car():
+	await get_tree().create_timer(flip_delay).timeout
 	transform.basis.y = Vector3(0,1,0)
 	transform = transform.orthonormalized()
 
@@ -182,9 +183,3 @@ func _bonk():
 	bonk_particles.emitting = true
 	# heh
 	Input.vibrate_handheld(250)
-
-
-# bounces us away from the collision
-func _bounce(normal : Vector3):
-	print("bouncing...")
-	apply_central_force(normal * bounce_force)
