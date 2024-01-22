@@ -44,9 +44,9 @@ point_count = 9
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rqvi"]
 albedo_color = Color(0.317647, 0.317647, 0.317647, 1)
 
-[node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawn")]
+[node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawns")]
 script = ExtResource("1_o7q5g")
-car_spawn = NodePath("Spawn")
+car_spawns = [NodePath("Spawns/Marker3D6"), NodePath("Spawns/Marker3D5"), NodePath("Spawns/Marker3D4"), NodePath("Spawns/Marker3D3"), NodePath("Spawns/Marker3D2"), NodePath("Spawns/Marker3D")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i41jo")
@@ -76,11 +76,33 @@ transform = Transform3D(1, 0, 0, 0, 0.686529, 0.727102, 0, -0.727102, 0.686529, 
 light_color = Color(0.92549, 0.964706, 1, 1)
 light_energy = 1.685
 
+[node name="Gate1" parent="." instance=ExtResource("3_du1p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.3643, 0, 0)
+gate_number = 1
+
 [node name="LapGate" parent="." instance=ExtResource("3_du1p7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4848, 0, 0)
 
-[node name="Spawn" type="Node3D" parent="."]
+[node name="Spawns" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5798, 3.9911, 16.2213)
+
+[node name="Marker3D" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, 0.577835, 0, -12.4694)
+
+[node name="Marker3D2" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, -3.51122, -9.53674e-07, -12.1884)
+
+[node name="Marker3D3" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, -2.65121, -0.702055, -3.77577)
+
+[node name="Marker3D4" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, 2.18034, -0.702054, -4.81949)
+
+[node name="Marker3D5" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, -1.26261, -1.91759, 4.59631)
+
+[node name="Marker3D6" type="Marker3D" parent="Spawns"]
+transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, 3.0714, -1.91759, 3.77006)
 
 [node name="geometry" type="Node3D" parent="."]
 

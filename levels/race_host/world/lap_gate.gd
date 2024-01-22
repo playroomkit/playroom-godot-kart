@@ -1,5 +1,8 @@
 extends Area3D
 
+## gate 0 is the finish line, ascending values are checkpoints.
+## checkpoints should be traversed in descending order.
+@export var gate_number = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

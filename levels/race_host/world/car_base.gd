@@ -7,7 +7,7 @@ extends RigidBody3D
 
 enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
-signal lap_passed()
+signal lap_passed(gate)
 
 @export var acceleration_impulse = 25
 @export var steering_velocity = 1.0
@@ -92,7 +92,7 @@ func _on_lap_detector_area_entered(area):
 	print("lap detector area detected...")
 	if area.is_in_group("lap"):
 		print("lap detector, detected LAP!")
-		lap_passed.emit()
+		lap_passed.emit(area.gate_number)
 
 
 func _on_track_hug_area_body_entered(body):

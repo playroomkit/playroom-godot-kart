@@ -14,7 +14,7 @@ extends Node
 
 
 
-signal lap_passed(racer : RacerPuppet)
+signal lap_passed(racer : RacerPuppet, gate : int)
 
 @export_category("Preloads")
 @export var car_template : PackedScene
@@ -40,9 +40,9 @@ func _process(delta):
 	_process_joy_inputs()
 
 
-func _on_car_lap_passed():
+func _on_car_lap_passed(gate):
 	print("Racer received new lap! passing")
-	lap_passed.emit(self)
+	lap_passed.emit(self, gate)
 
 
 ## called by host as a pseudo-constructor

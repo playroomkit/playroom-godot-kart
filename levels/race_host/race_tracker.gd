@@ -9,6 +9,7 @@ signal countdown(current_count)
 
 @export var countdown_seconds = 3
 @export var max_laps = 2
+@export var num_gates = 1
 @export var ui : RaceUI
 @export var end_menu : CanvasLayer
 
@@ -30,6 +31,7 @@ func start_race(racers: Array[RacerPuppet]):
 	# initialize dicts
 	for racer in racers:
 		lap_dictionary[racer] = 0
+		checkpoint_dictionary[racer] = 0
 		
 		# listen for racer passing new lap
 		racer.lap_passed.connect(_on_player_new_lap)
@@ -64,15 +66,30 @@ func _on_count_timeout():
 		count.start()
 
 
-func _on_player_new_lap(racer):
-	print("Race tracker recieved new lap!")
-	lap_dictionary[racer] += 1
-	var laps = lap_dictionary[racer]
-	ui.update_racer_lap(racer, laps)
+func _on_player_new_lap(racer, gate):
+	print("Race tracker recieved new gate!")
 	
-	if winner == null and laps >= max_laps:
-		_set_winner(racer)
-
+	var last_gate = checkpoint_dictionary[racer]
+	
+	# finish line passed correctly:
+	if gate == 0 and last_gate == 1:
+		
+		# new lap logic
+		lap_dictionary[racer] += 1
+		var laps = lap_dictionary[racer]
+		ui.update_racer_lap(racer, laps)
+		if winner == null and laps >= max_laps:
+			_set_winner(racer)
+	
+	# correct gate pass / first gate after finishing lap
+	elif last_gate == gate + 1 or (last_gate == 0 and gate == num_gates):
+		checkpoint_dictionary[racer] = gate
+	
+	# incorrectly passed gate
+	else:
+		print(racer.player_state.getProfile().name, "PASSED GATE INCORRECTLY")
+	
+	
 
 func _set_winner(racer):
 	ui.set_winner(racer)
