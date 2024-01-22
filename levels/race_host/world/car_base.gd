@@ -10,11 +10,13 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 signal lap_passed(gate)
 
 @export var acceleration_impulse = 25
-@export var steering_velocity = 1.5
+@export var steering_velocity = 0.9
+@export var ideal_turning_velocity = 10.0
 @export var steering_time_mult = 0.1 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
-@export var flip_delay = 0.5 ## seconds
+@export var flip_delay = 1.5 ## seconds
+@export var downforce = 1
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
@@ -30,6 +32,7 @@ var locked = false ## controlled by racetrack (for countdown)
 ## what the controller is telling us
 var drive_input = DRIVE_STATE.IDLE
 var steering_input = 0
+var speed_steering_coefficient = 0.01
 
 
 # ----- CALLBACKS -----
@@ -56,23 +59,39 @@ func _physics_process(delta):
 	var up = transform.basis.y
 	
 	# acceleration
+	
 	if drive_state == DRIVE_STATE.REVERSE:
 		if !locked: apply_central_force( - forwards * acceleration_impulse)
 		dust_particles.emitting = true
+		
 	elif drive_state == DRIVE_STATE.GAS:
 		if !locked: apply_central_force(forwards * acceleration_impulse)
 		dust_particles.emitting = true
+		
 	else:
 		dust_particles.emitting = false
 	
 	# steering
-	var speed = linear_velocity.length()
-	var velocity = steering_velocity * -steering_state * speed
-	if drive_state == DRIVE_STATE.REVERSE: velocity = -velocity
+	
+	var speed = max(linear_velocity.length(), 1)
+	var velocity = steering_velocity * -steering_state
+	
+	# steering power increases up to ideal velocity, then decreases
+	if speed > ideal_turning_velocity: 
+		velocity /= (speed * speed_steering_coefficient)
+	else: 
+		velocity *= speed
+	
+	# if velocity is backwards, reverse steering
+	if linear_velocity.dot(-forwards) > 0: velocity = -velocity
+	
 	angular_velocity.y = velocity
 	
 	# slide damp
 	_slide_dampening()
+	
+	# downforce 
+	apply_central_force(-up * downforce)
 
 
 func _on_body_entered(body):
@@ -157,8 +176,7 @@ func _process_input_flags(delta):
 	steering_state = steering_input * delta
 	
 	# map steering state
-	steering_state = min(1, steering_state)
-	steering_state = max(-1, steering_state)
+	steering_state = clamp(steering_state, -1, 1)
 
 
 # dampens tangential velocity
