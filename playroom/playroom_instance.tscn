@@ -24,7 +24,5 @@ buttons = Array[ExtResource("2_4s5r0")]([SubResource("Resource_v57wr"), SubResou
 
 [node name="PlayroomInstance" type="Node"]
 script = ExtResource("1_437ol")
-stream_mode = true
 joystick_config = SubResource("Resource_80pms")
-host_joystick = true
 playroom_player_template = ExtResource("2_3a74q")

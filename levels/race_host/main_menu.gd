@@ -10,9 +10,10 @@ extends Control
 @export var player_box_scene : PackedScene
 @export var qr_code_rect : QRCodeRect
 
+var playroom : PlayroomInstance
 
 func _ready():
-	var playroom : PlayroomInstance = Playroom.instance
+	playroom = Playroom.instance
 	
 	# register signal to monitor for new players joining
 	playroom.player_joined.connect(_on_playroom_player_joined)
@@ -35,6 +36,10 @@ func _on_quit_pressed():
 
 
 func _on_playroom_player_joined(args):
+	# host is stream lobby - don't display name
+	print("SDJFAIOASDFIJO")
+	print("comparing ids ", args[0].id, playroom.playroom_my_player().id)
+	if args[0].id == playroom.playroom_my_player().id: return
 	_add_player_box(args[0])
 
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccbe61ofnjy2g"]
 
 [ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
-[ext_resource type="PackedScene" uid="uid://barvkk73qncxb" path="res://levels/controller_scene.tscn" id="2_vfjlc"]
-[ext_resource type="PackedScene" uid="uid://bdugby311lss" path="res://levels/race_host/main_menu_alt.tscn" id="3_1g2wn"]
+[ext_resource type="PackedScene" uid="uid://cfrufe72cpfdv" path="res://levels/stream_lobby.tscn" id="2_crwok"]
+[ext_resource type="PackedScene" uid="uid://cxigphsyctrqn" path="res://levels/player_lobby.tscn" id="3_ihkr4"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="4_mf4ca"]
 
 [node name="StartingMenu" type="Control"]
@@ -13,8 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_akl4v")
-controller_scene = ExtResource("2_vfjlc")
-race_scene = ExtResource("3_1g2wn")
+stream_lobby = ExtResource("2_crwok")
+player_lobby = ExtResource("3_ihkr4")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -49,22 +49,9 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
 theme = ExtResource("4_mf4ca")
 theme_override_font_sizes/font_size = 100
-text = "LAUNCH LOCAL PLAYROOM
+text = "ENTER PLAYROOM
 "
 flat = true
 icon_alignment = 1
 
-[node name="ButtonRemote" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_mf4ca")
-theme_override_font_sizes/font_size = 100
-text = "JOIN REMOTE PLAYROOM"
-flat = true
-
-[node name="ButtonDebug" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "launch debug"
-
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonRemote" to="." method="_on_button_remote_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonDebug" to="." method="_on_button_debug_pressed"]

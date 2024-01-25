@@ -25,6 +25,9 @@ signal player_joined(args)
 ## start playroom in stream mode?
 @export var stream_mode = false
 
+## skip playroom lobby?
+@export var skip_lobby = false
+
 # TODO dynamic joystick assignments? state "joystick_type" = 0, 1, etc.?
 
 ## joystick config
@@ -180,7 +183,7 @@ func playroom_my_player():
 
 
 ## returns if current context is the stream screen
-func playroom_is_stream_screen():
+func playroom_is_stream_screen() -> bool:
 	return playroom.isStreamScreen()
 
 
@@ -212,6 +215,9 @@ func _start_playroom():
 	
 	# launch in stream mode
 	if stream_mode: init_options.streamMode = true
+	
+	# skip lobby
+	if skip_lobby: init_options.skipLobby = true
 	
 	# avatars
 	if avatars != null: init_options.avatars = _create_avatars()

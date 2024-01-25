@@ -1,19 +1,16 @@
 
 ## Launches playroom - 
-## when coin is inserted, launches either mobile scene (controller) or 
-## race scene (host)
+## when coin is inserted, launches host into the stream lobby,
+## and launches subsequent joiners into the player lobby 
+## to choose between being a LAN controller or remote player
 
 class_name StartingMenu
 extends Control
 
 # ----- FIELDS -----
 
-@export var controller_scene : PackedScene
-@export var race_scene : PackedScene
-
-var stream_mode = false
-var debug = false
-var remote = false
+@export var stream_lobby : PackedScene
+@export var player_lobby : PackedScene
 
 var playroom : PlayroomInstance
 
@@ -35,28 +32,11 @@ func _ready():
 
 # this callback was connected to a button through the editor
 func _on_button_pressed():
-	stream_mode = true
-	_start_playroom()
-
-
-func _on_button_remote_pressed():
-	remote = true
-	_start_playroom()
-
-
-func _on_button_debug_pressed():
-	debug = true
 	_start_playroom()
 
 
 func _on_playroom_coin_inserted(args):
-	
-	if debug: 
-		_switch_scene_debug()
-	elif remote: 
-		_switch_scene_remote()
-	else: 
-		_switch_scene()
+	_switch_scene()
 
 
 
@@ -65,26 +45,12 @@ func _on_playroom_coin_inserted(args):
 
 
 func _start_playroom():
-	Playroom.instance.stream_mode = stream_mode
-	Playroom.instance.start_playroom()
+	playroom.skip_lobby = true
+	playroom.start_playroom()
 
 
-# for stream mode - sets up game as main screen + controllers
 func _switch_scene():
-	if playroom.playroom_is_stream_screen():
-		get_tree().change_scene_to_packed(race_scene)
+	if playroom.playroom_is_host():
+		get_tree().change_scene_to_packed(stream_lobby)
 	else:
-		get_tree().change_scene_to_packed(controller_scene)
-
-
-# gives controls to the main scene
-func _switch_scene_debug():
-	if playroom.playroom_is_host(): 
-		get_tree().change_scene_to_packed(race_scene)
-	else:
-		get_tree().change_scene_to_packed(controller_scene)
-
-
-
-func _switch_scene_remote():
-	pass
+		get_tree().change_scene_to_packed(player_lobby)
