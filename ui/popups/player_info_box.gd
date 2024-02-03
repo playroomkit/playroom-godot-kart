@@ -34,7 +34,7 @@ func setup(racer):
 	player_name.text = "[center][color=" + color + "]" + name_text + "[center]"
 	
 	# try to get image
-	var image_dataurl = state.getProfile().photo
+	var image_dataurl = await _wait_get_image(state)
 	var image = _parse_dataurl(image_dataurl)
 	var texture = ImageTexture.create_from_image(image)
 	icon_texrect.texture = texture
@@ -47,6 +47,20 @@ func update_lap(lap):
 
 func hide_laps():
 	lap_label.visible = false
+
+
+# TODO awaits the state image profile 
+func _wait_get_image(state):
+	# temp?
+	var photo = null
+	
+	while !photo is String:
+		print("pinging profile...")
+		photo = state.getProfile().photo
+		await get_tree().create_timer(1).timeout
+	
+	return photo 
+	
 
 
 func _parse_dataurl(data_url : String) -> Image:

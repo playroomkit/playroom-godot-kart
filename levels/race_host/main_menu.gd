@@ -36,14 +36,13 @@ func _on_quit_pressed():
 
 
 func _on_playroom_player_joined(args):
-	# host is stream lobby - don't display name
-	print("SDJFAIOASDFIJO")
-	print("comparing ids ", args[0].id, playroom.playroom_my_player().id)
-	if args[0].id == playroom.playroom_my_player().id: return
 	_add_player_box(args[0])
 
 
 func _add_player_box(state):
+	# host is stream lobby - don't display name
+	if state.id == playroom.playroom_my_player().id: return
+	
 	var box = player_box_scene.instantiate()
 	player_boxes.add_child(box)
 	box.setup(state)

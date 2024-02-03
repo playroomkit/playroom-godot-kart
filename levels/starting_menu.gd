@@ -45,7 +45,7 @@ func _on_playroom_coin_inserted(args):
 
 
 func _start_playroom():
-	playroom.skip_lobby = true
+	#playroom.skip_lobby = true
 	playroom.start_playroom()
 
 

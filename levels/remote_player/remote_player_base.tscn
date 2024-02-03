@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c42q88vy1gfd4"]
+
+[ext_resource type="Script" path="res://levels/remote_player/remote_player_base.gd" id="1_bvyy8"]
+
+[node name="RemotePlayerBase" type="Node2D"]
+script = ExtResource("1_bvyy8")

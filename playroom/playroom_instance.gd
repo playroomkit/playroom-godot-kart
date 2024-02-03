@@ -134,6 +134,8 @@ func _on_new_player_join(args):
 	
 	# pass it along
 	player_joined.emit(args)
+	
+	print("this is instance, player photo: ", state.getProfile().photo)
 
 
 # called by playroom when a player quits
