@@ -140,8 +140,6 @@ func _on_new_player_join(args):
 	
 	# pass it along
 	player_joined.emit(args)
-	
-	print("this is instance, player photo: ", state.getProfile().photo)
 
 
 # called by playroom when a player quits
@@ -204,15 +202,36 @@ func playroom_await_player_state(player_state, state_key : String):
 ## callable must be of signature (data, playerstate)
 ## TODO cannot specify signature on godot?
 func playroom_rpc_register(rpc_name : String, callable : Callable):
-	var callback = _create_callback(callable)
-	playroom.RPC.register(rpc_name, callback)
+	
+	print("instance registering RPC... ", rpc_name)
+	playroom.RPC.register(rpc_name, _create_callback(callable))
 
 
 ## calls a specified playroom RPC.
-## TODO implement callback/promise when response is receivec
-func playroom_rpc_call(rpc_name : String, data, rpc_type : RPC_TYPE = RPC_TYPE.OTHERS):
-	playroom.RPC.call(rpc_name, data, rpc_type)
-
+## TODO implement callback/promise when response is received
+func playroom_rpc_call( rpc_name : String, data : Dictionary, rpc_type = null):
+	
+	print("instance calling RPC... ", rpc_name)
+	
+	# rpc data to js object
+	var js_data : JavaScriptObject = JavaScriptBridge.create_object("Object")
+	for key in data.keys():
+		js_data.set(key, data[key])
+	
+	# translate rpc type
+	var pr_rpc_type
+	
+	match rpc_type:
+		RPC_TYPE.HOST:
+			pr_rpc_type = playroom.RPC.Mode.HOST
+		RPC_TYPE.OTHERS:
+			pr_rpc_type = playroom.RPC.Mode.OTHERS
+		_:
+			pr_rpc_type = playroom.RPC.Mode.ALL
+	
+	# call rpc
+	playroom.RPC.call(rpc_name, js_data, pr_rpc_type)
+	
 
 
 # ----- PRIVATE -----

@@ -1,7 +1,7 @@
 extends Control
 
 
-@export_dir var race_scene
+@export var race_scene : PackedScene
 
 @onready var playroom : PlayroomInstance = Playroom.instance
 
@@ -18,6 +18,9 @@ func _process(delta):
 
 
 # TODO global level list, load_race as separate RPC
-func _rpc_race_state_changed(data, caller):
-	if data == "load":
-		get_tree().change_scene_to_packed(load(race_scene))
+func _rpc_race_state_changed(args):
+	print("PLAYER: ", playroom.playroom_my_player().id ," RPC RECEIVED")
+	var data = args[0]
+	print(data.state_change)
+	if data.state_change == "load_race":
+		get_tree().change_scene_to_packed(race_scene)
