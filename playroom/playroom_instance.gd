@@ -13,8 +13,12 @@ extends Node
 # ----- FIELDS -----
 
 
+## playroom RPC call arguments
+enum RPC_TYPE {HOST, ALL, OTHERS}
+
 
 # signals allow other nodes to listen for playroom callbacks
+
 
 ## emitted when the playroom host launches the game
 signal coin_inserted(args)
@@ -22,18 +26,20 @@ signal coin_inserted(args)
 ## emitted when a new player joins
 signal player_joined(args)
 
+
+# export vars are displayed in the editor
+
+
 ## start playroom in stream mode?
 @export var stream_mode = false
 
 ## skip playroom lobby?
 @export var skip_lobby = false
 
-# TODO dynamic joystick assignments? state "joystick_type" = 0, 1, etc.?
-
-## joystick config
+## playroom joystick config
 @export var joystick_config : PlayroomJoystickConfig
 
-## avatars
+## playroom avatars
 @export var avatars : AvatarURLs
 
 ## should host get a joystick?
@@ -192,6 +198,20 @@ func playroom_is_stream_screen() -> bool:
 ## COROUTINE - returns control when given state is set truthy (see api)
 func playroom_await_player_state(player_state, state_key : String):
 	await playroom.waitForPlayerState(player_state, state_key)
+
+
+## registers an RPC with playroom.
+## callable must be of signature (data, playerstate)
+## TODO cannot specify signature on godot?
+func playroom_rpc_register(rpc_name : String, callable : Callable):
+	var callback = _create_callback(callable)
+	playroom.RPC.register(rpc_name, callback)
+
+
+## calls a specified playroom RPC.
+## TODO implement callback/promise when response is receivec
+func playroom_rpc_call(rpc_name : String, data, rpc_type : RPC_TYPE = RPC_TYPE.OTHERS):
+	playroom.RPC.call(rpc_name, data, rpc_type)
 
 
 

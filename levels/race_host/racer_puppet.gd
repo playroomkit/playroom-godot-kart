@@ -2,6 +2,7 @@
 ## controls an individual racer for the host, processing async client input.
 ## also stores data for that racer/player.
 ## WARNING may occasionally await client!
+## updates client player_states with race data (car positioning)
 
 # TODO make generic?
 
@@ -36,8 +37,11 @@ func _ready():
 
 
 func _process(delta):
-	
 	_process_joy_inputs()
+
+
+func _physics_process(delta):
+	_update_player_states()
 
 
 func _on_car_lap_passed(gate):
@@ -85,11 +89,18 @@ func _process_joy_inputs():
 	
 	var dpad = joystick.dpad()
 	
-	if joystick.isPressed("gas"): 		
-		car.press_gas()
+	if joystick.isPressed("gas"): 		car.press_gas()
 	elif joystick.isPressed("brake"): 	car.press_reverse()
 	else: 								car.press_idle()
 	
 	if dpad.x == "left": 	car.steer_left()
 	elif dpad.x == "right": car.steer_right()
 	else: 					car.steer_neutral()
+
+
+# update player states
+func _update_player_states():
+	if player_state == null: return
+	
+	# update car transform
+	player_state.setState("car_transform", car.transform)

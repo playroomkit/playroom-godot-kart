@@ -155,11 +155,13 @@ func press_idle():
 
 
 func steer_right():
-	steering_input += steering_time_mult
+	if steering_input < 0: steering_input = 0
+	else: steering_input += steering_time_mult
 
 
 func steer_left():
-	steering_input -= steering_time_mult
+	if steering_input > 0: steering_input = 0
+	else: steering_input -= steering_time_mult
 
 
 func steer_neutral():

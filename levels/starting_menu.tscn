@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccbe61ofnjy2g"]
 
 [ext_resource type="Script" path="res://levels/starting_menu.gd" id="1_akl4v"]
-[ext_resource type="PackedScene" uid="uid://cfrufe72cpfdv" path="res://levels/stream_lobby.tscn" id="2_crwok"]
-[ext_resource type="PackedScene" uid="uid://cxigphsyctrqn" path="res://levels/player_lobby.tscn" id="3_ihkr4"]
+[ext_resource type="PackedScene" uid="uid://dgtl2xbnc64uj" path="res://levels/race_host/host_lobby.tscn" id="2_7l1rp"]
+[ext_resource type="PackedScene" uid="uid://bynrp6g6via7s" path="res://levels/remote_player/player_lobby.tscn" id="3_45rmq"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="4_mf4ca"]
 
 [node name="StartingMenu" type="Control"]
@@ -13,8 +13,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_akl4v")
-stream_lobby = ExtResource("2_crwok")
-player_lobby = ExtResource("3_ihkr4")
+host_lobby = ExtResource("2_7l1rp")
+player_lobby = ExtResource("3_45rmq")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

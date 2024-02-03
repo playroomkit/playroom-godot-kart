@@ -9,7 +9,7 @@ extends Control
 
 # ----- FIELDS -----
 
-@export var stream_lobby : PackedScene
+@export var host_lobby : PackedScene
 @export var player_lobby : PackedScene
 
 var playroom : PlayroomInstance
@@ -51,6 +51,8 @@ func _start_playroom():
 
 func _switch_scene():
 	if playroom.playroom_is_host():
-		get_tree().change_scene_to_packed(stream_lobby)
+		print("is host, switching scene to: ", host_lobby)
+		get_tree().change_scene_to_packed(host_lobby)
 	else:
 		get_tree().change_scene_to_packed(player_lobby)
+		print("is host, switching scene to: ", player_lobby)

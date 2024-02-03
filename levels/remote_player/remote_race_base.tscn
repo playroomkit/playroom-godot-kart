@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c42q88vy1gfd4"]
+
+[ext_resource type="Script" path="res://levels/remote_player/remote_race_base.gd" id="1_jaxsj"]
+[ext_resource type="PackedScene" uid="uid://bkj0e3k38urmf" path="res://levels/race_host/race_base.tscn" id="2_re7ub"]
+
+[node name="RemoteRaceBase" type="Node3D"]
+script = ExtResource("1_jaxsj")
+
+[node name="RaceBase" parent="." instance=ExtResource("2_re7ub")]
