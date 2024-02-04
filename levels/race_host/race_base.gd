@@ -53,18 +53,67 @@ func _ready():
 	# waits one frame for everything to load
 	# this is hacky
 	await get_tree().process_frame
+	await get_tree().process_frame
+	print("finished waiting for frame")
 	
-	# ready 
+	# "waiting for other.."
+	race_ui.racers_waiting()
+	
+	# setup racers
 	race_tracker.setup_race(racers)
 	
-	# TODO wait for all players to ready (load ping)
+	# at this point, this player is considered loaded and ready to start
+	playroom.playroom_my_player().setState("race_ready", true)
 	
-	_start_race()
+	# if host, wait until all other players are ready
+	if playroom.playroom_is_host():
+		print("host is awaiting all ready")
+		var timeout = await _await_all_ready(1)
+		print("host: all players are ready, starting race")
+		
+		# once all players are ready, start race for all
+		playroom.playroom_rpc_call("start_race", {})
+		
+		# start race for self
+		_start_race()
+	
+	# if client, setup RPC to wait until the host is ready to start
+	else:
+		print("client, waiting for host to start")
+		playroom.playroom_rpc_register("start_race", _rpc_start_race)
 
 
 
 # ----- PRIVATE -----
 
+
+
+# checks all players for state.race_ready every ping interval 
+func _await_all_ready(ping_interval, timeout = 20):
+	
+	var pings = 0
+	
+	while pings <= timeout:
+		
+		# cycle racers
+		var count = 0
+		for r in racers:
+			if (r.player_state.getState("race_ready")) : count += 1
+		
+		# return if all true
+		if count >= racers.size(): return true
+		
+		pings += 1
+		await get_tree().create_timer(ping_interval).timeout
+	
+	# timed out
+	return false
+
+
+# if this is client, called by host to start race 
+func _rpc_start_race(args):
+	print("client received rpc! starting race")
+	_start_race()
 
 
 func _start_race():

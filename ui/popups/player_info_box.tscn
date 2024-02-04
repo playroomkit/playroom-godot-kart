@@ -20,7 +20,7 @@ layout_mode = 2
 [node name="PlayerName" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_pkgkq")
-theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "[center][color=green]bdasfbus[center]"
 fit_content = true

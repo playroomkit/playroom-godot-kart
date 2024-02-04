@@ -55,6 +55,10 @@ func racers_ready():
 	label.text = "RACERS READY"
 
 
+func racers_waiting():
+	label.text = "WAITING FOR ALL PLAYERS..."
+
+
 func update_racer_lap(racer, lap):
 	
 	print("UI updating lap...")

@@ -124,6 +124,8 @@ func _push_player_states():
 
 # pull data from playerstate
 func _pull_player_states():
+	var str = player_state.getState("car_transform")
+	if str == null: return
 	goal_transform = str_to_var(player_state.getState("car_transform"))
 
 
