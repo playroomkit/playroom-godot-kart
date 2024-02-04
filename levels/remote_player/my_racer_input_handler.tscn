@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyb4p6tx3uybj"]
+
+[ext_resource type="Script" path="res://levels/remote_player/my_racer_input_handler.gd" id="1_6nb7u"]
+
+[node name="MyRacerInputHandler" type="Node"]
+script = ExtResource("1_6nb7u")

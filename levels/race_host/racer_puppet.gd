@@ -50,6 +50,7 @@ func _ready():
 
 func _physics_process(delta):
 	_process_joy_inputs()
+	_process_keyboard_inputs()
 	_update_player_states()
 
 
@@ -107,6 +108,21 @@ func _process_joy_inputs():
 	if dpad.x == "left": 	car.steer_left()
 	elif dpad.x == "right": car.steer_right()
 	else: 					car.steer_neutral()
+
+
+# process keyboard inputs from playerstate (overrides joystick)
+func _process_keyboard_inputs():
+	if player_state == null: return
+	
+	if player_state.getState("up_input"): 	  car.press_gas()
+	elif player_state.getState("down_input"): car.press_reverse()
+	#else: 									  car.press_idle()
+	
+	if player_state.getState("right_input"):  car.steer_right()
+	elif player_state.getState("left_input"): car.steer_left()
+	#else: 									  car.steer_neutral()
+	
+	# idle state carries over from joy (allows both to give input for now)
 
 
 # update player states

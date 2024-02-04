@@ -1,5 +1,5 @@
 
-## playroom kart stream host - holds multiplayer logic
+## playroom kart stream host - holds multiplayer logic.
 # TODO make generic?
 
 
@@ -17,6 +17,7 @@ extends Node3D
 @export var race_ui : RaceUI
 @export var race_tracker : RaceTracker
 @export var race_end_menu : RaceEndMenu
+@export var racer_input_handler : MyRacerInputHandler
 
 @export_category("Preloads")
 @export var racer_puppet_template : PackedScene
@@ -33,6 +34,7 @@ var my_racer : RacerPuppet
 
 
 
+# TODO break into functions
 func _ready():
 	
 	var my_player = playroom.playroom_my_player()
@@ -44,6 +46,7 @@ func _ready():
 		
 		# keep track of my player's racer
 		if player.player_state.id == my_player.id: 
+			
 			my_racer = racer
 			track_base.my_racer = racer
 			racer.my_racer = true

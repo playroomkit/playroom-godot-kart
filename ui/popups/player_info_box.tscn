@@ -37,7 +37,7 @@ stretch_mode = 5
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("4_slupc")
-expand_mode = 5
+expand_mode = 3
 stretch_mode = 5
 
 [node name="LapLabel" type="Label" parent="VBoxContainer"]

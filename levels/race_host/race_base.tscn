@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkj0e3k38urmf"]
+[gd_scene load_steps=8 format=3 uid="uid://bkj0e3k38urmf"]
 
 [ext_resource type="Script" path="res://levels/race_host/race_base.gd" id="1_a6h88"]
 [ext_resource type="PackedScene" uid="uid://bgl1s0j7b3onx" path="res://levels/race_host/racer_puppet.tscn" id="2_83rvi"]
@@ -6,13 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://dn365ihwqmrum" path="res://ui/popups/race_ui.tscn" id="4_mo340"]
 [ext_resource type="PackedScene" uid="uid://c18gyleijhnxj" path="res://levels/race_host/race_tracker.tscn" id="5_n8dft"]
 [ext_resource type="PackedScene" uid="uid://ba3y0psskloa3" path="res://levels/race_host/race_end_menu.tscn" id="6_duud1"]
+[ext_resource type="PackedScene" uid="uid://dyb4p6tx3uybj" path="res://levels/remote_player/my_racer_input_handler.tscn" id="7_o1myp"]
 
-[node name="RaceBase" type="Node3D" node_paths=PackedStringArray("track_base", "race_ui", "race_tracker", "race_end_menu")]
+[node name="RaceBase" type="Node3D" node_paths=PackedStringArray("track_base", "race_ui", "race_tracker", "race_end_menu", "racer_input_handler")]
 script = ExtResource("1_a6h88")
 track_base = NodePath("TrackBase")
 race_ui = NodePath("ui")
 race_tracker = NodePath("RaceTracker")
 race_end_menu = NodePath("RaceEndMenu")
+racer_input_handler = NodePath("MyRacerInputHandler")
 racer_puppet_template = ExtResource("2_83rvi")
 
 [node name="TrackBase" parent="." instance=ExtResource("3_j80rh")]
@@ -25,5 +27,7 @@ end_menu = NodePath("../RaceEndMenu")
 
 [node name="RaceEndMenu" parent="." instance=ExtResource("6_duud1")]
 visible = false
+
+[node name="MyRacerInputHandler" parent="." instance=ExtResource("7_o1myp")]
 
 [connection signal="countdown" from="RaceTracker" to="ui" method="_on_race_tracker_countdown"]
