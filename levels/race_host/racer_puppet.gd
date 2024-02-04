@@ -2,7 +2,9 @@
 ## controls an individual racer for the host, processing async client input.
 ## also stores data for that racer/player.
 ## WARNING may occasionally await client!
-## updates client player_states with race data (car positioning)
+## updates client player_states with race data (car positioning).
+## if marked as remote, will attempt to sync car position with provided data.
+
 
 # TODO make generic?
 
@@ -17,6 +19,10 @@ extends Node
 
 signal lap_passed(racer : RacerPuppet, gate : int)
 
+@export_category("Networking")
+@export var remote = false
+@export var transform_lerp_weight = 0.5
+
 @export_category("Preloads")
 @export var car_template : PackedScene
 
@@ -25,6 +31,9 @@ var track_base : TrackBase
 var player_state = null
 var joystick = null
 var car : CarBase
+
+var goal_position : Vector3 # pulled from player state if is remote
+var goal_transform : Transform3D
 
 
 
@@ -36,11 +45,8 @@ func _ready():
 	playroom = Playroom.instance
 
 
-func _process(delta):
-	_process_joy_inputs()
-
-
 func _physics_process(delta):
+	_process_joy_inputs()
 	_update_player_states()
 
 
@@ -65,6 +71,8 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	# set car color
 	var color = Color(player_state.getProfile().color.hexString)
 	car.set_color(color)
+	
+	print("racer set up: ", player.player_state.id)
 
 
 func lock_car():
@@ -102,5 +110,25 @@ func _process_joy_inputs():
 func _update_player_states():
 	if player_state == null: return
 	
-	# update car transform
-	player_state.setState("car_transform", car.transform)
+	if playroom.playroom_is_host():
+		_push_player_states()
+	else:
+		_pull_player_states()
+		_sync_car_pos()
+
+
+# push information from host to playerstate
+func _push_player_states():
+	player_state.setState("car_transform", var_to_str(car.global_transform))
+
+
+# pull data from playerstate
+func _pull_player_states():
+	goal_transform = str_to_var(player_state.getState("car_transform"))
+
+
+# currently just lerps to pos
+# TODO do this with forces on a PID?
+func _sync_car_pos():
+	car.global_transform = car.global_transform.interpolate_with( \
+								goal_transform, transform_lerp_weight)

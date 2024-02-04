@@ -10,9 +10,9 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 signal lap_passed(gate)
 
 @export var acceleration_impulse = 25
-@export var steering_velocity = 0.9
+@export var steering_velocity = 12
 @export var ideal_turning_velocity = 10.0
-@export var steering_time_mult = 0.1 ## increases steering over time
+@export var steering_time_mult = 0.5 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
 @export var flip_delay = 1.5 ## seconds
@@ -21,7 +21,6 @@ signal lap_passed(gate)
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
 @onready var bonk_particles = $BonkParticles
-@onready var collision_raycast = $CollisionRaycast
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -39,6 +38,9 @@ var speed_steering_coefficient = 0.01
 
 
 func _ready():
+	var str = var_to_str(dust_particles.global_transform)
+	print(str)
+	print(str_to_var(str))
 	pass
 
 
@@ -155,13 +157,15 @@ func press_idle():
 
 
 func steer_right():
-	if steering_input < 0: steering_input = 0
-	else: steering_input += steering_time_mult
+	#if steering_input < 0: steering_input = 0
+	#else: steering_input += steering_time_mult
+	steering_input = 1
 
 
 func steer_left():
-	if steering_input > 0: steering_input = 0
-	else: steering_input -= steering_time_mult
+	#if steering_input > 0: steering_input = 0
+	#else: steering_input -= steering_time_mult
+	steering_input = -1
 
 
 func steer_neutral():
