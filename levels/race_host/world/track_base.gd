@@ -14,9 +14,11 @@ extends Node3D
 # iterator for car_spawns
 var cars_spawned = 0
 
-
 ## list of cars
 @export var cars : Array[CarBase]
+
+## current player's car, set by racebase
+var my_racer : RacerPuppet
 
 
 func add_car(car : CarBase):

@@ -54,8 +54,7 @@ environment = SubResource("Environment_i41jo")
 [node name="RaceCamera" parent="." node_paths=PackedStringArray("track") instance=ExtResource("2_2nhiv")]
 transform = Transform3D(1, 0, 0, 0, 0.533009, 0.84611, 0, -0.84611, 0.533009, 0, 60, 60)
 track = NodePath("..")
-y_offset = 60.0
-z_offset = 60.0
+z_offset = 30.0
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
@@ -77,7 +76,7 @@ light_color = Color(0.92549, 0.964706, 1, 1)
 light_energy = 1.685
 
 [node name="Gate1" parent="." instance=ExtResource("3_du1p7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.3643, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.0741, 0, -8.45108)
 gate_number = 1
 
 [node name="LapGate" parent="." instance=ExtResource("3_du1p7")]

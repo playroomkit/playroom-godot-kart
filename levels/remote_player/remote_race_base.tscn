@@ -7,3 +7,4 @@
 script = ExtResource("1_jaxsj")
 
 [node name="RaceBase" parent="." instance=ExtResource("2_re7ub")]
+remote = true

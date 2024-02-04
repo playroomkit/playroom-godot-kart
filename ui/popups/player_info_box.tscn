@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b82ei7y1hs1qf"]
+[gd_scene load_steps=5 format=3 uid="uid://b82ei7y1hs1qf"]
 
 [ext_resource type="Script" path="res://ui/popups/player_info_box.gd" id="1_ohrqx"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_pkgkq"]
 [ext_resource type="Texture2D" uid="uid://b7ygbauek7olf" path="res://icon.svg" id="3_ccpe0"]
+[ext_resource type="Texture2D" uid="uid://w07nvqvv1eap" path="res://examples/qr_code/icon.svg" id="4_slupc"]
 
 [node name="PlayerInfoBox" type="MarginContainer"]
 offset_right = 40.0
@@ -19,14 +20,24 @@ layout_mode = 2
 [node name="PlayerName" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_pkgkq")
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center][color=green]bdasfbus[center]"
 fit_content = true
 autowrap_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("3_ccpe0")
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_slupc")
+expand_mode = 5
 stretch_mode = 5
 
 [node name="LapLabel" type="Label" parent="VBoxContainer"]

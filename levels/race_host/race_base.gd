@@ -10,7 +10,8 @@ extends Node3D
 
 # ----- FIELDS -----
 
-
+## set true if remote client (not host)
+@export var remote = false
 
 @export var track_base : TrackBase
 @export var race_ui : RaceUI
@@ -19,11 +20,11 @@ extends Node3D
 @export_category("Preloads")
 @export var racer_puppet_template : PackedScene
 
-var playroom : PlayroomInstance
+@onready var playroom : PlayroomInstance = Playroom.instance
 
 ## populated by joined players on scene load (late joiners can spectate TODO) 
 var racers : Array[RacerPuppet]
-
+var my_racer : RacerPuppet
 
 
 
@@ -33,11 +34,17 @@ var racers : Array[RacerPuppet]
 
 func _ready():
 	
-	playroom = Playroom.instance
+	var my_player = playroom.playroom_my_player()
 	
 	# populate and set up racers
 	for player in playroom.players.values():
-		racers.push_back(_create_racer(player))
+		var racer = _create_racer(player)
+		racers.push_back(racer)
+		
+		# keep track of my player's racer
+		if player.player_state.id == my_player.id: 
+			my_racer = racer
+			track_base.my_racer = racer
 	
 	# set ui racers
 	for racer in racers:
@@ -47,13 +54,22 @@ func _ready():
 	# this is hacky
 	await get_tree().process_frame
 	
-	# start race!
-	race_tracker.start_race(racers)
+	# ready 
+	race_tracker.setup_race(racers)
+	
+	# TODO wait for all players to ready (load ping)
+	
+	_start_race()
 
 
 
 # ----- PRIVATE -----
 
+
+
+func _start_race():
+	# go!
+	race_tracker.start_race()
 
 
 func _create_racer(player : PlayroomPlayer) -> RacerPuppet:

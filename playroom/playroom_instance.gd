@@ -66,6 +66,11 @@ var players = {} :
 	get : return players
 	set(value) : pass
 
+## for fast and easy search
+var players_id = {} :
+	get : return players_id
+	set(value) : pass
+
 
 # We will create js callables to send to playroom to trigger async behavior -
 # ie. when a player loads into the game.
@@ -113,8 +118,9 @@ func _on_new_player_join(args):
 	print("I AM: ", playroom_my_player().id,  " PLAYER HAS JOINED: ", state.id)
 	player.player_state = state
 	
-	# add state and player to dict
+	# add state and player to dicts
 	players[state] = player
+	players_id[state.id] = state
 	
 	# populate state data (synced data)
 	

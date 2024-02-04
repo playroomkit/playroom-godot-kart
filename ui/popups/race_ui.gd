@@ -62,8 +62,7 @@ func update_racer_lap(racer, lap):
 	player_boxes[racer].update_lap(lap)
 
 
-func set_winner(racer):
-	var state = racer.player_state
+func set_winner(state):
 	label.visible = true
 	label.text = state.getProfile().name + " WINS!"
 

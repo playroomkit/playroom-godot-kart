@@ -21,6 +21,7 @@ signal lap_passed(gate)
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
 @onready var bonk_particles = $BonkParticles
+@onready var follow_camera = $FollowCamera
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE

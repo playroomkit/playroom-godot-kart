@@ -8,8 +8,8 @@ extends MarginContainer
 
 
 @onready var player_name = $VBoxContainer/PlayerName
-@onready var icon_texrect = $VBoxContainer/TextureRect
 @onready var lap_label = $VBoxContainer/LapLabel
+@onready var texture_rect = $VBoxContainer/MarginContainer/TextureRect2
 
 
 func setup(racer):
@@ -37,7 +37,7 @@ func setup(racer):
 	var image_dataurl = await _wait_get_image(state)
 	var image = _parse_dataurl(image_dataurl)
 	var texture = ImageTexture.create_from_image(image)
-	icon_texrect.texture = texture
+	texture_rect.texture = texture
 
 
 func update_lap(lap):
