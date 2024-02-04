@@ -16,6 +16,7 @@ extends Node3D
 @export var track_base : TrackBase
 @export var race_ui : RaceUI
 @export var race_tracker : RaceTracker
+@export var race_end_menu : RaceEndMenu
 
 @export_category("Preloads")
 @export var racer_puppet_template : PackedScene
@@ -45,16 +46,20 @@ func _ready():
 		if player.player_state.id == my_player.id: 
 			my_racer = racer
 			track_base.my_racer = racer
+			racer.my_racer = true
+			racer.car.my_car = true
 	
 	# set ui racers
 	for racer in racers:
 		race_ui.add_player(racer)
+	
 	
 	# waits one frame for everything to load
 	# this is hacky
 	await get_tree().process_frame
 	await get_tree().process_frame
 	print("finished waiting for frame")
+	
 	
 	# "waiting for other.."
 	race_ui.racers_waiting()
@@ -81,6 +86,46 @@ func _ready():
 	else:
 		print("client, waiting for host to start")
 		playroom.playroom_rpc_register("start_race", _rpc_start_race)
+		
+		# also setup other RPCs --
+		
+		# called by the end menu to retart the race
+		playroom.playroom_rpc_register("reload_race", _rpc_reload_race)
+		
+		# called by end menu to go back to player lobby
+		playroom.playroom_rpc_register("back_to_lobby", _rpc_back_to_lobby)
+		
+
+
+func _input(event):
+	
+	# esc to toggle menu if host
+	if event.is_action_pressed("ui_cancel"):
+		if playroom.playroom_is_host():
+			
+			if race_end_menu.visible:
+				race_end_menu.hide()
+				race_end_menu.visible = false
+			else:
+				race_end_menu.show()
+				race_end_menu.visible = true
+
+
+# -- CLIENT RPC CALLBACKS
+
+
+func _rpc_start_race(args):
+	print("client received rpc! starting race")
+	_start_race()
+
+
+func _rpc_reload_race(args):
+	print("reloading race")
+	get_tree().reload_current_scene()
+
+# TODO
+func _rpc_back_to_lobby(args):
+	get_tree().change_scene_to_packed(load("res://levels/remote_player/player_lobby.tscn"))
 
 
 
@@ -108,12 +153,6 @@ func _await_all_ready(ping_interval, timeout = 20):
 	
 	# timed out
 	return false
-
-
-# if this is client, called by host to start race 
-func _rpc_start_race(args):
-	print("client received rpc! starting race")
-	_start_race()
 
 
 func _start_race():

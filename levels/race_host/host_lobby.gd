@@ -24,11 +24,12 @@ func _ready():
 	
 	# set up qr code
 	qr_code_rect.data = playroom.current_url
+	
+	print("host lobby loaded")
 
 
 func _on_race_pressed():
-	print("button pressed")
-	playroom.playroom_rpc_call("race_state_changed", {"state_change" : "load_race"})
+	playroom.playroom_rpc_call("lobby_load_race")
 	get_tree().change_scene_to_packed(race_scene)
 
 

@@ -35,6 +35,9 @@ var car : CarBase
 var goal_position : Vector3 # pulled from player state if is remote
 var goal_transform : Transform3D
 
+## this racer is the racer of the current player
+var my_racer = false
+
 
 
 # ----- CALLBACKS -----

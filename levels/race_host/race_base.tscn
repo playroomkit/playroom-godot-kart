@@ -7,11 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://c18gyleijhnxj" path="res://levels/race_host/race_tracker.tscn" id="5_n8dft"]
 [ext_resource type="PackedScene" uid="uid://ba3y0psskloa3" path="res://levels/race_host/race_end_menu.tscn" id="6_duud1"]
 
-[node name="RaceBase" type="Node3D" node_paths=PackedStringArray("track_base", "race_ui", "race_tracker")]
+[node name="RaceBase" type="Node3D" node_paths=PackedStringArray("track_base", "race_ui", "race_tracker", "race_end_menu")]
 script = ExtResource("1_a6h88")
 track_base = NodePath("TrackBase")
 race_ui = NodePath("ui")
 race_tracker = NodePath("RaceTracker")
+race_end_menu = NodePath("RaceEndMenu")
 racer_puppet_template = ExtResource("2_83rvi")
 
 [node name="TrackBase" parent="." instance=ExtResource("3_j80rh")]

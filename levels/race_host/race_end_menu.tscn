@@ -5,6 +5,7 @@
 
 [node name="RaceEndMenu" type="CanvasLayer"]
 script = ExtResource("1_2rgi6")
+host_lobby = "res://levels/race_host/host_lobby.tscn"
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

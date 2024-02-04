@@ -204,9 +204,17 @@ func playroom_await_player_state(player_state, state_key : String):
 	await playroom.waitForPlayerState(player_state, state_key)
 
 
-## registers an RPC with playroom.
-## callable must be of signature (data, playerstate)
-## TODO cannot specify signature on godot?
+## resets all player states, exempting keys in keys_to_exclude
+func playroom_reset_players_states(keys_to_exclude : Array[String] = []):
+	
+	var array = JavaScriptBridge.create_object("Array")
+	for str in keys_to_exclude:
+		array.push(str)
+	
+	playroom.resetPlayersStates(array)
+
+
+## registers an RPC with playroom. callable must be of signature (args)
 func playroom_rpc_register(rpc_name : String, callable : Callable):
 	
 	print("instance registering RPC... ", rpc_name)
@@ -215,7 +223,7 @@ func playroom_rpc_register(rpc_name : String, callable : Callable):
 
 ## calls a specified playroom RPC.
 ## TODO implement callback/promise when response is received
-func playroom_rpc_call( rpc_name : String, data : Dictionary, rpc_type = null):
+func playroom_rpc_call( rpc_name : String, data : Dictionary = {}, rpc_type = null):
 	
 	print("instance calling RPC... ", rpc_name)
 	

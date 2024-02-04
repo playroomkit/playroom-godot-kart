@@ -1,7 +1,7 @@
 extends Control
 
 
-@export var race_scene : PackedScene
+@export_dir var race_scene
 
 @onready var playroom : PlayroomInstance = Playroom.instance
 
@@ -9,7 +9,9 @@ extends Control
 func _ready():
 	
 	# register callback to listen for changes from host
-	playroom.playroom_rpc_register("race_state_changed", _rpc_race_state_changed)
+	playroom.playroom_rpc_register("lobby_load_race", _rpc_start_race)
+	
+	print("player lobby readied")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,10 +19,5 @@ func _process(delta):
 	pass
 
 
-# TODO global level list, load_race as separate RPC
-func _rpc_race_state_changed(args):
-	print("PLAYER: ", playroom.playroom_my_player().id ," RPC RECEIVED")
-	var data = args[0]
-	print(data.state_change)
-	if data.state_change == "load_race":
-		get_tree().change_scene_to_packed(race_scene)
+func _rpc_start_race(args):
+	get_tree().change_scene_to_packed(load(race_scene))

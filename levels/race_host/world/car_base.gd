@@ -34,6 +34,9 @@ var drive_input = DRIVE_STATE.IDLE
 var steering_input = 0
 var speed_steering_coefficient = 0.01
 
+## is the myplayer's car?
+var my_car = false
+
 
 # ----- CALLBACKS -----
 
@@ -207,4 +210,5 @@ func _flip_car():
 func _bonk():
 	bonk_particles.emitting = true
 	# heh
-	Input.vibrate_handheld(250)
+	if my_car:
+		Input.vibrate_handheld(250)
