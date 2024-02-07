@@ -59,6 +59,11 @@ func _on_car_lap_passed(gate):
 	lap_passed.emit(self, gate)
 
 
+func _on_car_left_track():
+	track_base.respawn_car(car)
+
+
+
 ## called by host as a pseudo-constructor
 func setup(player : PlayroomPlayer, track : TrackBase):
 	
@@ -70,6 +75,7 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	car = car_template.instantiate()
 	track_base.add_car(car)
 	car.lap_passed.connect(_on_car_lap_passed)
+	car.left_track.connect(_on_car_left_track)
 	lock_car()
 	
 	# set car color
@@ -80,11 +86,11 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 
 
 func lock_car():
-	car.locked = true
+	car.lock_car()
 
 
 func unlock_car():
-	car.locked = false
+	car.unlock_car()
 
 
 

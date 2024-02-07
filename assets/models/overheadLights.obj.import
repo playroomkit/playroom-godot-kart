@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://3vw6e7k36hg7"
+path="res://.godot/imported/overheadLights.obj-6d5292132c28cc4d2685c80483a4c156.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overheadLights.obj-6d5292132c28cc4d2685c80483a4c156.mesh"]
+
+source_file="res://assets/models/overheadLights.obj"
+dest_files=["res://.godot/imported/overheadLights.obj-6d5292132c28cc4d2685c80483a4c156.mesh", "res://.godot/imported/overheadLights.obj-6d5292132c28cc4d2685c80483a4c156.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

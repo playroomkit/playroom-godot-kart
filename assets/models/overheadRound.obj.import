@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dgcq2uotco24q"
+path="res://.godot/imported/overheadRound.obj-7c43e524aec59fb7b23fa83e44da9ffc.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overheadRound.obj-7c43e524aec59fb7b23fa83e44da9ffc.mesh"]
+
+source_file="res://assets/models/overheadRound.obj"
+dest_files=["res://.godot/imported/overheadRound.obj-7c43e524aec59fb7b23fa83e44da9ffc.mesh", "res://.godot/imported/overheadRound.obj-7c43e524aec59fb7b23fa83e44da9ffc.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

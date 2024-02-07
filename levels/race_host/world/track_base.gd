@@ -17,6 +17,7 @@ var cars_spawned = 0
 ## list of cars
 @export var cars : Array[CarBase]
 
+
 ## current player's car, set by racebase
 var my_racer : RacerPuppet
 
@@ -30,3 +31,6 @@ func add_car(car : CarBase):
 	cars.push_back(car)
 	cars_spawned += 1
 
+
+func respawn_car(car : CarBase):
+	car.global_transform = car_spawns[0].global_transform

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=27 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/track_base.gd" id="1_o7q5g"]
 [ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_2nhiv"]
@@ -6,6 +6,13 @@
 [ext_resource type="Script" path="res://levels/race_host/world/ParticlePreloader.gd" id="4_lf3fy"]
 [ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="5_rfu7a"]
 [ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="6_o5suw"]
+[ext_resource type="ArrayMesh" uid="uid://dkqalqqnduq15" path="res://assets/models/grandStand.obj" id="7_nlfed"]
+[ext_resource type="ArrayMesh" uid="uid://br0tohxxokfy7" path="res://assets/models/flagCheckers.obj" id="8_jqcif"]
+[ext_resource type="Texture2D" uid="uid://cphphawksxuyh" path="res://assets/materials/checkers.png" id="9_w4mex"]
+[ext_resource type="ArrayMesh" uid="uid://br3qbpcjoyb7m" path="res://assets/models/billboardDouble_exclusive.obj" id="10_xugsy"]
+[ext_resource type="ArrayMesh" uid="uid://c8lxrvqaxay6" path="res://assets/models/overheadRoundColored.obj" id="11_h3pku"]
+[ext_resource type="Texture2D" uid="uid://b0nh2rppxm0s8" path="res://assets/materials/tankco.png" id="11_um88x"]
+[ext_resource type="ArrayMesh" uid="uid://3vw6e7k36hg7" path="res://assets/models/overheadLights.obj" id="12_40qm6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
 
@@ -36,13 +43,19 @@ size = Vector3(10, 20, 200)
 
 [sub_resource type="Curve3D" id="Curve3D_x0twe"]
 _data = {
-"points": PackedVector3Array(28.4918, 3.39759, 36.0129, -28.4918, -3.39759, -36.0129, -45.322, 0, 33.9228, -2.77137, -1.55151, 19.0654, 2.77137, 1.55151, -19.0654, -67.5709, 0, -46.558, -26.007, -1.46498, 7.29942, 26.007, 1.46498, -7.29942, -29.7958, 0, -74.8099, -9.96081, 4.18362, -6.30216, 9.96081, -4.18362, 6.30216, 45, 1, -75, 26.2145, -0.738892, -19.557, -26.2145, 0.738892, 19.557, 58.6305, 0, -31.5579, 0.40152, 0, -23.8816, -0.40152, 0, 23.8816, 25.3104, 0, 24.5095, 1.3256, 0.948013, -18.3042, -1.3256, -0.948013, 18.3042, 59.5916, 0, 62.6353, 14.3952, 0.979666, 7.95847, -14.3952, -0.979666, -7.95847, -4.80577, 0, 81.8584, 0, 0, 0, 0, 0, 0, -45.322, 0, 33.9228),
+"points": PackedVector3Array(28.4918, 3.39759, 36.0129, -28.4918, -3.39759, -36.0129, -45.322, 0, 33.9228, -2.77137, -1.55151, 19.0654, 2.77137, 1.55151, -19.0654, -67.5709, 0, -46.558, -26.007, -1.46498, 7.29942, 26.007, 1.46498, -7.29942, -29.7958, 0, -74.8099, -13.055, 1.77017, -7.84772, 13.055, -1.77017, 7.84772, 45, 1, -75, 26.2145, -0.738892, -19.557, -26.2145, 0.738892, 19.557, 58.6305, 0, -31.5579, 0.40152, 0, -23.8816, -0.40152, 0, 23.8816, 25.3104, 0, 24.5095, 1.3256, 0.948013, -18.3042, -1.3256, -0.948013, 18.3042, 59.5916, 0, 62.6353, 14.3952, 0.979666, 7.95847, -14.3952, -0.979666, -7.95847, -4.80577, 0, 81.8584, 0, 0, 0, 0, 0, 0, -45.322, 0, 33.9228),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 9
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rqvi"]
 albedo_color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nqubh"]
+albedo_texture = ExtResource("9_w4mex")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb4j3"]
+albedo_texture = ExtResource("11_um88x")
 
 [node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawns")]
 script = ExtResource("1_o7q5g")
@@ -56,8 +69,8 @@ transform = Transform3D(1, 0, 0, 0, 0.533009, 0.84611, 0, -0.84611, 0.533009, 0,
 track = NodePath("..")
 z_offset = 30.0
 
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.19912, 0)
+[node name="Ground" type="StaticBody3D" parent="." groups=["off_track"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.91785, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
@@ -77,10 +90,12 @@ light_energy = 1.685
 
 [node name="Gate1" parent="." instance=ExtResource("3_du1p7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.0741, 0, -8.45108)
+visible = false
 gate_number = 1
 
 [node name="LapGate" parent="." instance=ExtResource("3_du1p7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4848, 0, 0)
+visible = false
 
 [node name="Spawns" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5798, 3.9911, 16.2213)
@@ -152,8 +167,8 @@ collision_mask = 3
 polygon = PackedVector2Array(10, 0, 10, 2, 11, 2, 11, 0)
 mode = 2
 path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 0.1
+path_interval_type = 1
+path_interval = 0.08
 path_simplify_angle = 3.1
 path_rotation = 1
 path_local = false
@@ -186,8 +201,8 @@ use_collision = true
 polygon = PackedVector2Array(0, 0, 0, 0.2, 10, 0.2, 10, 0)
 mode = 2
 path_node = NodePath("..")
-path_interval_type = 0
-path_interval = 0.05
+path_interval_type = 1
+path_interval = 0.1
 path_simplify_angle = 4.3
 path_rotation = 1
 path_local = false
@@ -202,3 +217,38 @@ script = ExtResource("4_lf3fy")
 [node name="DustParticles" parent="ParticlePreloader" instance=ExtResource("5_rfu7a")]
 
 [node name="BonkParticles" parent="ParticlePreloader" instance=ExtResource("6_o5suw")]
+
+[node name="Geo" type="Node3D" parent="."]
+
+[node name="GrandStand" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(0.452409, 0, -9.98976, 0, 10, 0, 9.98976, 0, 0.452409, -82.4592, -0.0966065, 0.377577)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../..")
+
+[node name="FlagCheckers" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-9.9754, 0, -0.165166, 0, 10.554, 0, 0.701046, 0, -2.3502, -80.4607, 2.15124, 2.30042)
+mesh = ExtResource("8_jqcif")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_nqubh")
+
+[node name="FlagCheckers2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(9.06654, 0, 0.993937, 0, 10.554, 0, -4.21875, 0, 2.13608, -68.7392, 2.15124, 2.30042)
+mesh = ExtResource("8_jqcif")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_nqubh")
+
+[node name="OverheadLights" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10.684, -0.181286, 2.61127, 0.189313, 10.9984, -0.0110169, -2.6107, 0.0556411, 10.6856, -64.952, 2.23242, 25.5641)
+mesh = ExtResource("12_40qm6")
+skeleton = NodePath("../..")
+
+[node name="OverheadRoundColored" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10.2734, 0, -6.20145, 0, 12, 0, 6.20145, 0, 10.2734, -55.9265, -1.20222, -44.3305)
+mesh = ExtResource("11_h3pku")
+skeleton = NodePath("../..")
+
+[node name="BillboardDoubleExclusive" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(2.21289, 0.0173202, -15.3258, -0.0397882, 15.4847, 0.0117545, 15.3257, 0.0376999, 2.21293, 90.3869, -1.9395, -13.1875)
+mesh = ExtResource("10_xugsy")
+skeleton = NodePath("../..")
+surface_material_override/2 = SubResource("StandardMaterial3D_hb4j3")

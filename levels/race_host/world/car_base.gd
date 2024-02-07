@@ -8,6 +8,7 @@ extends RigidBody3D
 enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 signal lap_passed(gate)
+signal left_track()
 
 @export var acceleration_impulse = 25
 @export var steering_velocity = 12
@@ -18,6 +19,7 @@ signal lap_passed(gate)
 @export var slide_dust_force = 3
 @export var flip_delay = 1.5 ## seconds
 @export var downforce = 1
+@export var lock_jolt_force = 10
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
@@ -105,6 +107,10 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if !body.is_in_group("road"):
 		_bonk()
+	
+	# if left raceway
+	if body.is_in_group("off_track"):
+		left_track.emit()
 
 
 func _on_body_exited(body):
@@ -176,6 +182,19 @@ func steer_left():
 
 func steer_neutral():
 	steering_input = 0
+
+
+# -- OTHER
+
+
+func lock_car():
+	locked = true
+	apply_central_force(basis.y * lock_jolt_force)
+
+
+func unlock_car():
+	locked = false
+	apply_central_force(basis.y * -lock_jolt_force)
 
 
 
