@@ -15,12 +15,14 @@ signal lap_passed(gate)
 @export var steering_time_mult = 0.5 ## increases steering over time
 @export var slide_damp_force = 5.0
 @export var slide_damp_mult = 1.0
+@export var slide_dust_force = 3
 @export var flip_delay = 1.5 ## seconds
 @export var downforce = 1
 
 @onready var mesh = $MeshInstance3D
 @onready var dust_particles = $DustParticles
 @onready var bonk_particles = $BonkParticles
+@onready var drift_particles = $DriftParticles
 @onready var follow_camera = $FollowCamera
 
 ## determines physics behavior of car
@@ -198,6 +200,12 @@ func _slide_dampening():
 	
 	# apply force tangentially (- right facing) proportional to tanvel
 	apply_central_force(-right * slide_damp_force * slide_damp_mult * tangential_velocity)
+	
+	# dust particles if sliding
+	if abs(tangential_velocity) > slide_dust_force:
+		drift_particles.emitting = true
+	else:
+		drift_particles.emitting = false
 
 
 func _flip_car():

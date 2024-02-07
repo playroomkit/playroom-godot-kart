@@ -130,9 +130,10 @@ func _rpc_race_won(args):
 	_set_winner(winner_state)
 
 
-# called on all players (sets ui)
+# called on all players (sets ui and winner field)
 func _set_winner(state : JavaScriptObject):
-
+	
+	winner = state
 	ui.set_winner(state)
 	
 	# show end menu to host

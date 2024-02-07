@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkkvs8nk482w8"]
+[gd_scene load_steps=13 format=3 uid="uid://dkkvs8nk482w8"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/car_base.gd" id="1_4bxcp"]
 [ext_resource type="ArrayMesh" uid="uid://b3bpl8v101sgs" path="res://assets/models/raceCarWhite.obj" id="2_kxmip"]
 [ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="2_s0bvv"]
 [ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="3_6jgyt"]
 [ext_resource type="PackedScene" uid="uid://b1ftj4p0hkojy" path="res://debug_slider.tscn" id="5_nsc6b"]
+[ext_resource type="PackedScene" uid="uid://dnqpvcs60hpev" path="res://levels/race_host/world/drift_particles.tscn" id="6_yd23n"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ynmy1"]
 friction = 0.5
@@ -60,8 +61,13 @@ shape = SubResource("BoxShape3D_qm01b")
 
 [node name="DustParticles" parent="." instance=ExtResource("2_s0bvv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.26721)
+emitting = false
 
 [node name="BonkParticles" parent="." instance=ExtResource("3_6jgyt")]
+
+[node name="DriftParticles" parent="." instance=ExtResource("6_yd23n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+emitting = false
 
 [node name="debugcanvas" type="CanvasLayer" parent="."]
 layer = 3
@@ -89,10 +95,10 @@ target_property = "speed_steering_coefficient"
 [node name="DebugSlider2" parent="debugcanvas/VBoxContainer" node_paths=PackedStringArray("target_object") instance=ExtResource("5_nsc6b")]
 layout_mode = 2
 target_object = NodePath("../../..")
-target_property = "ideal_turning_velocity"
+target_property = "slide_dust_force"
 
 [node name="FollowCamera" type="Node3D" parent="."]
-transform = Transform3D(-1, -2.35509e-08, -8.41909e-08, -4.37114e-08, 0.968705, 0.248217, 7.57103e-08, 0.248217, -0.968705, 0, 6.68278, -18.5127)
+transform = Transform3D(-1, -2.35509e-08, -8.41909e-08, -4.37114e-08, 0.968705, 0.248217, 7.57103e-08, 0.248217, -0.968705, 0, 11.1236, -24.0322)
 
 [node name="Marker3D" type="Marker3D" parent="FollowCamera"]
 

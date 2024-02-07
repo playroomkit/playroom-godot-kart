@@ -17,8 +17,8 @@ func _physics_process(delta):
 	
 	if track.cars.size() < 1: return
 	
-	_track_mycar()
-	#_track_car_follow()
+	#_track_mycar()
+	_track_car_follow()
 
 
 func _track_mycar():
