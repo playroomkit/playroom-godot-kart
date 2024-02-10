@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=47 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/track_base.gd" id="1_o7q5g"]
 [ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_2nhiv"]
@@ -13,8 +13,27 @@
 [ext_resource type="ArrayMesh" uid="uid://c8lxrvqaxay6" path="res://assets/models/overheadRoundColored.obj" id="11_h3pku"]
 [ext_resource type="Texture2D" uid="uid://b0nh2rppxm0s8" path="res://assets/materials/tankco.png" id="11_um88x"]
 [ext_resource type="ArrayMesh" uid="uid://3vw6e7k36hg7" path="res://assets/models/overheadLights.obj" id="12_40qm6"]
+[ext_resource type="Material" uid="uid://d4itpnhfs5y7s" path="res://assets/materials/tankco.tres" id="12_mcm15"]
+[ext_resource type="ArrayMesh" uid="uid://de3ag2typaek1" path="res://assets/models/Cloud1.obj" id="13_6o24h"]
+[ext_resource type="ArrayMesh" uid="uid://dnw0c8wascr6o" path="res://assets/models/Cloud2.obj" id="14_1njpr"]
+[ext_resource type="ArrayMesh" uid="uid://c75soml2u7xs7" path="res://assets/models/lightPostLarge.obj" id="15_7h31q"]
+[ext_resource type="ArrayMesh" uid="uid://1701p5x6nvb5" path="res://assets/models/Cloud3.obj" id="16_6jrl6"]
+[ext_resource type="ArrayMesh" uid="uid://0h3mexxcgosd" path="res://assets/models/billboardLow.obj" id="17_hw7nw"]
+[ext_resource type="ArrayMesh" uid="uid://42o402hx54d0" path="res://assets/models/treeLarge.obj" id="19_3pg3p"]
+[ext_resource type="ArrayMesh" uid="uid://b6ul6bio7ljnx" path="res://assets/models/treeSmall.obj" id="20_2ao8h"]
+[ext_resource type="ArrayMesh" uid="uid://buf73atv6pbfn" path="res://assets/models/pitsGarageClosed.obj" id="21_kn0qa"]
+[ext_resource type="ArrayMesh" uid="uid://bbf51jmeweh0j" path="res://assets/models/pitsOfficeRoof.obj" id="22_bb3h1"]
+[ext_resource type="ArrayMesh" uid="uid://d2oy8xfa61jdl" path="res://assets/models/pitsOfficeCorner.obj" id="23_f1hxk"]
+[ext_resource type="ArrayMesh" uid="uid://bkcey73pqe3l0" path="res://assets/models/pitsGarageCorner.obj" id="24_0avs3"]
+[ext_resource type="ArrayMesh" uid="uid://cd01kxhk3en44" path="res://assets/models/tentLong.obj" id="25_l7t6y"]
+[ext_resource type="ArrayMesh" uid="uid://d2axa1lon0vsw" path="res://assets/models/barrierWall.obj" id="26_126al"]
+[ext_resource type="ArrayMesh" uid="uid://cbs8ojyiw1fid" path="res://assets/models/bannerTowerRed.obj" id="27_idgqj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b42a6"]
+sky_top_color = Color(0.415686, 0.639216, 0.929412, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Sky" id="Sky_7u16r"]
 sky_material = SubResource("ProceduralSkyMaterial_b42a6")
@@ -26,20 +45,27 @@ sky = SubResource("Sky_7u16r")
 [sub_resource type="BoxShape3D" id="BoxShape3D_g8isw"]
 size = Vector3(1000, 10, 1000)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nhy8"]
-albedo_color = Color(0.560784, 0.560784, 0.560784, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqgbf"]
+albedo_color = Color(0.192157, 0.498039, 0.34902, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_o7r82"]
-material = SubResource("StandardMaterial3D_2nhy8")
-size = Vector2(1000, 1000)
+[sub_resource type="CylinderMesh" id="CylinderMesh_02av6"]
+material = SubResource("StandardMaterial3D_oqgbf")
+top_radius = 500.0
+bottom_radius = 500.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8kbjs"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_p2hla"]
-size = Vector3(10, 20, 200)
+[sub_resource type="CylinderMesh" id="CylinderMesh_dk148"]
+top_radius = 30.0
+bottom_radius = 30.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_wdx13"]
-size = Vector3(10, 20, 200)
+[sub_resource type="CylinderMesh" id="CylinderMesh_oabpm"]
+top_radius = 30.0
+bottom_radius = 30.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jxh5d"]
+top_radius = 30.0
+bottom_radius = 30.0
 
 [sub_resource type="Curve3D" id="Curve3D_x0twe"]
 _data = {
@@ -51,11 +77,27 @@ point_count = 9
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rqvi"]
 albedo_color = Color(0.317647, 0.317647, 0.317647, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5sqck"]
+albedo_color = Color(0.14902, 0.14902, 0.14902, 1)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nqubh"]
 albedo_texture = ExtResource("9_w4mex")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb4j3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yolyy"]
 albedo_texture = ExtResource("11_um88x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lpasq"]
+albedo_texture = ExtResource("11_um88x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18kvg"]
+albedo_color = Color(0.192157, 0.498039, 0.34902, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1t8du"]
+material = SubResource("StandardMaterial3D_18kvg")
+radius = 100.0
+height = 200.0
+radial_segments = 8
+rings = 16
 
 [node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawns")]
 script = ExtResource("1_o7q5g")
@@ -77,11 +119,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
 shape = SubResource("BoxShape3D_g8isw")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("PlaneMesh_o7r82")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.945877, 0)
+mesh = SubResource("CylinderMesh_02av6")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
 mesh = SubResource("CapsuleMesh_8kbjs")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.2491, -75.3792, 0.489111, -4.44774)
+mesh = SubResource("CylinderMesh_dk148")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(0.588454, 0, -1.14535, 0, 1, 0, 0.795889, 0, 0.846834, 55.445, -0.68902, 52.1286)
+mesh = SubResource("CylinderMesh_oabpm")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(-0.59739, 0, -1.13573, 0, 1, 0, 0.789204, 0, -0.859693, -11.2268, 0.0918522, -56.4703)
+mesh = SubResource("CylinderMesh_jxh5d")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.686529, 0.727102, 0, -0.727102, 0.686529, 0, 10.1981, 0)
@@ -101,66 +156,28 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.5798, 3.9911, 16.2213)
 
 [node name="Marker3D" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, 0.577835, 0, -12.4694)
+transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, -0.413696, 0, -12.4694)
 
 [node name="Marker3D2" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, -3.51122, -9.53674e-07, -12.1884)
+transform = Transform3D(0.999453, 0, -0.0330854, 0, 1, 0, 0.0330854, 0, 0.999453, -4.50275, -9.53674e-07, -12.1884)
 
 [node name="Marker3D3" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, -2.65121, -0.702055, -3.77577)
+transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, -3.64274, -0.702055, -3.77577)
 
 [node name="Marker3D4" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, 2.18034, -0.702054, -4.81949)
+transform = Transform3D(0.997804, 0, 0.0662391, 0, 1, 0, -0.0662391, 0, 0.997804, 1.18881, -0.702054, -4.81949)
 
 [node name="Marker3D5" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, -1.26261, -1.91759, 4.59631)
+transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, -2.25414, -1.91759, 4.59631)
 
 [node name="Marker3D6" type="Marker3D" parent="Spawns"]
-transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, 3.0714, -1.91759, 3.77006)
-
-[node name="geometry" type="Node3D" parent="."]
-
-[node name="wall" type="StaticBody3D" parent="geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall"]
-shape = SubResource("BoxShape3D_p2hla")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall"]
-mesh = SubResource("BoxMesh_wdx13")
-
-[node name="wall3" type="StaticBody3D" parent="geometry"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 100)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall3"]
-shape = SubResource("BoxShape3D_p2hla")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall3"]
-mesh = SubResource("BoxMesh_wdx13")
-
-[node name="wall4" type="StaticBody3D" parent="geometry"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -100)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall4"]
-shape = SubResource("BoxShape3D_p2hla")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall4"]
-mesh = SubResource("BoxMesh_wdx13")
-
-[node name="wall2" type="StaticBody3D" parent="geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="geometry/wall2"]
-shape = SubResource("BoxShape3D_p2hla")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="geometry/wall2"]
-mesh = SubResource("BoxMesh_wdx13")
+transform = Transform3D(0.99066, 0, 0.136355, 0, 1, 0, -0.136355, 0, 0.99066, 2.07987, -1.91759, 3.77006)
 
 [node name="Path3D2" type="Path3D" parent="."]
 curve = SubResource("Curve3D_x0twe")
 
 [node name="Railin" type="CSGPolygon3D" parent="Path3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.44367e-08, 0, 1.01659, 0, 1.01659, 0, -1.01659, 0, -4.44367e-08, 0, 0, 0)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -195,6 +212,21 @@ path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
 
+[node name="UnderRoad" type="CSGPolygon3D" parent="Path3D2" groups=["road"]]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 0.774, 0, -1, 0, -4.37114e-08, 0, -0.468025, 0)
+polygon = PackedVector2Array(-10, -4, -10, 0.2, 20, 0.2, 20, -4)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 1
+path_interval = 0.1
+path_simplify_angle = 4.3
+path_rotation = 1
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+material = SubResource("StandardMaterial3D_6rqvi")
+
 [node name="Road" type="CSGPolygon3D" parent="Path3D2" groups=["road"]]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 use_collision = true
@@ -209,7 +241,7 @@ path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
-material = SubResource("StandardMaterial3D_6rqvi")
+material = SubResource("StandardMaterial3D_5sqck")
 
 [node name="ParticlePreloader" type="Node3D" parent="."]
 script = ExtResource("4_lf3fy")
@@ -220,35 +252,382 @@ script = ExtResource("4_lf3fy")
 
 [node name="Geo" type="Node3D" parent="."]
 
-[node name="GrandStand" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(0.452409, 0, -9.98976, 0, 10, 0, 9.98976, 0, 0.452409, -82.4592, -0.0966065, 0.377577)
-mesh = ExtResource("7_nlfed")
-skeleton = NodePath("../..")
-
 [node name="FlagCheckers" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(-9.9754, 0, -0.165166, 0, 10.554, 0, 0.701046, 0, -2.3502, -80.4607, 2.15124, 2.30042)
+transform = Transform3D(9.48871, 0, 0.743707, 0, 10.554, 0, -3.15666, 0, 2.23554, -80.4607, 2.15124, 2.30042)
 mesh = ExtResource("8_jqcif")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_nqubh")
 
 [node name="FlagCheckers2" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(9.06654, 0, 0.993937, 0, 10.554, 0, -4.21875, 0, 2.13608, -68.7392, 2.15124, 2.30042)
+transform = Transform3D(-9.91259, 0, 0.310823, 0, 10.554, 0, -1.31927, 0, -2.33541, -70.3325, 2.15124, 1.54345)
 mesh = ExtResource("8_jqcif")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_nqubh")
 
 [node name="OverheadLights" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(10.684, -0.181286, 2.61127, 0.189313, 10.9984, -0.0110169, -2.6107, 0.0556411, 10.6856, -64.952, 2.23242, 25.5641)
+transform = Transform3D(10.684, -0.181286, 2.61127, 0.189313, 10.9984, -0.0110169, -2.6107, 0.0556411, 10.6856, -65.5769, -0.242157, 25.9864)
 mesh = ExtResource("12_40qm6")
 skeleton = NodePath("../..")
 
 [node name="OverheadRoundColored" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(10.2734, 0, -6.20145, 0, 12, 0, 6.20145, 0, 10.2734, -55.9265, -1.20222, -44.3305)
+transform = Transform3D(10.2734, 0, -6.20145, 0, 15.4, 0, 6.20145, 0, 10.2734, -55.9265, -2.45523, -44.3305)
 mesh = ExtResource("11_h3pku")
 skeleton = NodePath("../..")
 
 [node name="BillboardDoubleExclusive" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(2.21289, 0.0173202, -15.3258, -0.0397882, 15.4847, 0.0117545, 15.3257, 0.0376999, 2.21293, 90.3869, -1.9395, -13.1875)
+transform = Transform3D(2.21289, 0.0173202, -15.3258, -0.0397882, 15.4847, 0.0117545, 15.3257, 0.0376999, 2.21293, 103.184, -1.9395, -13.1875)
 mesh = ExtResource("10_xugsy")
 skeleton = NodePath("../..")
-surface_material_override/2 = SubResource("StandardMaterial3D_hb4j3")
+surface_material_override/2 = ExtResource("12_mcm15")
+
+[node name="BillboardDoubleExclusive2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(12.2337, 0.0242288, 9.49269, -0.0397882, 15.4847, 0.0117545, -9.49261, -0.0336784, 12.2338, 7.38944, -2.66753, 19.1098)
+mesh = ExtResource("10_xugsy")
+skeleton = NodePath("../..")
+surface_material_override/2 = SubResource("StandardMaterial3D_yolyy")
+
+[node name="Grandstand" type="Node3D" parent="Geo"]
+
+[node name="GrandStand" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -88.281, -0.0966065, 0.377577)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="GrandStand2" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -88.281, -0.0966065, 9.87143)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="GrandStand3" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -88.281, -0.0966065, -9.40961)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-0.210296, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210296, -97.9502, 6.2489, -4.78544)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge8" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-0.210296, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210296, -97.9502, 6.2489, -16.2258)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge9" type="MeshInstance3D" parent="Geo/Grandstand"]
+transform = Transform3D(-0.210296, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210296, -97.9502, 6.2489, 4.62158)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="Grandstand2" type="Node3D" parent="Geo"]
+transform = Transform3D(-0.615606, 0, -0.788054, 0, 1, 0, 0.788054, 0, -0.615606, -10.6033, 0, -55.2454)
+
+[node name="GrandStand" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, -0.0966065, 0.377577)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="GrandStand2" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, -0.0966065, 9.87143)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="GrandStand3" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 0, -0.0966065, -9.40961)
+mesh = ExtResource("7_nlfed")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-0.210297, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210297, -8.26739, 6.76659, -3.07452)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge8" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-0.210297, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210297, -8.26739, 6.76659, -14.5149)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="LightPostLarge9" type="MeshInstance3D" parent="Geo/Grandstand2"]
+transform = Transform3D(-0.210297, 0, -9.99779, 0, 10, 0, 9.99779, 0, -0.210297, -8.26738, 6.76659, 6.33252)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../../..")
+
+[node name="Cloud1" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(28.6325, -0.0178053, -0.0116729, 0.0177978, 28.6325, -0.0189268, 0.0116842, 0.0189198, 28.6325, 200.519, 45.7494, 522.688)
+mesh = ExtResource("13_6o24h")
+skeleton = NodePath("../..")
+
+[node name="Cloud7" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(28.6325, -0.0178053, -0.0116729, 0.0177978, 28.6325, -0.0189268, 0.0116842, 0.0189198, 28.6325, -291.151, 126.154, -543.149)
+mesh = ExtResource("13_6o24h")
+skeleton = NodePath("../..")
+
+[node name="Cloud2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(17.6928, 0, 0, 0, 17.6928, 0, 0, 0, 17.6928, -232.585, 66.4372, -440.138)
+mesh = ExtResource("14_1njpr")
+skeleton = NodePath("../..")
+
+[node name="Cloud6" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(5.42095, 0, 16.8419, 0, 17.6928, 0, -16.8419, 0, 5.42095, 540.65, 139.415, -205.47)
+mesh = ExtResource("14_1njpr")
+skeleton = NodePath("../..")
+
+[node name="Cloud3" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(1.63947, 0, 34.2316, 0, 34.2708, 0, -34.2316, 0, 1.63947, -534.975, 20.5629, -94.4616)
+mesh = ExtResource("16_6jrl6")
+skeleton = NodePath("../..")
+
+[node name="Cloud5" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-15.0259, -0.0172567, 30.8011, -0.0620086, 34.2707, -0.01105, -30.8011, -0.0605754, -15.0259, 627.376, 93.541, -75.5382)
+mesh = ExtResource("16_6jrl6")
+skeleton = NodePath("../..")
+
+[node name="Cloud4" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-34.2292, 0, -1.68906, 0, 34.2708, 0, 1.68906, 0, -34.2292, -534.975, 50.5826, 98.1243)
+mesh = ExtResource("16_6jrl6")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(5.29061, 0, -8.48584, 0, 10, 0, 8.48584, 0, 5.29061, -70.2672, -0.922932, 53.5411)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge3" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(9.88436, 0, -1.5164, 0, 10, 0, 1.5164, 0, 9.88436, -47.5412, -0.922935, 69.713)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge4" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(9.82845, 0, 1.84432, 0, 10, 0, -1.84432, 0, 9.82845, -14.3072, -0.922935, 71.7123)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge5" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(8.77171, 0, 4.80178, 0, 10, 0, -4.80178, 0, 8.77171, 17.6634, -0.922935, 60.7054)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge6" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(7.92896, 0, 6.09357, 0, 10, 0, -6.09357, 0, 7.92896, 52.1424, -0.922932, 36.5305)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="LightPostLarge7" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(4.88058, 0, 8.72811, 0, 10, 0, -8.72811, 0, 4.88058, 83.5794, -0.922932, 6.50318)
+mesh = ExtResource("15_7h31q")
+skeleton = NodePath("../..")
+
+[node name="BillboardLow" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-0.27468, 0, 9.99623, 0, 10, 0, -9.99623, 0, -0.27468, -55.6144, -1.91785, 0.609713)
+mesh = ExtResource("17_hw7nw")
+skeleton = NodePath("../..")
+surface_material_override/2 = SubResource("StandardMaterial3D_lpasq")
+
+[node name="BillboardLow2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-0.27468, 0, 9.99623, 0, 10, 0, -9.99623, 0, -0.27468, -55.8522, -1.91785, -10.2512)
+mesh = ExtResource("17_hw7nw")
+skeleton = NodePath("../..")
+surface_material_override/2 = SubResource("StandardMaterial3D_lpasq")
+
+[node name="BillboardLow3" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(-0.27468, 0, 9.99623, 0, 10, 0, -9.99623, 0, -0.27468, -56.0917, -1.91785, -21.2747)
+mesh = ExtResource("17_hw7nw")
+skeleton = NodePath("../..")
+surface_material_override/2 = SubResource("StandardMaterial3D_lpasq")
+
+[node name="TreeLarge" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -14.5995, -1.91785, 11.2304)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge3" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 18.8284, -1.91785, 77.0578)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge4" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 95.6167, -1.91785, 11.7212)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge5" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 29.4426, -1.91785, -44.5603)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge6" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 33.2022, -1.91785, -49.602)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge7" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -32.8046, -1.91785, -93.9751)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge8" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -105.536, -1.91785, -13.3967)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge9" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -102.388, -1.91785, 13.2832)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge10" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -107.333, -2.09396, 15.0841)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeLarge2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -21.9597, -1.91785, 7.56976)
+mesh = ExtResource("19_3pg3p")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -17.6407, -1.91785, 4.85986)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall3" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 10.9405, -2.12204, 79.7023)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall4" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 22.866, -2.12204, 83.3315)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall5" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 21.4076, -2.12204, 70.6871)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall6" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -41.3318, 0, -91.6972)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall7" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -104.584, -2.12204, 11.1944)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall8" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -39.4531, -2.12204, -97.973)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall9" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -34.2039, -2.12204, -100.02)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="TreeSmall2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -19.6347, -1.91785, 15.0265)
+mesh = ExtResource("20_2ao8h")
+skeleton = NodePath("../..")
+
+[node name="PitsGarageClosed" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(8.97189, 0, 4.41647, 0, 10, 0, -4.41647, 0, 8.97189, 59.7257, -1.91785, 57.9246)
+mesh = ExtResource("21_kn0qa")
+skeleton = NodePath("../..")
+
+[node name="PitsGarageClosed2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(8.97189, 0, 4.41647, 0, 10, 0, -4.41647, 0, 8.97189, 50.7539, -1.91785, 62.3411)
+mesh = ExtResource("21_kn0qa")
+skeleton = NodePath("../..")
+
+[node name="PitsOfficeRoof" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(7.45914, 0.00621901, 6.66041, 0.00448023, 9.99999, -0.0143551, -6.66042, 0.0136918, 7.45913, 72.9884, -1.92014, 47.0348)
+mesh = ExtResource("22_bb3h1")
+skeleton = NodePath("../..")
+
+[node name="PitsOfficeCorner" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(7.45914, 0.00621901, 6.66041, 0.00448023, 9.99999, -0.0143551, -6.66042, 0.0136918, 7.45913, 80.487, -1.91556, 40.2815)
+mesh = ExtResource("23_f1hxk")
+skeleton = NodePath("../..")
+
+[node name="PitsGarageCorner" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(8.97189, 0, 4.41647, 0, 10, 0, -4.41647, 0, 8.97189, 41.856, -1.91785, 66.6188)
+mesh = ExtResource("24_0avs3")
+skeleton = NodePath("../..")
+
+[node name="TentLong" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(9.7613, 0, -2.17189, 0, 10, 0, 2.17189, 0, 9.7613, -11.5201, -1.15418, -80.3917)
+mesh = ExtResource("25_l7t6y")
+skeleton = NodePath("../..")
+
+[node name="BarrierWall" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(7.68753, 0, -6.39546, 0, 10, 0, 6.39546, 0, 7.68753, 31.2744, -1.91785, 73.6409)
+mesh = ExtResource("26_126al")
+skeleton = NodePath("../..")
+
+[node name="BarrierWall2" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(7.67948, 0, 6.40512, 0, 10, 0, -6.40512, 0, 7.67948, -52.1653, 0.164948, 12.8308)
+mesh = ExtResource("26_126al")
+skeleton = NodePath("../..")
+
+[node name="BannerTowerRed" type="MeshInstance3D" parent="Geo"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40.4624, -1.91784, -9.62256)
+mesh = ExtResource("27_idgqj")
+skeleton = NodePath("../..")
+
+[node name="Hills" type="Node3D" parent="Geo"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.9681, -490.484)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 389.293, -30.9682, -249.961)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 422.841, -30.9682, 243.836)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.8165, -30.9682, 471.853)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -419.908, -30.9682, 203.029)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -103.098, -15.7718, -425.847)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -47.7095, -15.7718, 383.521)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -390.572, -15.7718, 295.447)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 351.413, -15.7718, 316.272)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 319.248, -15.7718, -323.406)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -405.162, -15.7718, -276.809)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -343.116, -15.7718, -248.475)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -108.343, -15.7718, 397.706)
+mesh = SubResource("SphereMesh_1t8du")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="Geo/Hills"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 373.294, -15.7719, 170.493)
+mesh = SubResource("SphereMesh_1t8du")

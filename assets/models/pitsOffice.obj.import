@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ohfq1rf5bmkl"
+path="res://.godot/imported/pitsOffice.obj-0a9ec5503b98c8c5886e531e2e35e9eb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/pitsOffice.obj-0a9ec5503b98c8c5886e531e2e35e9eb.mesh"]
+
+source_file="res://assets/models/pitsOffice.obj"
+dest_files=["res://.godot/imported/pitsOffice.obj-0a9ec5503b98c8c5886e531e2e35e9eb.mesh", "res://.godot/imported/pitsOffice.obj-0a9ec5503b98c8c5886e531e2e35e9eb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

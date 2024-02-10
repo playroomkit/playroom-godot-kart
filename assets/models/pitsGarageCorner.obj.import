@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bkcey73pqe3l0"
+path="res://.godot/imported/pitsGarageCorner.obj-3a0b604d754de5b5a8d6191bef184486.mesh"
+
+[deps]
+
+files=["res://.godot/imported/pitsGarageCorner.obj-3a0b604d754de5b5a8d6191bef184486.mesh"]
+
+source_file="res://assets/models/pitsGarageCorner.obj"
+dest_files=["res://.godot/imported/pitsGarageCorner.obj-3a0b604d754de5b5a8d6191bef184486.mesh", "res://.godot/imported/pitsGarageCorner.obj-3a0b604d754de5b5a8d6191bef184486.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
