@@ -138,8 +138,11 @@ func _on_new_player_join(args):
 		state.setState("host_id", my_state.id)
 
 	
-	# log callback to listen for player quitting
+	# log callback to listen for players quitting
 	state.onQuit(_create_callback(_on_player_quit))
+	
+	# self disconnecting callback
+	state.onDisconnect(_create_callback(_on_disconnect))
 	
 	# add joystick
 	player.joystick = _setup_joysticks(state)
@@ -151,6 +154,7 @@ func _on_new_player_join(args):
 # called by playroom when a player quits
 func _on_player_quit(player_state):
 	players.erase(player_state)
+	players_id.erase(player_state.id)
 
 
 # called by playroom when this player disconnects

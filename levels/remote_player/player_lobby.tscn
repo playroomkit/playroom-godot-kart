@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bynrp6g6via7s"]
+[gd_scene load_steps=7 format=3 uid="uid://bynrp6g6via7s"]
 
 [ext_resource type="Script" path="res://levels/remote_player/player_lobby.gd" id="1_4p4jy"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_vkw1q"]
+[ext_resource type="PackedScene" uid="uid://bwc8bayrrxl7r" path="res://levels/race_host/world/track_base.tscn" id="3_g51p6"]
+[ext_resource type="Script" path="res://levels/race_host/orbit_node.gd" id="4_cvh0w"]
+
+[sub_resource type="Gradient" id="Gradient_u8ljt"]
+colors = PackedColorArray(0.298039, 0.298039, 0.298039, 1, 0.298039, 0.298039, 0.298039, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ypas6"]
+gradient = SubResource("Gradient_u8ljt")
 
 [node name="PlayerLobby" type="Control"]
 layout_mode = 3
@@ -27,4 +35,42 @@ offset_bottom = 25.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_vkw1q")
+theme_override_font_sizes/font_size = 80
 text = "PLAYER LOBBY - WAITING ON HOST..."
+
+[node name="TrackBase" parent="." node_paths=PackedStringArray("car_spawns") instance=ExtResource("3_g51p6")]
+car_spawns = [null, null, null, null, null, null]
+
+[node name="OrbitNode" type="Node3D" parent="TrackBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.29155, 0)
+script = ExtResource("4_cvh0w")
+
+[node name="Camera3D" type="Camera3D" parent="TrackBase/OrbitNode"]
+transform = Transform3D(1, 0, 0, 0, 0.979304, 0.202394, 0, -0.202394, 0.979304, 0, 1.49212, 97.004)
+current = true
+
+[node name="LoadingScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="LoadingScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_ypas6")
+
+[node name="Label" type="Label" parent="LoadingScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_vkw1q")
+text = "LOADING..."

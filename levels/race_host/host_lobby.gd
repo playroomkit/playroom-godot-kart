@@ -10,6 +10,9 @@ extends Control
 @export var player_box_scene : PackedScene
 @export var qr_code_rect : QRCodeRect
 
+@onready var loading_screen = $LoadingScreen
+
+
 var playroom : PlayroomInstance
 
 func _ready():
@@ -26,6 +29,13 @@ func _ready():
 	qr_code_rect.data = playroom.current_url
 	
 	print("host lobby loaded")
+	
+	# waits one frame for everything to load
+	# this is hacky
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	loading_screen.visible = false
 
 
 func _on_race_pressed():

@@ -1,9 +1,10 @@
-[gd_scene load_steps=47 format=3 uid="uid://bwc8bayrrxl7r"]
+[gd_scene load_steps=49 format=3 uid="uid://bwc8bayrrxl7r"]
 
 [ext_resource type="Script" path="res://levels/race_host/world/track_base.gd" id="1_o7q5g"]
 [ext_resource type="PackedScene" uid="uid://cu8eyrj86d7on" path="res://levels/race_host/world/race_camera.tscn" id="2_2nhiv"]
 [ext_resource type="PackedScene" uid="uid://qwyg4nibxxo7" path="res://levels/race_host/world/lap_gate.tscn" id="3_du1p7"]
 [ext_resource type="Script" path="res://levels/race_host/world/ParticlePreloader.gd" id="4_lf3fy"]
+[ext_resource type="Material" uid="uid://bhp3frq6xp4n0" path="res://assets/materials/checker_mat.tres" id="4_nllg3"]
 [ext_resource type="PackedScene" uid="uid://cxhbneg33xsjv" path="res://levels/race_host/world/dust_particles.tscn" id="5_rfu7a"]
 [ext_resource type="PackedScene" uid="uid://d2malii4hcucv" path="res://levels/race_host/world/bonk_particles.tscn" id="6_o5suw"]
 [ext_resource type="ArrayMesh" uid="uid://dkqalqqnduq15" path="res://assets/models/grandStand.obj" id="7_nlfed"]
@@ -69,7 +70,7 @@ bottom_radius = 30.0
 
 [sub_resource type="Curve3D" id="Curve3D_x0twe"]
 _data = {
-"points": PackedVector3Array(28.4918, 3.39759, 36.0129, -28.4918, -3.39759, -36.0129, -45.322, 0, 33.9228, -2.77137, -1.55151, 19.0654, 2.77137, 1.55151, -19.0654, -67.5709, 0, -46.558, -26.007, -1.46498, 7.29942, 26.007, 1.46498, -7.29942, -29.7958, 0, -74.8099, -13.055, 1.77017, -7.84772, 13.055, -1.77017, 7.84772, 45, 1, -75, 26.2145, -0.738892, -19.557, -26.2145, 0.738892, 19.557, 58.6305, 0, -31.5579, 0.40152, 0, -23.8816, -0.40152, 0, 23.8816, 25.3104, 0, 24.5095, 1.3256, 0.948013, -18.3042, -1.3256, -0.948013, 18.3042, 59.5916, 0, 62.6353, 14.3952, 0.979666, 7.95847, -14.3952, -0.979666, -7.95847, -4.80577, 0, 81.8584, 0, 0, 0, 0, 0, 0, -45.322, 0, 33.9228),
+"points": PackedVector3Array(28.1276, -0.489525, 39.2644, -28.1276, 0.489525, -39.2644, -45.322, 0, 33.9228, -2.77137, -1.55151, 19.0654, 2.77137, 1.55151, -19.0654, -67.5709, 0, -46.558, -26.007, -1.46498, 7.29942, 26.007, 1.46498, -7.29942, -29.7958, 0, -74.8099, -13.055, 1.77017, -7.84772, 13.055, -1.77017, 7.84772, 45, 1, -75, 26.2145, -0.738892, -19.557, -26.2145, 0.738892, 19.557, 58.6305, 0, -31.5579, 0.40152, 0, -23.8816, -0.40152, 0, 23.8816, 25.3104, 0, 24.5095, 1.3256, 0.948013, -18.3042, -1.3256, -0.948013, 18.3042, 59.5916, 0, 62.6353, 13.8017, -0.357033, 8.1037, -13.8017, 0.357033, -8.1037, -4.80577, 0, 81.8584, 0, 0, 0, 0, 0, 0, -45.322, 0, 33.9228),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 9
@@ -98,6 +99,9 @@ radius = 100.0
 height = 200.0
 radial_segments = 8
 rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1ihh"]
+albedo_color = Color(1, 0.254902, 0.34902, 1)
 
 [node name="TrackBase" type="Node3D" node_paths=PackedStringArray("car_spawns")]
 script = ExtResource("1_o7q5g")
@@ -178,6 +182,7 @@ curve = SubResource("Curve3D_x0twe")
 
 [node name="Railin" type="CSGPolygon3D" parent="Path3D2"]
 transform = Transform3D(-4.44367e-08, 0, 1.01659, 0, 1.01659, 0, -1.01659, 0, -4.44367e-08, 0, 0, 0)
+material_override = ExtResource("4_nllg3")
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -193,9 +198,12 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
+material = ExtResource("4_nllg3")
 
 [node name="Railout" type="CSGPolygon3D" parent="Path3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+material_override = ExtResource("4_nllg3")
+snap = 0.71912
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -569,11 +577,6 @@ transform = Transform3D(7.67948, 0, 6.40512, 0, 10, 0, -6.40512, 0, 7.67948, -52
 mesh = ExtResource("26_126al")
 skeleton = NodePath("../..")
 
-[node name="BannerTowerRed" type="MeshInstance3D" parent="Geo"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -40.4624, -1.91784, -9.62256)
-mesh = ExtResource("27_idgqj")
-skeleton = NodePath("../..")
-
 [node name="Hills" type="Node3D" parent="Geo"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geo/Hills"]
@@ -631,3 +634,23 @@ mesh = SubResource("SphereMesh_1t8du")
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="Geo/Hills"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 373.294, -15.7719, 170.493)
 mesh = SubResource("SphereMesh_1t8du")
+
+[node name="BannerTowerRed" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -30.5938, -1.91785, 73.4751)
+mesh = ExtResource("27_idgqj")
+surface_material_override/2 = SubResource("StandardMaterial3D_q1ihh")
+
+[node name="BannerTowerRed2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.32291, 0, 9.91211, 0, 10, 0, -9.91211, 0, 1.32291, 88.2846, -1.91784, -6.39671)
+mesh = ExtResource("27_idgqj")
+surface_material_override/2 = SubResource("StandardMaterial3D_q1ihh")
+
+[node name="BannerTowerRed3" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.99624, 0, 9.54057, 0, 10, 0, -9.54057, 0, 2.99624, 66.2634, -1.91784, -66.4258)
+mesh = ExtResource("27_idgqj")
+surface_material_override/2 = SubResource("StandardMaterial3D_q1ihh")
+
+[node name="BannerTowerRed4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.91203, 0, 9.8155, 0, 10, 0, -9.8155, 0, -1.91203, -56.0679, -1.91785, -75.5951)
+mesh = ExtResource("27_idgqj")
+surface_material_override/2 = SubResource("StandardMaterial3D_q1ihh")

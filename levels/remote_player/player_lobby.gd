@@ -4,6 +4,7 @@ extends Control
 @export_dir var race_scene
 
 @onready var playroom : PlayroomInstance = Playroom.instance
+@onready var loading_screen = $LoadingScreen
 
 
 func _ready():
@@ -12,6 +13,13 @@ func _ready():
 	playroom.playroom_rpc_register("lobby_load_race", _rpc_start_race)
 	
 	print("player lobby readied")
+	
+	# waits one frame for everything to load
+	# this is hacky
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
+	loading_screen.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
