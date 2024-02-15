@@ -43,6 +43,7 @@ theme = ExtResource("2_4xsl8")
 text = "PLAYROOM KART"
 
 [node name="RACEAGAIN" type="Button" parent="Control/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_4xsl8")
 text = "RACE AGAIN"

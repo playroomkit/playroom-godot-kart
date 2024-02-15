@@ -72,7 +72,8 @@ func start_race():
 	await get_tree().create_timer(5).timeout
 	
 	# switch racer sync back to forces for smooth driving
-	for racer in racers: racer.sync_mode = racer.SYNC_MODE.FORCES
+	# TODO
+	#for racer in racers: racer.sync_mode = racer.SYNC_MODE.FORCES
 	
 	# start count
 	_start_countdown()

@@ -21,7 +21,7 @@ signal lap_passed(racer : RacerPuppet, gate : int)
 
 @export_category("Networking")
 @export var remote = false
-@export var transform_lerp_weight = 0.5
+@export var transform_lerp_weight = 0.4
 @export var push_force = 5.0
 
 @export_category("Preloads")
