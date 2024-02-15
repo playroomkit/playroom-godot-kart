@@ -1,3 +1,104 @@
-[gd_scene format=3 uid="uid://c35ariqmwyj41"]
+[gd_scene load_steps=5 format=3 uid="uid://c35ariqmwyj41"]
 
-[node name="LevelSelectPopup" type="CanvasLayer"]
+[ext_resource type="Script" path="res://ui/popups/level_select_popup.gd" id="1_kr4f7"]
+[ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_5n87t"]
+
+[sub_resource type="Gradient" id="Gradient_d0pd0"]
+colors = PackedColorArray(0.298039, 0.298039, 0.298039, 1, 0.298039, 0.298039, 0.298039, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_megsp"]
+gradient = SubResource("Gradient_d0pd0")
+
+[node name="LevelSelectPopup" type="CanvasLayer" node_paths=PackedStringArray("laps_label")]
+script = ExtResource("1_kr4f7")
+laps_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/LAPS")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -371.5
+offset_top = -174.0
+offset_right = 371.5
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 2
+texture = SubResource("GradientTexture1D_megsp")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label3" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 100
+text = "GODOT FIELDS RACEWAY"
+horizontal_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 70
+text = "LAPS:"
+horizontal_alignment = 1
+
+[node name="LAPS" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 70
+text = "1"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MINUS" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 100
+text = "-"
+flat = true
+
+[node name="PLUS" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 100
+text = "+"
+flat = true
+
+[node name="RACE" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_5n87t")
+theme_override_font_sizes/font_size = 100
+text = "race!"
+flat = true
+
+[connection signal="pressed" from="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/MINUS" to="." method="_on_minus_pressed"]
+[connection signal="pressed" from="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/PLUS" to="." method="_on_plus_pressed"]
+[connection signal="pressed" from="MarginContainer2/MarginContainer/VBoxContainer/RACE" to="." method="_on_race_pressed"]

@@ -34,6 +34,11 @@ func _ready():
 	# register client rpcs
 	if !is_host:
 		playroom.playroom_rpc_register("race_won", _rpc_race_won)
+	
+	var state_laps = playroom.playroom_get_state("laps")
+	if state_laps != null: 
+		max_laps = state_laps
+		print("retrieving laps from state: ", max_laps)
 
 
 

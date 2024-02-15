@@ -11,6 +11,8 @@ extends Control
 @export var qr_code_rect : QRCodeRect
 
 @onready var loading_screen = $LoadingScreen
+@onready var level_select_popup = $LevelSelectPopup
+@onready var menu_container = $MarginContainer
 
 
 var playroom : PlayroomInstance
@@ -38,9 +40,19 @@ func _ready():
 	loading_screen.visible = false
 
 
+func _input(event):
+	
+	# close race popup on esc
+	if event.is_action_pressed("ui_cancel"):
+		level_select_popup.visible = false
+		menu_container.visible = true
+
+
 func _on_race_pressed():
-	playroom.playroom_rpc_call("lobby_load_race")
-	get_tree().change_scene_to_packed(race_scene)
+	
+	# show race popup
+	level_select_popup.visible = true
+	menu_container.visible = false
 
 
 func _on_quit_pressed():
@@ -56,3 +68,4 @@ func _add_player_box(state):
 	player_boxes.add_child(box)
 	box.setup(state)
 	box.hide_laps()
+

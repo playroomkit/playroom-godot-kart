@@ -141,9 +141,6 @@ func _on_new_player_join(args):
 	# log callback to listen for players quitting
 	state.onQuit(_create_callback(_on_player_quit))
 	
-	# self disconnecting callback
-	state.onDisconnect(_create_callback(_on_disconnect))
-	
 	# add joystick
 	player.joystick = _setup_joysticks(state)
 	
@@ -206,6 +203,16 @@ func playroom_is_stream_screen() -> bool:
 ## COROUTINE - returns control when given state is set truthy (see api)
 func playroom_await_player_state(player_state, state_key : String):
 	await playroom.waitForPlayerState(player_state, state_key)
+
+
+## sets game state by key
+func playroom_set_state(state_key : String, state, reliable : bool = true):
+	playroom.setState(state_key, state, reliable)
+
+
+## gets game state by key
+func playroom_get_state(state_key : String):
+	return playroom.getState(state_key)
 
 
 ## resets all player states, exempting keys in keys_to_exclude

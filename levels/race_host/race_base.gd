@@ -132,6 +132,14 @@ func _rpc_back_to_lobby(args):
 
 
 
+# ----- PUBLIC -----
+
+
+func set_laps(laps):
+	race_tracker.max_laps = laps
+	print("NEW MAX LAPS SET")
+
+
 # ----- PRIVATE -----
 
 

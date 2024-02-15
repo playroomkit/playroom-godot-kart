@@ -21,7 +21,8 @@ signal lap_passed(racer : RacerPuppet, gate : int)
 
 @export_category("Networking")
 @export var remote = false
-@export var transform_lerp_weight = 0.5
+@export var transform_lerp_weight = 0.1
+@export var push_force = 5.0
 
 @export_category("Preloads")
 @export var car_template : PackedScene
@@ -159,3 +160,6 @@ func _pull_player_states():
 func _sync_car_pos():
 	car.global_transform = car.global_transform.interpolate_with( \
 								goal_transform, transform_lerp_weight)
+	#
+	#var to = goal_transform.origin - car.global_position
+	#car.apply_force(to.normalized() * push_force)
