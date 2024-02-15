@@ -167,6 +167,12 @@ func _await_all_ready(ping_interval, timeout = 20):
 
 
 func _start_race():
+	
+	# if client - sync car spawn positions (since all other players are loaded)
+	if !playroom.playroom_is_host():
+		for racer in racers:
+			racer.force_sync_car_pos()
+	
 	# go!
 	race_tracker.start_race()
 

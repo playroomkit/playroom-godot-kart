@@ -20,6 +20,9 @@ var current_countdown = countdown_seconds
 var winner = null
 var is_host = false
 
+## injected by racebase
+var racers : Array[RacerPuppet]
+
 ## lap dictionary, racer -> lap
 var lap_dictionary = {}
 
@@ -45,6 +48,8 @@ func _ready():
 ## array of racers to participate in race
 func setup_race(racers: Array[RacerPuppet]):
 	
+	self.racers = racers
+	
 	# initialize dicts
 	for racer in racers:
 		lap_dictionary[racer] = 0
@@ -57,11 +62,17 @@ func setup_race(racers: Array[RacerPuppet]):
 ## start things moving once waiting is done
 func start_race():
 	
+	# sync racer positions roughly to start
+	for racer in racers: racer.sync_mode = racer.SYNC_MODE.LERP
+	
 	# get ready
 	ui.racers_ready()
 	
 	# fashionable delay
 	await get_tree().create_timer(5).timeout
+	
+	# switch racer sync back to forces for smooth driving
+	for racer in racers: racer.sync_mode = racer.SYNC_MODE.FORCES
 	
 	# start count
 	_start_countdown()

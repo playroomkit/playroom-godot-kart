@@ -15,13 +15,13 @@ extends Node
 
 # ----- FIELDS -----
 
-
+enum SYNC_MODE {LERP, FORCES}
 
 signal lap_passed(racer : RacerPuppet, gate : int)
 
 @export_category("Networking")
 @export var remote = false
-@export var transform_lerp_weight = 0.1
+@export var transform_lerp_weight = 0.5
 @export var push_force = 5.0
 
 @export_category("Preloads")
@@ -35,6 +35,7 @@ var car : CarBase
 
 var goal_position : Vector3 # pulled from player state if is remote
 var goal_transform : Transform3D
+var sync_mode = SYNC_MODE.FORCES
 
 ## this racer is the racer of the current player
 var my_racer = false
@@ -94,6 +95,11 @@ func unlock_car():
 	car.unlock_car()
 
 
+# aligns transforms - assuming host transform is already pushed
+func force_sync_car_pos():
+	car.global_transform = goal_transform
+
+
 
 # ----- PRIVATE -----
 
@@ -140,7 +146,10 @@ func _update_player_states():
 		_push_player_states()
 	else:
 		_pull_player_states()
-		_sync_car_pos()
+		if sync_mode == SYNC_MODE.LERP:
+			_sync_car_lerp()
+		elif sync_mode == SYNC_MODE.FORCES:
+			_sync_car_forces()
 
 
 # push information from host to playerstate
@@ -155,11 +164,16 @@ func _pull_player_states():
 	goal_transform = str_to_var(player_state.getState("car_transform"))
 
 
-# currently just lerps to pos
-# TODO do this with forces on a PID?
-func _sync_car_pos():
+func _sync_car_lerp():
 	car.global_transform = car.global_transform.interpolate_with( \
-								goal_transform, transform_lerp_weight)
-	#
-	#var to = goal_transform.origin - car.global_position
-	#car.apply_force(to.normalized() * push_force)
+												goal_transform, transform_lerp_weight)
+
+
+# pushes car to correct position with proportional forces
+# lerps rotation
+func _sync_car_forces():
+	var to = goal_transform.origin - car.global_position
+	car.apply_central_force(to * push_force)
+	
+	car.global_rotation = car.global_rotation.lerp( \
+					goal_transform.basis.get_euler(), transform_lerp_weight)
