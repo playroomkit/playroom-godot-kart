@@ -1,35 +1,41 @@
-name: Godot HTML5 Builder
-
-on:
-  push:
-    branches:
-      - main
-      - pc_only
+name: "godot-ci export"
+on: push
 
 env:
   GODOT_VERSION: 4.2.1
-  WORKING_DIRECTORY: .
+  EXPORT_NAME: godot-kart
+  PROJECT_PATH: godot-kart
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:4.2.1
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
-        
-      - name: Create export directory
-        run: mkdir html5
-        
-      - name: Godot HTML5 export
-        uses: dulvui/godot-4-html-export@v0.0.2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
-          working-directory: $WORKING_DIRECTORY
-          create-export-preset-cfg: false
-      - name: Push
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: build # The branch name where you want to push the assets
-          FOLDER: html5 # The directory where your assets are generated
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
-          MESSAGE: "Build: ({sha}) {msg}" # The commit message
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "HTML5" ../build/web/index.html
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: web
+          path: build/web
+      - name: Install rsync 📚
+        run: |
+          apt-get update && apt-get install -y rsync
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build/web # The folder the action should deploy.
