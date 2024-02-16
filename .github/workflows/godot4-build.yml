@@ -21,7 +21,7 @@ jobs:
         run: mkdir html5
         
       - name: Godot HTML5 export
-        uses: dulvui/godot-html-export@v0.0.2
+        uses: dulvui/godot-4-html-export@v0.0.2
         with:
           working-directory: $WORKING_DIRECTORY
           create-export-preset-cfg: false
