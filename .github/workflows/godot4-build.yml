@@ -21,7 +21,8 @@ jobs:
         uses: dulvui/godot-4-html-export@v0.0.2
         with:
           working-directory: $WORKING_DIRECTORY
-          create-export-preset-cfg: true
+          create-export-preset-cfg: false
+          godot-create-export-preset-cfg: false
           os: Windows
 
       - name: Push
