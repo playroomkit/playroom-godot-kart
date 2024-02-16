@@ -8,24 +8,24 @@ on:
 
 env:
   GODOT_VERSION: 4.2.1
-  WORKING_DIRECTORY: game
+  WORKING_DIRECTORY: .
 
 jobs:
   deploy:
+    if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
-
+        
+      - name: Create export directory
+        run: mkdir html5
+        
       - name: Godot HTML5 export
-        uses: dulvui/godot-4-html-export@v0.0.2
+        uses: dulvui/godot-html-export@v0.0.2
         with:
           working-directory: $WORKING_DIRECTORY
           create-export-preset-cfg: false
-          godot-create-export-preset-cfg: false
-          os: Windows
-
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
