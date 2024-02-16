@@ -1,0 +1,35 @@
+name: Godot HTML5 Builder
+
+on:
+  push:
+    branches:
+      - main
+      - pc_only
+
+env:
+  GODOT_VERSION: 4.2.1
+  WORKING_DIRECTORY: game
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Godot HTML5 export
+        uses: dulvui/godot-4-html-export@v0.0.2
+        with:
+          working-directory: $WORKING_DIRECTORY
+          create-export-preset-cfg: true
+          os: Windows
+
+      - name: Push
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: build # The branch name where you want to push the assets
+          FOLDER: html5 # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message
