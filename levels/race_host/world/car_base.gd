@@ -9,6 +9,7 @@ enum DRIVE_STATE {GAS, BRAKE, REVERSE, IDLE}
 
 signal lap_passed(gate)
 signal left_track()
+signal flip_me(car)
 
 @export var acceleration_impulse = 25
 @export var steering_velocity = 12
@@ -26,6 +27,7 @@ signal left_track()
 @onready var bonk_particles = $BonkParticles
 @onready var drift_particles = $DriftParticles
 @onready var follow_camera = $FollowCamera
+@onready var audio_stream_player_3d = $AudioStreamPlayer3D
 
 ## determines physics behavior of car
 var drive_state = DRIVE_STATE.IDLE
@@ -73,13 +75,16 @@ func _physics_process(delta):
 	if drive_state == DRIVE_STATE.REVERSE:
 		if !locked: apply_central_force( - forwards * acceleration_impulse)
 		dust_particles.emitting = true
+		audio_stream_player_3d.pitch_target = 0.5
 		
 	elif drive_state == DRIVE_STATE.GAS:
 		if !locked: apply_central_force(forwards * acceleration_impulse)
 		dust_particles.emitting = true
+		audio_stream_player_3d.pitch_target = 2.0
 		
 	else:
 		dust_particles.emitting = false
+		audio_stream_player_3d.pitch_target = 1.0
 	
 	# steering
 	
@@ -117,8 +122,10 @@ func _on_body_exited(body):
 	pass
 
 
-func _on_flipped_area_entered(area):
-	_flip_car()
+func _on_flipped_area_entered(body):
+	if body.is_in_group("road"): 
+		print("flipped area entered")
+		_flip_car()
 
 
 func _on_lap_detector_area_entered(area):
@@ -228,9 +235,9 @@ func _slide_dampening():
 
 
 func _flip_car():
-	await get_tree().create_timer(flip_delay).timeout
-	transform.basis.y = Vector3(0,1,0)
-	transform = transform.orthonormalized()
+	print("emitting flip signal")
+	flip_me.emit(self)
+	bonk_particles.emitting = true
 
 
 # when hit

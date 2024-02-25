@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c18gyleijhnxj"]
+[gd_scene load_steps=4 format=3 uid="uid://c18gyleijhnxj"]
 
 [ext_resource type="Script" path="res://levels/race_host/race_tracker.gd" id="1_5ukkm"]
+[ext_resource type="AudioStream" uid="uid://83mdodi5rjr5" path="res://assets/68999__guitarguy1985__airhorn-short.wav" id="2_o0xlo"]
+[ext_resource type="AudioStream" uid="uid://b6kwpavqu4n2h" path="res://assets/385928__pol__s001_countdown_signal.wav" id="3_g6x7i"]
 
 [node name="RaceTracker" type="Node"]
 script = ExtResource("1_5ukkm")
@@ -8,5 +10,11 @@ max_laps = 1
 
 [node name="Count" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_o0xlo")
+
+[node name="CountdownStream" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_g6x7i")
 
 [connection signal="timeout" from="Count" to="." method="_on_count_timeout"]

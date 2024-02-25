@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/popups/player_info_box.gd" id="1_ohrqx"]
 [ext_resource type="Theme" uid="uid://cblqb84whle2r" path="res://ui/bebus_theme.tres" id="2_pkgkq"]
-[ext_resource type="Texture2D" uid="uid://b7ygbauek7olf" path="res://icon.svg" id="3_ccpe0"]
+[ext_resource type="Texture2D" uid="uid://ckiim45i4c064" path="res://assets/128blank.png" id="3_x1yyv"]
 [ext_resource type="Texture2D" uid="uid://w07nvqvv1eap" path="res://examples/qr_code/icon.svg" id="4_slupc"]
 
 [node name="PlayerInfoBox" type="MarginContainer"]
@@ -31,7 +31,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("3_ccpe0")
+texture = ExtResource("3_x1yyv")
 stretch_mode = 5
 
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MarginContainer"]

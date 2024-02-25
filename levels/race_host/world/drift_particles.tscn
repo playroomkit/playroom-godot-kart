@@ -8,11 +8,13 @@ point_count = 3
 curve = SubResource("Curve_67f7q")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_38kkg"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+inherit_velocity_ratio = 0.213
 initial_velocity_min = 1.0
 initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.25
-scale_max = 4.0
+scale_max = 2.0
 scale_curve = SubResource("CurveTexture_y0qbb")
 
 [sub_resource type="SphereMesh" id="SphereMesh_ih0fp"]
@@ -20,8 +22,10 @@ radial_segments = 8
 rings = 4
 
 [node name="DriftParticles" type="GPUParticles3D"]
+emitting = false
 amount = 10
 lifetime = 0.5
+one_shot = true
 explosiveness = 0.14
 process_material = SubResource("ParticleProcessMaterial_38kkg")
 draw_pass_1 = SubResource("SphereMesh_ih0fp")

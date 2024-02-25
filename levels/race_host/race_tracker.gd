@@ -15,6 +15,8 @@ signal countdown(current_count)
 
 @onready var count : Timer = $Count
 @onready var playroom : PlayroomInstance = Playroom.instance
+@onready var audio_stream_player = $AudioStreamPlayer
+@onready var countdown_stream = $CountdownStream
 
 var current_countdown = countdown_seconds
 var winner = null
@@ -92,6 +94,7 @@ func _go():
 
 func _start_countdown():
 	countdown.emit(current_countdown)
+	countdown_stream.play()
 	count.start()
 
 
@@ -152,6 +155,7 @@ func _set_winner(state : JavaScriptObject):
 	
 	winner = state
 	ui.set_winner(state)
+	audio_stream_player.play()
 	
 	# show end menu to host
 	if is_host:

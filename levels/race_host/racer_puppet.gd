@@ -78,6 +78,7 @@ func setup(player : PlayroomPlayer, track : TrackBase):
 	track_base.add_car(car)
 	car.lap_passed.connect(_on_car_lap_passed)
 	car.left_track.connect(_on_car_left_track)
+	car.flip_me.connect(_flip_car)
 	lock_car()
 	
 	# set car color
@@ -107,7 +108,7 @@ func force_sync_car_pos():
 
 # process joystick inputs!
 func _process_joy_inputs():
-
+	
 	if joystick == null: 
 		print("RACER PUPPET NO JOY")
 		return
@@ -177,3 +178,12 @@ func _sync_car_forces():
 	
 	car.global_rotation = car.global_rotation.lerp( \
 					goal_transform.basis.get_euler(), transform_lerp_weight)
+
+
+# flip car
+func _flip_car(car):
+	
+	if playroom.playroom_is_host():
+		print("flipping car...")
+		car.rotate_z(PI)
+		car.linear_velocity = Vector3.ZERO
