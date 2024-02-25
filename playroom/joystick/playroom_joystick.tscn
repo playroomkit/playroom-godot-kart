@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5laq7ju8pfhe"]
+
+[ext_resource type="Script" path="res://playroom/joystick/playroom_joystick.gd" id="1_sx1ll"]
+
+[node name="PlayroomJoystick" type="Node"]
+script = ExtResource("1_sx1ll")

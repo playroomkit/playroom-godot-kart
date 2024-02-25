@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="PlayroomJoyButtonConfig" load_steps=2 format=3 uid="uid://bjady57wi3iq3"]
-
-[ext_resource type="Script" path="res://logic/joystick/playroom_joy_button_config.gd" id="1_jherh"]
-
-[resource]
-script = ExtResource("1_jherh")
-id = ""
-label = ""
-icon_url = ""

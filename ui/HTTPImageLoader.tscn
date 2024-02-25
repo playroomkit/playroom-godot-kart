@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://co5d0xri4kaif"]
-
-[ext_resource type="Script" path="res://ui/HTTPImageLoader.gd" id="1_ot0la"]
-
-[node name="HttpImageLoader" type="Node"]
-script = ExtResource("1_ot0la")
